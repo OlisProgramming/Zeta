@@ -11,6 +11,7 @@ namespace zeta {
 			for (Buffer* buffer : m_buffers) {
 				delete buffer;
 			}
+			glDeleteVertexArrays(1, &m_id);
 		}
 
 		void VertexArray::addBuffer(Buffer* buffer, GLuint index) {

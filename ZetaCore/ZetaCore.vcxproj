@@ -75,6 +75,12 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
+    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Oliver\Documents\Programming\Libs\GLEW\lib\Release\Win32;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\lib-vc2015;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -100,10 +106,16 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -125,25 +137,35 @@
     <ClCompile Include="src\graphics\buffers\index_buffer.cpp" />
     <ClCompile Include="src\graphics\buffers\vertex_array.cpp" />
     <ClCompile Include="src\graphics\renderable\renderable2d.cpp" />
+    <ClCompile Include="src\graphics\renderable\sprite.cpp" />
+    <ClCompile Include="src\graphics\renderable\static_sprite.cpp" />
     <ClCompile Include="src\graphics\renderer\renderer2d_basic.cpp" />
+    <ClCompile Include="src\graphics\renderer\renderer2d_batched.cpp" />
     <ClCompile Include="src\graphics\shader.cpp" />
     <ClCompile Include="src\graphics\shader_basic.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\input\input_interface.cpp" />
     <ClCompile Include="src\util\fileutils.cpp" />
+    <ClCompile Include="src\util\fps_clock.cpp" />
+    <ClCompile Include="src\util\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\buffers\buffer.h" />
     <ClInclude Include="src\graphics\buffers\index_buffer.h" />
     <ClInclude Include="src\graphics\buffers\vertex_array.h" />
     <ClInclude Include="src\graphics\renderable\renderable2d.h" />
+    <ClInclude Include="src\graphics\renderable\sprite.h" />
+    <ClInclude Include="src\graphics\renderable\static_sprite.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d_basic.h" />
+    <ClInclude Include="src\graphics\renderer\renderer2d_batched.h" />
     <ClInclude Include="src\graphics\shader.h" />
     <ClInclude Include="src\graphics\shader_basic.h" />
     <ClInclude Include="src\graphics\window.h" />
     <ClInclude Include="src\input\input_interface.h" />
     <ClInclude Include="src\util\fileutils.h" />
+    <ClInclude Include="src\util\fps_clock.h" />
+    <ClInclude Include="src\util\timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

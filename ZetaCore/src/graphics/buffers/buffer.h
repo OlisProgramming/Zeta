@@ -13,6 +13,7 @@ namespace zeta {
 
 		public:
 			Buffer(GLfloat* data, GLsizei count, GLuint elementCount);
+			~Buffer();
 
 			void bind() const;
 			void unbind() const;

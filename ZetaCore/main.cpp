@@ -10,16 +10,23 @@
 #include "src\graphics\buffers\index_buffer.h"
 #include "src\graphics\buffers\vertex_array.h"
 #include "src\graphics\renderer\renderer2d_basic.h"
+#include "src\graphics\renderer\renderer2d_batched.h"
+#include "src\graphics\renderable\static_sprite.h"
+#include "src\graphics\renderable\sprite.h"
 #include "src\input\input_interface.h"
 #include "src\util\fileutils.h"
+#include "src\util\fps_clock.h"
 
 int main(int argc, char* argv[]) {
 
 	using namespace zeta;
 	using namespace graphics;
+	using namespace util;
 
 	Window wnd("Zeta Engine", 800, 600);
-	Renderable2D::init();  // Sets up IBOs
+
+	StaticSprite::init();  // Sets up IBOs
+	Renderer2DBatched::init();
 	ShaderBasic shader;
 	shader.bind();
 
@@ -29,21 +36,29 @@ int main(int argc, char* argv[]) {
 	shader.setViewMatrix(view);
 	GLuint lightPos = shader.getUniformLocation("lightPos");
 
-	Renderer2DBasic renderer(shader);
-	std::vector<Renderable2D*> sprites;
-	for (int i = 0; i < 50; ++i)
-		sprites.push_back(new Renderable2D({i*15, 20, i-25}, {10, 100}));
+	Renderer2DBatched renderer(shader);
+	std::vector<Sprite*> sprites;
+	for (int i = 0; i < 800; i += 5) {
+		for (int j = 0; j < 600; j += 5) {
+			sprites.push_back(new Sprite({i, j, 0}, {3, 3}));
+		}
+	}
 
+	FPSClock clock;
 	while (!wnd.shouldClose()) {
 		wnd.drawStart();
 
 		shader.setUniformVec2(lightPos, glm::vec2(zeta::input::InputInterface::inst->mouseX(), zeta::input::InputInterface::inst->mouseY()));
 
-		for (int i = 0; i < 50; ++i)
+		renderer.begin();
+		for (unsigned int i = 0; i < sprites.size(); ++i)
 			renderer.submit(sprites[i]);
 		renderer.flush();
 
 		wnd.drawEnd();
+
+		clock.tick();
+		printf("%f FPS\n", clock.getFPS());
 	}
 
 	return 0;

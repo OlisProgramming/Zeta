@@ -1,6 +1,7 @@
 #include "renderer2d_basic.h"
 
 #include <glm\gtc\matrix_transform.hpp>
+#include "../renderable/static_sprite.h"
 
 namespace zeta {
 	namespace graphics {
@@ -18,7 +19,7 @@ namespace zeta {
 		void Renderer2DBasic::flush() {
 			m_shader.bind();
 			while (!m_renderQueue.empty()) {
-				Renderable2D* renderable = m_renderQueue.front();
+				StaticSprite* renderable = static_cast<StaticSprite*>(m_renderQueue.front());
 				
 				renderable->getVao()->bind();
 				renderable->getIbo()->bind();

@@ -34,6 +34,7 @@ namespace zeta {
 			glfwMakeContextCurrent(m_wnd);
 			glfwSetWindowUserPointer(m_wnd, this);
 			glfwSetWindowSizeCallback(m_wnd, windowResizeCallback);
+			glfwSwapInterval(0);
 			
 			if (glewInit() != GLEW_OK) {
 				fprintf(stderr, "GLEW could not initialise!\n");
@@ -47,7 +48,7 @@ namespace zeta {
 			printf("Zeta is using OpenGL %s\n", glGetString(GL_VERSION));
 
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			//glEnable(GL_DEPTH_TEST);
+			glEnable(GL_DEPTH_TEST);
 		}
 
 		Window::~Window() {
