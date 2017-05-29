@@ -47,6 +47,7 @@ namespace zeta {
 			printf("Zeta is using OpenGL %s\n", glGetString(GL_VERSION));
 
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			//glEnable(GL_DEPTH_TEST);
 		}
 
 		Window::~Window() {
