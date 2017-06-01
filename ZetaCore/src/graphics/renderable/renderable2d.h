@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../buffers/buffer.h"
-#include "../buffers/index_buffer.h"
-#include "../buffers/vertex_array.h"
+#include "../buffer/buffer.h"
+#include "../buffer/index_buffer.h"
+#include "../buffer/vertex_array.h"
 #include <glm\glm.hpp>
 
 namespace zeta {

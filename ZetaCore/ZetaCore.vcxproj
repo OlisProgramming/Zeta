@@ -133,9 +133,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="src\graphics\buffers\buffer.cpp" />
-    <ClCompile Include="src\graphics\buffers\index_buffer.cpp" />
-    <ClCompile Include="src\graphics\buffers\vertex_array.cpp" />
+    <ClCompile Include="src\graphics\buffer\buffer.cpp" />
+    <ClCompile Include="src\graphics\buffer\index_buffer.cpp" />
+    <ClCompile Include="src\graphics\buffer\vertex_array.cpp" />
     <ClCompile Include="src\graphics\renderable\renderable2d.cpp" />
     <ClCompile Include="src\graphics\renderable\sprite.cpp" />
     <ClCompile Include="src\graphics\renderable\static_sprite.cpp" />
@@ -150,9 +150,9 @@
     <ClCompile Include="src\util\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\graphics\buffers\buffer.h" />
-    <ClInclude Include="src\graphics\buffers\index_buffer.h" />
-    <ClInclude Include="src\graphics\buffers\vertex_array.h" />
+    <ClInclude Include="src\graphics\buffer\buffer.h" />
+    <ClInclude Include="src\graphics\buffer\index_buffer.h" />
+    <ClInclude Include="src\graphics\buffer\vertex_array.h" />
     <ClInclude Include="src\graphics\renderable\renderable2d.h" />
     <ClInclude Include="src\graphics\renderable\sprite.h" />
     <ClInclude Include="src\graphics\renderable\static_sprite.h" />

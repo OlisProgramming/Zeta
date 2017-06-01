@@ -6,9 +6,9 @@
 
 #include "src\graphics\window.h"
 #include "src\graphics\shader_basic.h"
-#include "src\graphics\buffers\buffer.h"
-#include "src\graphics\buffers\index_buffer.h"
-#include "src\graphics\buffers\vertex_array.h"
+#include "src\graphics\buffer\buffer.h"
+#include "src\graphics\buffer\index_buffer.h"
+#include "src\graphics\buffer\vertex_array.h"
 #include "src\graphics\renderer\renderer2d_basic.h"
 #include "src\graphics\renderer\renderer2d_batched.h"
 #include "src\graphics\renderable\static_sprite.h"
