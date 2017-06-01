@@ -139,6 +139,7 @@
     <ClCompile Include="src\graphics\buffer\vertex_array.cpp" />
     <ClCompile Include="src\graphics\layer\layer.cpp" />
     <ClCompile Include="src\graphics\layer\map_layer.cpp" />
+    <ClCompile Include="src\graphics\renderable\group2d.cpp" />
     <ClCompile Include="src\graphics\renderable\renderable2d.cpp" />
     <ClCompile Include="src\graphics\renderable\sprite.cpp" />
     <ClCompile Include="src\graphics\renderable\static_sprite.cpp" />
@@ -157,6 +158,7 @@
     <ClInclude Include="src\graphics\buffer\buffer.h" />
     <ClInclude Include="src\graphics\buffer\index_buffer.h" />
     <ClInclude Include="src\graphics\buffer\vertex_array.h" />
+    <ClInclude Include="src\graphics\renderable\group2d.h" />
     <ClInclude Include="src\graphics\layer\layer.h" />
     <ClInclude Include="src\graphics\layer\map_layer.h" />
     <ClInclude Include="src\graphics\renderable\renderable2d.h" />

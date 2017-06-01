@@ -2,6 +2,7 @@
 
 #include <glm\gtc\matrix_transform.hpp>
 #include "../renderable/static_sprite.h"
+#include "../renderable/group2d.h"
 
 namespace zeta {
 	namespace graphics {
@@ -13,13 +14,22 @@ namespace zeta {
 		}
 
 		void Renderer2DBasic::submit(Renderable2D* renderable) {
-			m_renderQueue.push_back(renderable);
+			if (renderable->getType() == RenderableType::GROUP) {
+				m_transformStack.push((static_cast<Group2D*>(renderable))->getMatrix(), false);
+				for (Renderable2D* child : (static_cast<Group2D*>(renderable))->getChildren())
+					submit(renderable);
+				m_transformStack.pop();
+				return;
+			}
+			
+			m_renderQueue.push_back({ renderable, m_transformStack.getMatrix() });
 		}
 
 		void Renderer2DBasic::flush() {
 			m_shader->bind();
 			while (!m_renderQueue.empty()) {
-				StaticSprite* renderable = static_cast<StaticSprite*>(m_renderQueue.front());
+				StaticSprite* renderable = static_cast<StaticSprite*>(m_renderQueue.front().first);
+				glm::mat4 transformation = m_renderQueue.front().second;
 				
 				renderable->getVao()->bind();
 				renderable->getIbo()->bind();

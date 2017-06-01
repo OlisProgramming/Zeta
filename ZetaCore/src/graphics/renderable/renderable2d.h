@@ -12,6 +12,12 @@ namespace zeta {
 			glm::vec3 pos;
 		};
 
+		enum class RenderableType {
+			SPRITE,
+			STATIC_SPRITE,
+			GROUP
+		};
+
 		class Renderable2D {
 			
 		protected:
@@ -23,6 +29,7 @@ namespace zeta {
 
 			inline const glm::vec3& getPos() const { return m_pos; }
 			inline const glm::vec2& getSize() const { return m_size; }
+			virtual RenderableType getType() const = 0;
 		};
 	}
 }

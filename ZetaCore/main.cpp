@@ -8,6 +8,7 @@
 #include "src\graphics\renderable\static_sprite.h"
 #include "src\graphics\renderer\renderer2d_batched.h"
 #include "src\graphics\layer\map_layer.h"
+#include "src\graphics\renderable\group2d.h"
 #include "src\graphics\renderable\sprite.h"
 #include "src\util\fps_clock.h"
 
@@ -24,7 +25,14 @@ int main(int argc, char* argv[]) {
 	Renderer2DBatched::init();
 
 	MapLayer layer(800, 600);
-	layer.submit(new Sprite(glm::vec3(350, 250, 0), glm::vec2(100, 100)));
+	layer.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100)));
+
+	Group2D* group = new Group2D(glm::translate(glm::mat4(), glm::vec3(400, 300, 0)));
+	group->submit(new Sprite(glm::vec3(-5, -20, 0), glm::vec2(10, 40)));
+	group->submit(new Sprite(glm::vec3(-20, -5, 0), glm::vec2(40, 10)));
+	layer.submit(group);
+
+	layer.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100)));
 
 	FPSClock clock;
 	while (!wnd.shouldClose()) {

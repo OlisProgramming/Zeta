@@ -9,6 +9,7 @@ namespace zeta {
 
 		public:
 			Sprite(glm::vec3 pos, glm::vec2 size);
+			inline RenderableType getType() const override { return RenderableType::SPRITE; }
 		};
 	}
 }
