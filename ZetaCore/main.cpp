@@ -24,7 +24,7 @@ int main(int argc, char* argv[]) {
 	Renderer2DBatched::init();
 
 	MapLayer layer(800, 600);
-	layer.submit(new Sprite(glm::vec3(0,0,0), glm::vec2(90,90)));
+	layer.submit(new Sprite(glm::vec3(350, 250, 0), glm::vec2(100, 100)));
 
 	FPSClock clock;
 	while (!wnd.shouldClose()) {

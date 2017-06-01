@@ -2,6 +2,7 @@
 
 #include "../renderable/renderable2d.h"
 #include "../shader/shader.h"
+#include "transformation_stack.h"
 
 namespace zeta {
 	namespace graphics {
@@ -10,6 +11,7 @@ namespace zeta {
 
 		protected:
 			Shader* m_shader;
+			TransformationStack m_transformStack;
 
 		public:
 			Renderer2D(Shader* shader) : m_shader(shader) {}
@@ -18,6 +20,9 @@ namespace zeta {
 			virtual void submit(Renderable2D* renderable) = 0;
 			virtual void flush() = 0;
 			inline Shader* getShader() { return m_shader; }
+
+			inline void transformationPush(glm::mat4 mat, bool doOverride = false) { m_transformStack.push(mat, doOverride); }
+			inline void transformationPop() { m_transformStack.pop(); }
 		};
 	}
 }

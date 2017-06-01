@@ -87,6 +87,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -143,6 +144,7 @@
     <ClCompile Include="src\graphics\renderable\static_sprite.cpp" />
     <ClCompile Include="src\graphics\renderer\renderer2d_basic.cpp" />
     <ClCompile Include="src\graphics\renderer\renderer2d_batched.cpp" />
+    <ClCompile Include="src\graphics\renderer\transformation_stack.cpp" />
     <ClCompile Include="src\graphics\shader\shader.cpp" />
     <ClCompile Include="src\graphics\shader\shader_basic.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
@@ -163,6 +165,7 @@
     <ClInclude Include="src\graphics\renderer\renderer2d.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d_basic.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d_batched.h" />
+    <ClInclude Include="src\graphics\renderer\transformation_stack.h" />
     <ClInclude Include="src\graphics\shader\shader.h" />
     <ClInclude Include="src\graphics\shader\shader_basic.h" />
     <ClInclude Include="src\graphics\window.h" />

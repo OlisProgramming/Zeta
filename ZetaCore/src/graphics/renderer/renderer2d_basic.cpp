@@ -25,7 +25,7 @@ namespace zeta {
 				renderable->getIbo()->bind();
 
 				glm::mat4 mat = glm::translate(glm::mat4(), renderable->getPos());
-				m_shader->setUniformMat4(m_shaderUniformMatModl, mat);
+				m_shader->setUniformMat4(m_shaderUniformMatModl, m_transformStack.getMatrix() * mat);
 				glDrawElements(GL_TRIANGLES, renderable->getIbo()->getCount(), GL_UNSIGNED_SHORT, NULL);
 
 				renderable->getIbo()->unbind();

@@ -59,13 +59,13 @@ namespace zeta {
 			glm::vec3 pos = renderable->getPos();
 			glm::vec2 size = renderable->getSize();
 
-			m_vertexbuf->pos = pos; // glm::vec3(pos.x, pos.y, pos.z);
+			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos, 1.0);
 			++m_vertexbuf;
-			m_vertexbuf->pos = glm::vec3(pos.x+size.x, pos.y, pos.z);
+			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y, pos.z, 1.0);
 			++m_vertexbuf;
-			m_vertexbuf->pos = glm::vec3(pos.x+size.x, pos.y+size.y, pos.z);
+			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y+size.y, pos.z, 1.0);
 			++m_vertexbuf;
-			m_vertexbuf->pos = glm::vec3(pos.x, pos.y+size.y, pos.z);
+			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x, pos.y+size.y, pos.z, 1.0);
 			++m_vertexbuf;
 
 			m_indexcount += 6;
