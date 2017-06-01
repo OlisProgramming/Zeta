@@ -15,7 +15,7 @@ namespace zeta {
 			GLuint m_shaderUniformMatModl;
 
 		public:
-			Renderer2DBasic(Shader& shader);
+			Renderer2DBasic(Shader* shader);
 			void submit(Renderable2D* renderable) override;
 			void flush() override;
 		};

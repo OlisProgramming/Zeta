@@ -1,7 +1,7 @@
 #include "shader.h"
 
 #include <vector>
-#include "../util/fileutils.h"
+#include "../../util/fileutils.h"
 
 namespace zeta {
 	namespace graphics {

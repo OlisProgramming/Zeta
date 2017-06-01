@@ -5,7 +5,7 @@ namespace zeta {
 
 		IndexBuffer* Renderer2DBatched::m_ibo;
 
-		Renderer2DBatched::Renderer2DBatched(Shader& shader) :
+		Renderer2DBatched::Renderer2DBatched(Shader* shader) :
 			Renderer2D(shader) {
 			glGenVertexArrays(1, &m_vao);
 			glGenBuffers(1, &m_vbo);

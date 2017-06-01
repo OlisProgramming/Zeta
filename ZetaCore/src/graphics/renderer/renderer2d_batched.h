@@ -23,11 +23,11 @@ namespace zeta {
 			VertexData* m_vertexbuf;
 			
 		public:
-			Renderer2DBatched(Shader& shader);
+			Renderer2DBatched(Shader* shader);
 			~Renderer2DBatched();
 			static void init();
 
-			void begin();
+			void begin() override;
 			void submit(Renderable2D* renderable) override;
 			void flush() override;
 		};
