@@ -16,12 +16,15 @@ namespace zeta {
 
 			glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
 			glEnableVertexAttribArray(SHADER_TEXCOORD_INDEX);
+			glEnableVertexAttribArray(SHADER_TEXID_INDEX);
 
 			glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE,
 				RENDERER_VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::pos));
 			glVertexAttribPointer(SHADER_TEXCOORD_INDEX, 2, GL_FLOAT, GL_FALSE,
 				RENDERER_VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::texCoord));
+			glVertexAttribPointer(SHADER_TEXID_INDEX, 1, GL_FLOAT, GL_FALSE,
+				RENDERER_VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::texID));
 			
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindVertexArray(0);
@@ -70,21 +73,47 @@ namespace zeta {
 
 			glm::vec3 pos = renderable->getPos();
 			glm::vec2 size = renderable->getSize();
+			GLuint texid = renderable->getTexID();
+
+			float textureSlot = 0.0f;
+			if (texid > 0) {
+				bool found = false;
+				for (unsigned int i = 0; i < m_textureSlots.size(); ++i) {
+					if (m_textureSlots[i] == texid) {
+						found = true;
+						textureSlot = (float)(i + 1);
+						break;
+					}
+				}
+
+				if (!found) {
+					if (m_textureSlots.size() >= 32) {
+						flush();
+						begin();
+					}
+					m_textureSlots.push_back(texid);
+					textureSlot = (float)(m_textureSlots.size());
+				}
+			}
 
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos, 1.0);
 			m_vertexbuf->texCoord = glm::vec2(0, 0);
+			m_vertexbuf->texID = textureSlot;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y, pos.z, 1.0);
 			m_vertexbuf->texCoord = glm::vec2(1, 0);
+			m_vertexbuf->texID = textureSlot;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y+size.y, pos.z, 1.0);
 			m_vertexbuf->texCoord = glm::vec2(1, 1);
+			m_vertexbuf->texID = textureSlot;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x, pos.y+size.y, pos.z, 1.0);
 			m_vertexbuf->texCoord = glm::vec2(0, 1);
+			m_vertexbuf->texID = textureSlot;
 			++m_vertexbuf;
 
 			m_indexcount += 6;
@@ -97,6 +126,11 @@ namespace zeta {
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 			// Flush
+
+			for (unsigned int i = 0; i < m_textureSlots.size(); ++i) {
+				glActiveTexture(GL_TEXTURE0 + i);
+				glBindTexture(GL_TEXTURE_2D, m_textureSlots[i]);
+			}
 
 			glBindVertexArray(m_vao);
 			m_ibo->bind();

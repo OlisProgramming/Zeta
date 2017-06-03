@@ -13,6 +13,7 @@ namespace zeta {
 
 #define SHADER_VERTEX_INDEX		0
 #define SHADER_TEXCOORD_INDEX	1
+#define SHADER_TEXID_INDEX		2
 
 		class Renderer2DBatched : public Renderer2D {
 
@@ -22,6 +23,7 @@ namespace zeta {
 			static IndexBuffer* m_ibo;
 			GLsizei m_indexcount;
 			VertexData* m_vertexbuf;
+			std::vector<GLuint> m_textureSlots;
 			
 		public:
 			Renderer2DBatched(Shader* shader);

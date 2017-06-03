@@ -21,6 +21,7 @@ namespace zeta {
 
 			inline const unsigned int getWidth()  const { return m_width;  }
 			inline const unsigned int getHeight() const { return m_height; }
+			inline const GLuint getTexID() const { return m_id; }
 		};
 	}
 }

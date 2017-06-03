@@ -18,7 +18,8 @@ namespace zeta {
 			~Shader();
 
 			inline GLuint getUniformLocation(const char* name)				{ return glGetUniformLocation(m_id, name); }
-			inline void setUniform1i  (GLuint location, int value)			{ glUniform1i(location, value); }
+			inline void setUniform1i  (GLuint location, GLint value)		{ glUniform1i(location, value); }
+			inline void setUniform1iv (GLuint location, int count, GLint value[])	{ glUniform1iv(location, count, value); }
 			inline void setUniformVec2(GLuint location, glm::vec2& vec)		{ glUniform2fv(location, 1, &vec[0]); }
 			inline void setUniformVec3(GLuint location, glm::vec3& vec)		{ glUniform3fv(location, 1, &vec[0]); }
 			inline void setUniformVec4(GLuint location, glm::vec4& vec)		{ glUniform4fv(location, 1, &vec[0]); }

@@ -9,7 +9,7 @@ namespace zeta {
 			m_fname(path) {
 			FIBITMAP* dib;
 			util::IMAGE_DATA pixels = util::loadImage(path.c_str(), m_width, m_height, &dib);
-			printf("Texture dimensions: %dx%d\n", m_width, m_height);
+			//printf("Texture dimensions: %dx%d\n", m_width, m_height);
 
 			glGenTextures(1, &m_id);
 			glBindTexture(GL_TEXTURE_2D, m_id);

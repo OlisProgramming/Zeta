@@ -25,22 +25,28 @@ int main(int argc, char* argv[]) {
 	StaticSprite::init();
 	Renderer2DBatched::init();
 
+	Texture tex("../res/textures/test.png");
+	Texture texa("../res/textures/testa.png");
+
 	MapLayer layer(800, 600);
-	layer.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100)));
+	layer.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), &texa));
 
 	Group2D* group = new Group2D(glm::translate(glm::mat4(), glm::vec3(400, 300, 0)));
-	group->submit(new Sprite(glm::vec3(-5, -20, 0), glm::vec2(10, 40)));
-	group->submit(new Sprite(glm::vec3(-20, -5, 0), glm::vec2(40, 10)));
+	group->submit(new Sprite(glm::vec3(-5, -20, 0), glm::vec2(10, 40), &tex));
+	group->submit(new Sprite(glm::vec3(-20, -5, 0), glm::vec2(40, 10), &tex));
 	layer.submit(group);
 
-	layer.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100)));
+	layer.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100), &texa));
 
-	glActiveTexture(GL_TEXTURE0);
-	Texture tex("../res/textures/test.png");
-	tex.bind();
+	GLint texIDs[] = {
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+		10,11,12,13,14,15,16,17,18,19,
+		20,21,22,23,24,25,26,27,28,29,
+		30,31
+	};
 
 	layer.getRenderer()->getShader()->bind();
-	layer.getRenderer()->getShader()->setUniform1i(layer.getRenderer()->getShader()->getUniformLocation("tex"), 0);
+	layer.getRenderer()->getShader()->setUniform1iv(layer.getRenderer()->getShader()->getUniformLocation("textures"), 32, texIDs);
 
 	FPSClock clock;
 	while (!wnd.shouldClose()) {
@@ -49,7 +55,7 @@ int main(int argc, char* argv[]) {
 		wnd.drawEnd();
 
 		clock.tick();
-		//printf("%f FPS\n", clock.getFPS());
+		printf("%f FPS\n", clock.getFPS());
 	}
 
 	return 0;
