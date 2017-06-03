@@ -17,6 +17,7 @@ namespace zeta {
 			virtual ~Layer();
 			virtual void submit(Renderable2D* renderable);
 			virtual void render();
+			inline Renderer2D* getRenderer() const { return m_renderer; }
 		};
 	}
 }

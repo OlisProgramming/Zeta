@@ -4,8 +4,11 @@ layout (location = 0) out vec4 col;
 
 in DATA {
 	vec4 pos;
+	vec2 uv;
 } data;
 
+uniform sampler2D tex;
+
 void main() {
-	col = vec4(1.0, 0.1, 0.6, 1.0);
+	col = texture(tex, data.uv);
 }

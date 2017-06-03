@@ -12,6 +12,7 @@ namespace zeta {
 #define RENDERER_INDICES_SIZE	(RENDERER_MAX_SPRITES*6)
 
 #define SHADER_VERTEX_INDEX		0
+#define SHADER_TEXCOORD_INDEX	1
 
 		class Renderer2DBatched : public Renderer2D {
 

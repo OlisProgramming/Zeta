@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Oliver\Documents\Programming\Libs\GLEW\lib\Release\Win32;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\lib\Release\Win32;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\lib-vc2015;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
   </PropertyGroup>
@@ -90,7 +90,7 @@
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,6 +143,7 @@
     <ClCompile Include="src\graphics\renderable\renderable2d.cpp" />
     <ClCompile Include="src\graphics\renderable\sprite.cpp" />
     <ClCompile Include="src\graphics\renderable\static_sprite.cpp" />
+    <ClCompile Include="src\graphics\renderable\texture.cpp" />
     <ClCompile Include="src\graphics\renderer\renderer2d_basic.cpp" />
     <ClCompile Include="src\graphics\renderer\renderer2d_batched.cpp" />
     <ClCompile Include="src\graphics\renderer\transformation_stack.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="src\input\input_interface.cpp" />
     <ClCompile Include="src\util\fileutils.cpp" />
     <ClCompile Include="src\util\fps_clock.cpp" />
+    <ClCompile Include="src\util\image_load.cpp" />
     <ClCompile Include="src\util\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +166,7 @@
     <ClInclude Include="src\graphics\renderable\renderable2d.h" />
     <ClInclude Include="src\graphics\renderable\sprite.h" />
     <ClInclude Include="src\graphics\renderable\static_sprite.h" />
+    <ClInclude Include="src\graphics\renderable\texture.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d_basic.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d_batched.h" />
@@ -174,6 +177,7 @@
     <ClInclude Include="src\input\input_interface.h" />
     <ClInclude Include="src\util\fileutils.h" />
     <ClInclude Include="src\util\fps_clock.h" />
+    <ClInclude Include="src\util\image_load.h" />
     <ClInclude Include="src\util\timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

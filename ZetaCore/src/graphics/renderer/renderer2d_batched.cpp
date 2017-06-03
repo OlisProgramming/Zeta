@@ -14,11 +14,14 @@ namespace zeta {
 			glBindVertexArray(m_vao);
 			glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
+			glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
+			glEnableVertexAttribArray(SHADER_TEXCOORD_INDEX);
+
 			glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE,
 				RENDERER_VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::pos));
-			
-			glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
+			glVertexAttribPointer(SHADER_TEXCOORD_INDEX, 2, GL_FLOAT, GL_FALSE,
+				RENDERER_VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::texCoord));
 			
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindVertexArray(0);
@@ -69,12 +72,19 @@ namespace zeta {
 			glm::vec2 size = renderable->getSize();
 
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos, 1.0);
+			m_vertexbuf->texCoord = glm::vec2(0, 0);
 			++m_vertexbuf;
+			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y, pos.z, 1.0);
+			m_vertexbuf->texCoord = glm::vec2(1, 0);
 			++m_vertexbuf;
+			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y+size.y, pos.z, 1.0);
+			m_vertexbuf->texCoord = glm::vec2(1, 1);
 			++m_vertexbuf;
+			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x, pos.y+size.y, pos.z, 1.0);
+			m_vertexbuf->texCoord = glm::vec2(0, 1);
 			++m_vertexbuf;
 
 			m_indexcount += 6;

@@ -9,7 +9,9 @@ namespace zeta {
 	namespace graphics {
 
 		struct VertexData {
-			glm::vec3 pos;
+			glm::vec3 pos;  // X Y Z
+			glm::vec2 texCoord;  // U V
+			//unsigned int texID;
 		};
 
 		enum class RenderableType {
