@@ -58,6 +58,7 @@ int main(int argc, char* argv[]) {
 	FPSClock clock;
 	while (!wnd.shouldClose()) {
 		wnd.drawStart();
+		static_cast<Renderer2DBatched*>(layer.getRenderer())->setColour({0.1f, 1.0f, 0.1f});
 		layer.render();
 		wnd.drawEnd();
 

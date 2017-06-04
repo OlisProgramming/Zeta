@@ -13,6 +13,7 @@ namespace zeta {
 			glm::vec3 pos;  // X Y Z
 			glm::vec2 texCoord;  // U V
 			GLfloat texID;
+			unsigned int col;
 		};
 
 		enum class RenderableType {

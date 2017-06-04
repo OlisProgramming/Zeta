@@ -18,6 +18,7 @@ namespace zeta {
 			glEnableVertexAttribArray(SHADER_VERTEX_INDEX);
 			glEnableVertexAttribArray(SHADER_TEXCOORD_INDEX);
 			glEnableVertexAttribArray(SHADER_TEXID_INDEX);
+			glEnableVertexAttribArray(SHADER_COL_INDEX);
 
 			glBufferData(GL_ARRAY_BUFFER, RENDERER_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW);
 			glVertexAttribPointer(SHADER_VERTEX_INDEX, 3, GL_FLOAT, GL_FALSE,
@@ -26,6 +27,8 @@ namespace zeta {
 				RENDERER_VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::texCoord));
 			glVertexAttribPointer(SHADER_TEXID_INDEX, 1, GL_FLOAT, GL_FALSE,
 				RENDERER_VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::texID));
+			glVertexAttribPointer(SHADER_COL_INDEX, 4, GL_UNSIGNED_BYTE, GL_FALSE,
+				RENDERER_VERTEX_SIZE, (const GLvoid*)offsetof(VertexData, VertexData::col));
 			
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindVertexArray(0);
@@ -37,6 +40,8 @@ namespace zeta {
 
 			for (char a = 32; a < 126; ++a)  // Pre-initialise font data.
 				ftgl::texture_font_get_glyph(m_font, a);
+
+			setColour({1, 1, 1});
 		}
 
 		Renderer2DBatched::~Renderer2DBatched() {
@@ -132,21 +137,25 @@ namespace zeta {
 						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x0, y0, pos.z, 1.0f);
 						m_vertexbuf->texCoord = glm::vec2(s0, t0);
 						m_vertexbuf->texID = textureSlot;
+						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
 						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x0, y1, pos.z, 1.0f);
 						m_vertexbuf->texCoord = glm::vec2(s0, t1);
 						m_vertexbuf->texID = textureSlot;
+						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
 						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x1, y1, pos.z, 1.0f);
 						m_vertexbuf->texCoord = glm::vec2(s1, t1);
 						m_vertexbuf->texID = textureSlot;
+						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
 						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x1, y0, pos.z, 1.0f);
 						m_vertexbuf->texCoord = glm::vec2(s1, t0);
 						m_vertexbuf->texID = textureSlot;
+						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
 						m_indexcount += 6;
@@ -189,21 +198,25 @@ namespace zeta {
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos, 1.0);
 			m_vertexbuf->texCoord = glm::vec2(0, 0);
 			m_vertexbuf->texID = textureSlot;
+			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y, pos.z, 1.0);
 			m_vertexbuf->texCoord = glm::vec2(1, 0);
 			m_vertexbuf->texID = textureSlot;
+			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y+size.y, pos.z, 1.0);
 			m_vertexbuf->texCoord = glm::vec2(1, 1);
 			m_vertexbuf->texID = textureSlot;
+			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x, pos.y+size.y, pos.z, 1.0);
 			m_vertexbuf->texCoord = glm::vec2(0, 1);
 			m_vertexbuf->texID = textureSlot;
+			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 
 			m_indexcount += 6;

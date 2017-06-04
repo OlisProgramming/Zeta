@@ -6,6 +6,7 @@ in DATA {
 	vec4 pos;
 	vec2 uv;
 	float texID;
+	vec4 col;
 } data;
 
 uniform sampler2D textures[32];
@@ -21,4 +22,5 @@ void main() {
 	else {
 		col = texcol;
 	}
+	col *= data.col/255.0;
 }
