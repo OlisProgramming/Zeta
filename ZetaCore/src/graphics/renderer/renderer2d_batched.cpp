@@ -36,12 +36,12 @@ namespace zeta {
 			// Initialise ftgl
 
 			m_fontAtlas = ftgl::texture_atlas_new(512, 512, 1);
-			m_font = ftgl::texture_font_new_from_file(m_fontAtlas, 80, "../res/fonts/font.ttf");
+			m_font = ftgl::texture_font_new_from_file(m_fontAtlas, 15, "../res/fonts/font.ttf");
 
 			for (char a = 32; a < 126; ++a)  // Pre-initialise font data.
 				ftgl::texture_font_get_glyph(m_font, a);
 
-			setColour({1, 1, 1});
+			setColour({1, 1, 1, 1});
 		}
 
 		Renderer2DBatched::~Renderer2DBatched() {

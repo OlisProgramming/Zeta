@@ -40,11 +40,11 @@ namespace zeta {
 			void submit(Renderable2D* renderable) override;
 			void flush() override;
 
-			inline void setColour(glm::vec3 col) {
+			inline void setColour(glm::vec4 col) {
 				int r = (int)(col.x * 255);
 				int g = (int)(col.y * 255);
 				int b = (int)(col.z * 255);
-				int a = 255;
+				int a = (int)(col.w * 255);
 				m_currentcol = a << 24 | b << 16 | g << 8 | r;
 			}
 		};

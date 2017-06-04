@@ -14,6 +14,7 @@ namespace zeta {
 			Label(std::string string, glm::vec3 pos);
 			inline virtual RenderableType getType() const { return RenderableType::LABEL; }
 			inline const std::string& getString() const { return m_string; }
+			inline void setString(const std::string& str) { m_string = str; }
 		};
 	}
 }

@@ -14,6 +14,8 @@ namespace zeta {
 
 		public:
 			Group2D(glm::mat4 transformation);
+			Group2D(glm::vec3 translation);
+			~Group2D();
 			inline RenderableType getType() const override { return RenderableType::GROUP; }
 			void submit(Renderable2D* renderable);
 			inline std::vector<Renderable2D*>& getChildren() { return m_renderables; }
