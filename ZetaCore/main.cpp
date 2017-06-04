@@ -13,6 +13,10 @@
 #include "src\graphics\renderable\texture.h"
 #include "src\util\fps_clock.h"
 
+#include <ft2build.h>
+#include <freetype\freetype.h>
+#include <freetype-gl.h>
+
 int main(int argc, char* argv[]) {
 
 	using namespace zeta;
@@ -55,7 +59,7 @@ int main(int argc, char* argv[]) {
 		wnd.drawEnd();
 
 		clock.tick();
-		printf("%f FPS\n", clock.getFPS());
+		//printf("%f FPS\n", clock.getFPS());
 	}
 
 	return 0;
