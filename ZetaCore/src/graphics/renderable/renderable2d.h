@@ -18,6 +18,7 @@ namespace zeta {
 		enum class RenderableType {
 			SPRITE,
 			STATIC_SPRITE,
+			LABEL,
 			GROUP
 		};
 

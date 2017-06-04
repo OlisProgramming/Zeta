@@ -15,5 +15,10 @@ void main() {
 	if (data.texID > 0.0) {
 		texcol = texture(textures[int(data.texID - 0.1)], data.uv);   // 0.1 for floating-point precision errors
 	}
-	col = texcol;
+	if (data.texID == 1.0) {
+		col = vec4(1, 1, 1, texcol.r);
+	}
+	else {
+		col = texcol;
+	}
 }

@@ -86,7 +86,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOT_USING_FT_GL_NAMESPACE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>UninitializedLocalUsageCheck</BasicRuntimeChecks>
     </ClCompile>
     <Link />
@@ -108,7 +108,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOT_USING_FT_GL_NAMESPACE;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
@@ -141,6 +141,7 @@
     <ClCompile Include="src\graphics\layer\layer.cpp" />
     <ClCompile Include="src\graphics\layer\map_layer.cpp" />
     <ClCompile Include="src\graphics\renderable\group2d.cpp" />
+    <ClCompile Include="src\graphics\renderable\label.cpp" />
     <ClCompile Include="src\graphics\renderable\renderable2d.cpp" />
     <ClCompile Include="src\graphics\renderable\sprite.cpp" />
     <ClCompile Include="src\graphics\renderable\static_sprite.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="src\graphics\renderable\group2d.h" />
     <ClInclude Include="src\graphics\layer\layer.h" />
     <ClInclude Include="src\graphics\layer\map_layer.h" />
+    <ClInclude Include="src\graphics\renderable\label.h" />
     <ClInclude Include="src\graphics\renderable\renderable2d.h" />
     <ClInclude Include="src\graphics\renderable\sprite.h" />
     <ClInclude Include="src\graphics\renderable\static_sprite.h" />

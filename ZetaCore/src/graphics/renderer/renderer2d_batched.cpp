@@ -1,5 +1,6 @@
 #include "renderer2d_batched.h"
 #include "../renderable/group2d.h"
+#include "../renderable/label.h"
 
 namespace zeta {
 	namespace graphics {
@@ -28,6 +29,14 @@ namespace zeta {
 			
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindVertexArray(0);
+
+			// Initialise ftgl
+
+			m_fontAtlas = ftgl::texture_atlas_new(512, 512, 1);
+			m_font = ftgl::texture_font_new_from_file(m_fontAtlas, 80, "../res/fonts/font.ttf");
+
+			for (char a = 32; a < 126; ++a)  // Pre-initialise font data.
+				ftgl::texture_font_get_glyph(m_font, a);
 		}
 
 		Renderer2DBatched::~Renderer2DBatched() {
@@ -53,7 +62,10 @@ namespace zeta {
 
 		void Renderer2DBatched::begin() {
 			glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-			m_vertexbuf = static_cast<VertexData*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));;
+			m_vertexbuf = static_cast<VertexData*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
+
+			m_textureSlots.clear();
+			m_textureSlots.push_back(m_fontAtlas->id);  // Force font texture to occupy sampler location 0.
 		}
 
 		void Renderer2DBatched::submit(Renderable2D* renderable) {
@@ -63,6 +75,84 @@ namespace zeta {
 				for (Renderable2D* child : (static_cast<Group2D*>(renderable))->getChildren())
 					submit(child);
 				m_transformStack.pop();
+				return;
+			}
+			else if (renderable->getType() == RenderableType::LABEL) {
+				Label* label = static_cast<Label*>(renderable);
+				
+				// DRAW STRING
+				float textureSlot = 0.0f;
+				bool found = false;
+				for (unsigned int i = 0; i < m_textureSlots.size(); ++i) {
+					if (m_textureSlots[i] == m_fontAtlas->id) {
+						found = true;
+						textureSlot = (float)(i + 1);
+						break;
+					}
+				}
+
+				if (!found) {
+					if (m_textureSlots.size() >= 32) {
+						flush();
+						begin();
+					}
+					m_textureSlots.push_back(m_fontAtlas->id);
+					textureSlot = (float)(m_textureSlots.size());
+				}
+
+				glm::vec3 pos = renderable->getPos();
+				glm::vec2 size(512, 512);
+				std::string s = label->getString();
+
+				if (m_indexcount + 6 * s.length() >= RENDERER_INDICES_SIZE) {
+					flush();
+					begin();
+				}
+
+				float offset = 0.0f;
+
+				for (unsigned int i = 0; i < s.length(); ++i) {
+
+					char c = s[i];
+					ftgl::texture_glyph_t* glyph = ftgl::texture_font_get_glyph(m_font, c);
+					if (glyph != NULL) {
+
+						float x0 = pos.x + glyph->offset_x + offset;
+						float y0 = pos.y - glyph->offset_y;
+						float x1 = x0 + glyph->width;
+						float y1 = y0 + glyph->height;
+
+						float s0 = glyph->s0;
+						float t0 = glyph->t0;
+						float s1 = glyph->s1;
+						float t1 = glyph->t1;
+
+						offset += glyph->advance_x;
+
+						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x0, y0, pos.z, 1.0f);
+						m_vertexbuf->texCoord = glm::vec2(s0, t0);
+						m_vertexbuf->texID = textureSlot;
+						++m_vertexbuf;
+
+						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x0, y1, pos.z, 1.0f);
+						m_vertexbuf->texCoord = glm::vec2(s0, t1);
+						m_vertexbuf->texID = textureSlot;
+						++m_vertexbuf;
+
+						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x1, y1, pos.z, 1.0f);
+						m_vertexbuf->texCoord = glm::vec2(s1, t1);
+						m_vertexbuf->texID = textureSlot;
+						++m_vertexbuf;
+
+						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x1, y0, pos.z, 1.0f);
+						m_vertexbuf->texCoord = glm::vec2(s1, t0);
+						m_vertexbuf->texID = textureSlot;
+						++m_vertexbuf;
+
+						m_indexcount += 6;
+					}
+				}
+
 				return;
 			}
 

@@ -11,6 +11,7 @@
 #include "src\graphics\renderable\group2d.h"
 #include "src\graphics\renderable\sprite.h"
 #include "src\graphics\renderable\texture.h"
+#include "src\graphics\renderable\label.h"
 #include "src\util\fps_clock.h"
 
 #include <ft2build.h>
@@ -41,6 +42,8 @@ int main(int argc, char* argv[]) {
 	layer.submit(group);
 
 	layer.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100), &texa));
+
+	layer.submit(new Label("Hello, World!", {100, 300, 100}));
 
 	GLint texIDs[] = {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,

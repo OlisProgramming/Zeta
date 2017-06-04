@@ -1,6 +1,7 @@
 #pragma once
 
 #include "renderer2d.h"
+#include <freetype-gl.h>
 
 namespace zeta {
 	namespace graphics {
@@ -24,6 +25,9 @@ namespace zeta {
 			GLsizei m_indexcount;
 			VertexData* m_vertexbuf;
 			std::vector<GLuint> m_textureSlots;
+			
+			ftgl::texture_atlas_t* m_fontAtlas;
+			ftgl::texture_font_t* m_font;
 			
 		public:
 			Renderer2DBatched(Shader* shader);
