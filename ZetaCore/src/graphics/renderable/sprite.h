@@ -8,7 +8,7 @@ namespace zeta {
 		class Sprite : public Renderable2D {
 
 		public:
-			Sprite(glm::vec3 pos, glm::vec2 size);
+			Sprite(glm::vec3 pos, glm::vec2 size, bool isTranslucent = false);
 			Sprite(glm::vec3 pos, glm::vec2 size, Texture* tex, bool isTranslucent = false);
 			inline RenderableType getType() const override { return RenderableType::SPRITE; }
 		};
