@@ -17,6 +17,19 @@ namespace zeta {
 #define SHADER_TEXID_INDEX		2
 #define SHADER_COL_INDEX		3
 
+		struct RendererStateData {
+			glm::mat4 transform;
+			unsigned int col;
+			RendererStateData(glm::mat4& transform, unsigned int col) : transform(transform), col(col) {}
+		};
+
+		struct RenderableData {
+			Renderable2D* self;
+			RenderableData* next;
+			RendererStateData data;
+			RenderableData(Renderable2D* self, RendererStateData data) : self(self), next(nullptr), data(data) {}
+		};
+
 		class Renderer2DBatched : public Renderer2D {
 
 		private:
@@ -27,6 +40,7 @@ namespace zeta {
 			VertexData* m_vertexbuf;
 			unsigned int m_currentcol;  // The current colour of the renderer. This 'dyes' the renderables this colour (white is normal colour)
 			std::vector<GLuint> m_textureSlots;
+			RenderableData* m_translucentRenderableList;
 			
 			ftgl::texture_atlas_t* m_fontAtlas;
 			ftgl::texture_font_t* m_font;
@@ -38,7 +52,11 @@ namespace zeta {
 
 			void begin() override;
 			void submit(Renderable2D* renderable) override;
+		private:
+			void submit(Renderable2D* renderable, bool renderTranslucentImmediately);
+		public:
 			void flush() override;
+			void flushAll();
 
 			inline void setColour(glm::vec4 col) {
 				int r = (int)(col.x * 255);
@@ -47,6 +65,9 @@ namespace zeta {
 				int a = (int)(col.w * 255);
 				m_currentcol = a << 24 | b << 16 | g << 8 | r;
 			}
+
+		private:
+			void queueTranslucentRenderable(Renderable2D* renderable);
 		};
 	}
 }

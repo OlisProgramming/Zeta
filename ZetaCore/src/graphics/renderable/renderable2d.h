@@ -29,6 +29,7 @@ namespace zeta {
 			glm::vec3 m_pos;
 			glm::vec2 m_size;
 			Texture* m_tex;
+			bool m_isTranslucent;
 
 		public:
 			Renderable2D(glm::vec3 pos, glm::vec2 size);
@@ -37,6 +38,7 @@ namespace zeta {
 			inline const glm::vec2& getSize() const { return m_size; }
 			virtual RenderableType getType() const = 0;
 			inline const GLuint getTexID() const { return m_tex==nullptr? 0 : (m_tex->getTexID()); }
+			inline const bool isTranslucent() const { return m_isTranslucent; }
 		};
 	}
 }

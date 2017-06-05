@@ -7,9 +7,10 @@ namespace zeta {
 			Renderable2D(pos, size) {
 		}
 
-		Sprite::Sprite(glm::vec3 pos, glm::vec2 size, Texture* tex) :
+		Sprite::Sprite(glm::vec3 pos, glm::vec2 size, Texture* tex, bool isTranslucent) :
 			Renderable2D(pos, size) {
 			m_tex = tex;
+			m_isTranslucent = isTranslucent;
 		}
 	}
 }

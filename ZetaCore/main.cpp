@@ -42,17 +42,17 @@ int main(int argc, char* argv[]) {
 	shader->setUniformMat4(shader->getUniformLocation("matView"), view);
 
 	Group2D objects({0, 0, 0});
-	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), &texa));
+	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), &texa, true));
 
 	Group2D* group = new Group2D(glm::translate(glm::mat4(), glm::vec3(400, 300, 0)));
-	group->submit(new Sprite(glm::vec3(-5, -20, 0), glm::vec2(10, 40), &tex));
-	group->submit(new Sprite(glm::vec3(-20, -5, 0), glm::vec2(40, 10), &tex));
+	group->submit(new Sprite(glm::vec3(-5, -20, 10), glm::vec2(10, 40), &tex, true));
+	group->submit(new Sprite(glm::vec3(-20, -5, 20), glm::vec2(40, 10), &tex, true));
 	objects.submit(group);
 
-	objects.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100), &texa));
+	objects.submit(new Sprite(glm::vec3(690, 490, 5), glm::vec2(100, 100), &texa, true));
 
 	Group2D fpsgroup({ 5, 20, 0 });
-	Label* fpscounter = new Label("100 FPS", { 0, 0, 500 });
+	Label* fpscounter = new Label("100 FPS", { 0, 0, 500 }, true);
 	fpsgroup.submit(fpscounter);
 
 	GLint texIDs[] = {
@@ -73,11 +73,11 @@ int main(int argc, char* argv[]) {
 		
 		renderer.setColour({ 1, 1, 1, 1 });
 		renderer.submit(&objects);
+
+		renderer.setColour({ 1, 1, 1, 0.5 });
 		renderer.submit(&fpsgroup);
 
-		//renderer.setColour({ 1, 1, 1, 0.5 });
-
-		renderer.flush();
+		renderer.flushAll();
 
 		wnd.drawEnd();
 

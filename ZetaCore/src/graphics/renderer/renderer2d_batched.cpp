@@ -42,6 +42,8 @@ namespace zeta {
 				ftgl::texture_font_get_glyph(m_font, a);
 
 			setColour({1, 1, 1, 1});
+
+			m_translucentRenderableList = nullptr;
 		}
 
 		Renderer2DBatched::~Renderer2DBatched() {
@@ -74,6 +76,15 @@ namespace zeta {
 		}
 
 		void Renderer2DBatched::submit(Renderable2D* renderable) {
+			submit(renderable, false);
+		}
+
+		void Renderer2DBatched::submit(Renderable2D* renderable, bool renderTranslucentImmediately) {
+
+			if (renderable->isTranslucent() && !renderTranslucentImmediately) {
+				queueTranslucentRenderable(renderable);
+				return;
+			}
 
 			if (renderable->getType() == RenderableType::GROUP) {
 				m_transformStack.push((static_cast<Group2D*>(renderable))->getMatrix(), false);
@@ -242,6 +253,60 @@ namespace zeta {
 			glBindVertexArray(0);
 
 			m_indexcount = 0;
+		}
+
+		void Renderer2DBatched::flushAll() {
+			flush();
+
+			// Draw translucent objects.
+			while (m_translucentRenderableList != nullptr) {
+				begin();
+				m_transformStack.push(m_translucentRenderableList->data.transform, false);
+				m_currentcol = m_translucentRenderableList->data.col;
+				submit(m_translucentRenderableList->self, true);
+				m_transformStack.pop();
+				flush();
+				RenderableData* a = m_translucentRenderableList;
+				m_translucentRenderableList = m_translucentRenderableList->next;
+				delete a;
+			}
+		}
+
+		void Renderer2DBatched::queueTranslucentRenderable(Renderable2D* renderable) {
+			RenderableData* rd = m_translucentRenderableList;
+			RenderableData* rdprev = nullptr;
+			RendererStateData data(m_transformStack.getMatrix(), m_currentcol);
+			
+			// This function manipulates the linked list implicitly defined by a chain of RenderableData objects.
+
+			if (rd == nullptr) {
+				m_translucentRenderableList = new RenderableData(renderable, data);
+				return;
+			}
+
+			while (true) {
+				if (renderable->getPos().z <= rd->self->getPos().z) {
+					// Insert node into linked list.
+					if (rdprev == nullptr) {  // Nothing before
+						RenderableData* rda = rd;
+						m_translucentRenderableList = new RenderableData(renderable, data);
+						m_translucentRenderableList->next = rda;
+					}
+					else {
+						rdprev->next = new RenderableData(renderable, data);
+						rdprev->next->next = rd;
+					}
+					return;
+				}
+
+				if (rd->next == nullptr) {  // Adding at end of list
+					rd->next = new RenderableData(renderable, data);
+					return;
+				}
+
+				rdprev = rd;
+				rd = rd->next;
+			}
 		}
 	}
 }
