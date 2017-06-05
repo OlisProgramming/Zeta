@@ -26,10 +26,6 @@ int main(int argc, char* argv[]) {
 
 	Window wnd("Zeta Engine", 800, 600);
 
-	// Set up static IBOs
-	StaticSprite::init();
-	Renderer2DBatched::init();
-
 	Texture tex("../res/textures/test.png");
 	Texture texa("../res/textures/testa.png");
 
