@@ -37,29 +37,19 @@ int main(int argc, char* argv[]) {
 	shader->setUniformMat4(shader->getUniformLocation("matProj"), ortho);
 	shader->setUniformMat4(shader->getUniformLocation("matView"), view);
 
-	/*Group2D objects({0, 0, 0});
-	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), &texa, true));
+	Group2D objects({0, 0, 0});
+	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), &texa));
 
 	Group2D* group = new Group2D(glm::translate(glm::mat4(), glm::vec3(400, 300, 0)));
-	group->submit(new Sprite(glm::vec3(-5, -20, 10), glm::vec2(10, 40), &tex, true));
-	group->submit(new Sprite(glm::vec3(-20, -5, 20), glm::vec2(40, 10), &tex, true));
+	group->submit(new Sprite(glm::vec3(-5, -20, 10), glm::vec2(10, 40), &tex));
+	group->submit(new Sprite(glm::vec3(-20, -5, 20), glm::vec2(40, 10), &tex));
 	objects.submit(group);
 
-	objects.submit(new Sprite(glm::vec3(690, 490, 5), glm::vec2(100, 100), &texa, true));*/
+	objects.submit(new Sprite(glm::vec3(690, 490, 5), glm::vec2(100, 100), &texa));
 
 	Group2D fpsgroup({ 5, 20, 0 });
-	Label* fpscounter = new Label("100 FPS", { 0, 0, 500 }, true);
+	Label* fpscounter = new Label("100 FPS", { 0, 0, 400000.0f }, true);
 	fpsgroup.submit(fpscounter);
-
-	Sprite* a = new Sprite(glm::vec3(  0,   0, 0), glm::vec2(500, 500), false);
-	Sprite* b = new Sprite(glm::vec3( 30,  30, 10), glm::vec2(480, 480), true);
-	Sprite* c = new Sprite(glm::vec3( 60,  60, 20), glm::vec2(460, 460), true);
-	Sprite* d = new Sprite(glm::vec3( 90,  90, 30), glm::vec2(440, 440), true);
-	Sprite* e = new Sprite(glm::vec3(120, 120, 40), glm::vec2(420, 420), false);
-	Sprite* f = new Sprite(glm::vec3(150, 150, 50), glm::vec2(400, 400), true);
-	Sprite* g = new Sprite(glm::vec3(180, 180, 60), glm::vec2(380, 380), true);
-	Sprite* h = new Sprite(glm::vec3(210, 210, 70), glm::vec2(360, 360), true);
-	Sprite* i = new Sprite(glm::vec3(240, 240, 80), glm::vec2(340, 340), false);
 	
 	GLint texIDs[] = {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -71,30 +61,16 @@ int main(int argc, char* argv[]) {
 	shader->bind();
 	shader->setUniform1iv(shader->getUniformLocation("textures"), 32, texIDs);
 
+	bool a = false;
+
 	FPSClock clock;
 	while (!wnd.shouldClose()) {
 		wnd.drawStart();
 
 		renderer.begin();
-		
-		renderer.setColour({ 1.0, 0.0, 0.0, 1.0 });
-		renderer.submit(a);
-		renderer.setColour({ 0.8, 0.2, 0.0, 0.3 });
-		renderer.submit(b);
-		renderer.setColour({ 0.6, 0.4, 0.0, 0.3 });
-		renderer.submit(c);
-		renderer.setColour({ 0.4, 0.6, 0.0, 0.3 });
-		renderer.submit(d);
-		renderer.setColour({ 0.2, 0.8, 0.0, 1.0 });
-		renderer.submit(e);
-		renderer.setColour({ 0.0, 1.0, 0.0, 0.3 });
-		renderer.submit(f);
-		renderer.setColour({ 0.0, 0.8, 0.2, 0.3 });
-		renderer.submit(g);
-		renderer.setColour({ 0.0, 0.4, 0.4, 0.3 });
-		renderer.submit(h);
-		renderer.setColour({ 0.0, 0.2, 0.6, 1.0 });
-		renderer.submit(i);
+
+		renderer.setColour({ 1, 1, 1, 1 });
+		renderer.submit(&objects);
 
 		renderer.setColour({ 1, 1, 1, 0.5 });
 		renderer.submit(&fpsgroup);
@@ -105,7 +81,6 @@ int main(int argc, char* argv[]) {
 
 		clock.tick();
 		fpscounter->setString(std::to_string((int)clock.getFPS()) + " FPS");
-		//printf("%f FPS\n", clock.getFPS());
 	}
 
 	return 0;

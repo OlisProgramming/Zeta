@@ -35,7 +35,7 @@ namespace zeta {
 			}
 			glfwMakeContextCurrent(m_wnd);
 			glfwSetWindowUserPointer(m_wnd, this);
-			glfwSetWindowSizeCallback(m_wnd, windowResizeCallback);
+			glfwSetFramebufferSizeCallback(m_wnd, windowResizeCallback);
 			glfwSwapInterval(0);
 			
 			if (glewInit() != GLEW_OK) {
@@ -45,7 +45,8 @@ namespace zeta {
 				return;
 			}
 
-			(new input::InputInterface)->registerEvents(m_wnd);
+			new input::InputInterface;
+			input::InputInterface::inst->registerEvents(m_wnd);
 
 			printf("Zeta is using OpenGL %s\n", glGetString(GL_VERSION));
 
@@ -69,6 +70,7 @@ namespace zeta {
 		}
 
 		void Window::drawStart() {
+			input::InputInterface::inst->update();
 			glfwPollEvents();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}

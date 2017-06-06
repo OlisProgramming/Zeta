@@ -4,19 +4,15 @@ namespace zeta {
 	namespace util {
 
 		Timer::Timer() {
-			QueryPerformanceFrequency(&m_frequency);
-			QueryPerformanceCounter(&m_start);
+			reset();
 		}
 
 		void Timer::reset() {
-			QueryPerformanceCounter(&m_start);
+			m_start = hrclock::now();
 		}
 
 		float Timer::elapsed() {
-			LARGE_INTEGER end;
-			QueryPerformanceCounter(&end);
-			unsigned __int64 cycles = end.QuadPart - m_start.QuadPart;
-			return (float)cycles / (float)m_frequency.QuadPart;
+			return std::chrono::duration_cast<std::chrono::duration<float, std::milli>>(hrclock::now() - m_start).count() / 1000.f;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Windows.h>
+#include <chrono>
 
 namespace zeta {
 	namespace util {
@@ -8,8 +8,8 @@ namespace zeta {
 		class Timer {
 
 		private:
-			LARGE_INTEGER m_start;
-			LARGE_INTEGER m_frequency;
+			typedef std::chrono::high_resolution_clock hrclock;
+			std::chrono::time_point<hrclock> m_start;
 
 		public:
 			Timer();
