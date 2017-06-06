@@ -13,6 +13,7 @@
 #include "src\graphics\renderable\label.h"
 #include "src\graphics\shader\shader_basic.h"
 #include "src\util\fps_clock.h"
+#include "src\util\mathutil.h"
 
 #include <ft2build.h>
 #include <freetype\freetype.h>
@@ -50,6 +51,9 @@ int main(int argc, char* argv[]) {
 	Group2D fpsgroup({ 5, 20, 0 });
 	Label* fpscounter = new Label("100 FPS", { 0, 0, 400000.0f }, true);
 	fpsgroup.submit(fpscounter);
+
+	Label text("Hello, World!", { 400, 300, 50 });
+	Font fnt("font.ttf", 50);
 	
 	GLint texIDs[] = {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -64,6 +68,7 @@ int main(int argc, char* argv[]) {
 	bool a = false;
 
 	FPSClock clock;
+	Timer timer;
 	while (!wnd.shouldClose()) {
 		wnd.drawStart();
 
@@ -72,15 +77,28 @@ int main(int argc, char* argv[]) {
 		renderer.setColour({ 1, 1, 1, 1 });
 		renderer.submit(&objects);
 
+		renderer.setFont(nullptr);
 		renderer.setColour({ 1, 1, 1, 0.5 });
 		renderer.submit(&fpsgroup);
+
+		float t = timer.elapsed();
+		float r = clamp01(sinf(t));
+		float g = clamp01(sinf(t + 2*pi/3));
+		float b = clamp01(sinf(t + 4*pi/3));
+		renderer.setColour({ r, g, b, 1 });
+		renderer.setFont(&fnt);
+		renderer.submit(&text);
 
 		renderer.flushAll();
 
 		wnd.drawEnd();
 
 		clock.tick();
-		fpscounter->setString(std::to_string((int)clock.getFPS()) + " FPS");
+		std::string fps = std::to_string((int)clock.getFPS());
+		while (fps.length() < 5) {
+			fps = " " + fps;
+		}
+		fpscounter->setString(fps + " FPS");
 	}
 
 	return 0;

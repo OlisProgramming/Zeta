@@ -84,6 +84,9 @@
     <ClCompile Include="src\graphics\renderable\label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics\font\font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.h">
@@ -153,6 +156,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\graphics\renderable\label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\font\font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\util\mathutil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

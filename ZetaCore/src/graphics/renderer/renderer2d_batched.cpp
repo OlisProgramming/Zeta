@@ -35,11 +35,13 @@ namespace zeta {
 
 			// Initialise ftgl
 
-			m_fontAtlas = ftgl::texture_atlas_new(512, 512, 1);
+			/*m_fontAtlas = ftgl::texture_atlas_new(512, 512, 1);
 			m_font = ftgl::texture_font_new_from_file(m_fontAtlas, 15, "../res/fonts/font.ttf");
 
 			for (char a = 32; a < 126; ++a)  // Pre-initialise font data.
-				ftgl::texture_font_get_glyph(m_font, a);
+				ftgl::texture_font_get_glyph(m_font, a);*/
+
+			m_font = m_defaultfont = new Font("consola.ttf", 15);
 
 			setColour({1, 1, 1, 1});
 
@@ -72,7 +74,7 @@ namespace zeta {
 			m_vertexbuf = static_cast<VertexData*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 
 			m_textureSlots.clear();
-			m_textureSlots.push_back(m_fontAtlas->id);  // Force font texture to occupy sampler location 0.
+			m_textureSlots.push_back(m_font->getTextureAtlas()->id);  // Force font texture to occupy sampler location 0.
 		}
 
 		void Renderer2DBatched::submit(Renderable2D* renderable) {
@@ -100,7 +102,7 @@ namespace zeta {
 				float textureSlot = 0.0f;
 				bool found = false;
 				for (unsigned int i = 0; i < m_textureSlots.size(); ++i) {
-					if (m_textureSlots[i] == m_fontAtlas->id) {
+					if (m_textureSlots[i] == m_font->getTextureAtlas()->id) {
 						found = true;
 						textureSlot = (float)(i + 1);
 						break;
@@ -112,7 +114,7 @@ namespace zeta {
 						flush();
 						begin();
 					}
-					m_textureSlots.push_back(m_fontAtlas->id);
+					m_textureSlots.push_back(m_font->getTextureAtlas()->id);
 					textureSlot = (float)(m_textureSlots.size());
 				}
 
@@ -130,7 +132,7 @@ namespace zeta {
 				for (unsigned int i = 0; i < s.length(); ++i) {
 
 					char c = s[i];
-					ftgl::texture_glyph_t* glyph = ftgl::texture_font_get_glyph(m_font, c);
+					ftgl::texture_glyph_t* glyph = ftgl::texture_font_get_glyph(m_font->getFTGLFont(), c);
 					if (glyph != NULL) {
 
 						float x0 = pos.x + glyph->offset_x + offset;
@@ -260,10 +262,14 @@ namespace zeta {
 
 			// Draw translucent objects.
 			while (m_translucentRenderableList != nullptr) {
+				m_font = m_translucentRenderableList->data.font;
 				begin();
+
 				m_transformStack.push(m_translucentRenderableList->data.transform, false);
 				m_currentcol = m_translucentRenderableList->data.col;
+
 				submit(m_translucentRenderableList->self, true);
+
 				m_transformStack.pop();
 				flush();
 				RenderableData* a = m_translucentRenderableList;
@@ -275,7 +281,7 @@ namespace zeta {
 		void Renderer2DBatched::queueTranslucentRenderable(Renderable2D* renderable) {
 			RenderableData* rd = m_translucentRenderableList;
 			RenderableData* rdprev = nullptr;
-			RendererStateData data(m_transformStack.getMatrix(), m_currentcol);
+			RendererStateData data(m_transformStack.getMatrix(), m_currentcol, m_font);
 			
 			// This function manipulates the linked list implicitly defined by a chain of RenderableData objects.
 

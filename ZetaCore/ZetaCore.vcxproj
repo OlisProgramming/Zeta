@@ -138,6 +138,7 @@
     <ClCompile Include="src\graphics\buffer\buffer.cpp" />
     <ClCompile Include="src\graphics\buffer\index_buffer.cpp" />
     <ClCompile Include="src\graphics\buffer\vertex_array.cpp" />
+    <ClCompile Include="src\graphics\font\font.cpp" />
     <ClCompile Include="src\graphics\layer\layer.cpp" />
     <ClCompile Include="src\graphics\layer\map_layer.cpp" />
     <ClCompile Include="src\graphics\renderable\group2d.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\graphics\buffer\buffer.h" />
     <ClInclude Include="src\graphics\buffer\index_buffer.h" />
     <ClInclude Include="src\graphics\buffer\vertex_array.h" />
+    <ClInclude Include="src\graphics\font\font.h" />
     <ClInclude Include="src\graphics\renderable\group2d.h" />
     <ClInclude Include="src\graphics\layer\layer.h" />
     <ClInclude Include="src\graphics\layer\map_layer.h" />
@@ -181,6 +183,7 @@
     <ClInclude Include="src\util\fileutils.h" />
     <ClInclude Include="src\util\fps_clock.h" />
     <ClInclude Include="src\util\image_load.h" />
+    <ClInclude Include="src\util\mathutil.h" />
     <ClInclude Include="src\util\timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -2,6 +2,7 @@
 
 #include "renderer2d.h"
 #include <freetype-gl.h>
+#include "../font/font.h"
 
 namespace zeta {
 	namespace graphics {
@@ -20,7 +21,8 @@ namespace zeta {
 		struct RendererStateData {
 			glm::mat4 transform;
 			unsigned int col;
-			RendererStateData(glm::mat4& transform, unsigned int col) : transform(transform), col(col) {}
+			Font* font;
+			RendererStateData(glm::mat4& transform, unsigned int col, Font* font) : transform(transform), col(col), font(font) {}
 		};
 
 		struct RenderableData {
@@ -41,9 +43,10 @@ namespace zeta {
 			unsigned int m_currentcol;  // The current colour of the renderer. This 'dyes' the renderables this colour (white is normal colour)
 			std::vector<GLuint> m_textureSlots;
 			RenderableData* m_translucentRenderableList;
-			
-			ftgl::texture_atlas_t* m_fontAtlas;
-			ftgl::texture_font_t* m_font;
+			Font* m_font, *m_defaultfont;
+
+			//ftgl::texture_atlas_t* m_fontAtlas;
+			//ftgl::texture_font_t* m_font;
 			
 		public:
 			Renderer2DBatched(Shader* shader);
@@ -64,6 +67,19 @@ namespace zeta {
 				int b = (int)(col.z * 255);
 				int a = (int)(col.w * 255);
 				m_currentcol = a << 24 | b << 16 | g << 8 | r;
+			}
+
+			// Pass nullptr to set to default font.
+			inline void setFont(Font* font) {
+				if (m_font == font) {
+					return;
+				}
+				if (font == nullptr) {
+					font = m_defaultfont;
+				}
+				flush();
+				m_font = font;
+				begin();
 			}
 
 		private:
