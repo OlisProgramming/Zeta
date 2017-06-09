@@ -14,19 +14,13 @@
 #include "src\graphics\shader\shader_basic.h"
 #include "src\util\fps_clock.h"
 #include "src\util\mathutil.h"
-
-#include <ft2build.h>
-#include <freetype\freetype.h>
-#include <freetype-gl.h>
-#include <gorilla\ga.h>
-#include <gorilla\gau.h>
-
-#if 0
+#include "src\sound\sound_manager.h"
 
 int main(int argc, char* argv[]) {
 
 	using namespace zeta;
 	using namespace graphics;
+	using namespace sound;
 	using namespace util;
 
 	Window wnd("Zeta Engine", 800, 600);
@@ -69,7 +63,9 @@ int main(int argc, char* argv[]) {
 	shader->bind();
 	shader->setUniform1iv(shader->getUniformLocation("textures"), 32, texIDs);
 
-	bool a = false;
+	SoundManager::inst->add("mus.ogg");
+	SoundHandle* handle = SoundManager::inst->get("mus.ogg")->genHandle();
+	handle->play();
 
 	FPSClock clock;
 	Timer timer;
@@ -97,6 +93,13 @@ int main(int argc, char* argv[]) {
 
 		wnd.drawEnd();
 
+		if ((handle != nullptr) && (handle->stopped())) {
+			delete handle;
+			handle = nullptr;
+		}
+
+		printf("0x%x\n", handle);
+
 		clock.tick();
 		std::string fps = std::to_string((int)clock.getFPS());
 		while (fps.length() < 5) {
@@ -105,57 +108,8 @@ int main(int argc, char* argv[]) {
 		fpscounter->setString(fps + " FPS");
 	}
 
-	return 0;
-}
-
-#else
-
-static void setFlagAndDestroyOnFinish(ga_Handle* in_handle, void* in_context)
-{
-	gc_int32* flag = (gc_int32*)(in_context);
-	*flag = 1;
-	ga_handle_destroy(in_handle);
-}
-
-int main()
-{
-	gau_Manager* mgr;
-	ga_Mixer* mixer;
-	ga_Sound* sound;
-	ga_Handle* handle;
-	gau_SampleSourceLoop* loopSrc = 0;
-	gau_SampleSourceLoop** pLoopSrc = &loopSrc;
-	gc_int32 loop = 1;
-	gc_int32 quit = 0;
-
-	/* Initialize library + manager */
-	gc_initialize(0);
-	mgr = gau_manager_create();
-	mixer = gau_manager_mixer(mgr);
-
-	/* Create and play shared sound */
-	if (!loop)
-		pLoopSrc = 0;
-	sound = gau_load_sound_file("../res/sound/mus.ogg", "ogg");
-	handle = gau_create_handle_sound(mixer, sound, &setFlagAndDestroyOnFinish, &quit, pLoopSrc);
-	ga_handle_play(handle);
-
-	/* Bounded mix/queue/dispatch loop */
-	while (!quit)
-	{
-		gau_manager_update(mgr);
-		printf("%d / %d\n", ga_handle_tell(handle, GA_TELL_PARAM_CURRENT), ga_handle_tell(handle, GA_TELL_PARAM_TOTAL));
-		gc_thread_sleep(1);
-	}
-
-	/* Clean up sound */
-	ga_sound_release(sound);
-
-	/* Clean up library + manager */
-	gau_manager_destroy(mgr);
-	gc_shutdown();
+	delete handle;
+	SoundManager::inst->cleanup();
 
 	return 0;
 }
-
-#endif

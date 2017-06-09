@@ -15,7 +15,7 @@ namespace zeta {
 			unsigned int m_size;
 
 		public:
-			Font(std::string fname, unsigned int size);
+			Font(const std::string& fname, unsigned int size);
 
 			inline const std::string& getFname() const { return m_fname; }
 			inline const unsigned int getSize() const { return m_size; }

@@ -3,7 +3,7 @@
 namespace zeta {
 	namespace graphics {
 
-		Font::Font(std::string fname, unsigned int size) :
+		Font::Font(const std::string& fname, unsigned int size) :
 			m_fname(fname), m_size(size) {
 
 			m_texatlas = ftgl::texture_atlas_new(512, 512, 1);

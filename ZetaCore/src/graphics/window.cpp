@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../input/input_interface.h"
+#include "../sound/sound_manager.h"
 #include "renderer/renderer2d_batched.h"
 #include "renderable/static_sprite.h"
 
@@ -47,6 +48,7 @@ namespace zeta {
 
 			new input::InputInterface;
 			input::InputInterface::inst->registerEvents(m_wnd);
+			new sound::SoundManager;
 
 			printf("Zeta is using OpenGL %s\n", glGetString(GL_VERSION));
 
@@ -71,6 +73,7 @@ namespace zeta {
 
 		void Window::drawStart() {
 			input::InputInterface::inst->update();
+			sound::SoundManager::inst->update();
 			glfwPollEvents();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		}

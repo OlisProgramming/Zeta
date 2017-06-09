@@ -135,6 +135,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\sound\sound.cpp" />
+    <ClCompile Include="src\sound\sound_manager.cpp" />
     <ClCompile Include="src\graphics\buffer\buffer.cpp" />
     <ClCompile Include="src\graphics\buffer\index_buffer.cpp" />
     <ClCompile Include="src\graphics\buffer\vertex_array.cpp" />
@@ -160,6 +162,8 @@
     <ClCompile Include="src\util\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\sound\sound.h" />
+    <ClInclude Include="src\sound\sound_manager.h" />
     <ClInclude Include="src\graphics\buffer\buffer.h" />
     <ClInclude Include="src\graphics\buffer\index_buffer.h" />
     <ClInclude Include="src\graphics\buffer\vertex_array.h" />
