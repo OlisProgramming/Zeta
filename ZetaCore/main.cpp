@@ -26,8 +26,7 @@ int main(int argc, char* argv[]) {
 
 	Window wnd("Zeta Engine", 800, 600);
 
-	Texture tex("../res/textures/test.png");
-	Texture texa("../res/textures/testa.png");
+	Texture tex("../res/textures/texturepagetest.png");
 
 	ShaderBasic* shader = new ShaderBasic;
 	Renderer2DBatched renderer(shader);
@@ -38,14 +37,10 @@ int main(int argc, char* argv[]) {
 	shader->setUniformMat4(shader->getUniformLocation("matView"), view);
 
 	Group2D objects({0, 0, 0});
-	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), &texa));
-
-	Group2D* group = new Group2D(glm::translate(glm::mat4(), glm::vec3(400, 300, 0)));
-	group->submit(new Sprite(glm::vec3(-5, -20, 10), glm::vec2(10, 40), &tex));
-	group->submit(new Sprite(glm::vec3(-20, -5, 20), glm::vec2(40, 10), &tex));
-	objects.submit(group);
-
-	objects.submit(new Sprite(glm::vec3(690, 490, 5), glm::vec2(100, 100), &texa));
+	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), &tex, glm::vec2(0, 0.5), glm::vec2(0.5, 1)));
+	objects.submit(new Sprite(glm::vec3(690, 10, 0), glm::vec2(100, 100), &tex, glm::vec2(0.5, 0.5), glm::vec2(1, 1)));
+	objects.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100), &tex, glm::vec2(0.5, 0), glm::vec2(1, 0.5)));
+	objects.submit(new Sprite(glm::vec3(10, 490, 0), glm::vec2(100, 100), &tex, glm::vec2(0, 0), glm::vec2(0.5, 0.5)));
 
 	Group2D fpsgroup({ 5, 20, 0 });
 	Label* fpscounter = new Label("100 FPS", { 0, 0, 400000.0f }, true);

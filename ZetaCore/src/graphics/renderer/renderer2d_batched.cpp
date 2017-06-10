@@ -177,6 +177,8 @@ namespace zeta {
 
 			glm::vec3 pos = renderable->getPos();
 			glm::vec2 size = renderable->getSize();
+			glm::vec2 uvstart = renderable->getUVStart();
+			glm::vec2 uvend = renderable->getUVEnd();
 			GLuint texid = renderable->getTexID();
 
 			float textureSlot = 0.0f;
@@ -201,25 +203,25 @@ namespace zeta {
 			}
 
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos, 1.0);
-			m_vertexbuf->texCoord = glm::vec2(0, 0);
+			m_vertexbuf->texCoord = glm::vec2(uvstart.x, uvend.y);
 			m_vertexbuf->texID = textureSlot;
 			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y, pos.z, 1.0);
-			m_vertexbuf->texCoord = glm::vec2(1, 0);
+			m_vertexbuf->texCoord = uvend;
 			m_vertexbuf->texID = textureSlot;
 			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y+size.y, pos.z, 1.0);
-			m_vertexbuf->texCoord = glm::vec2(1, 1);
+			m_vertexbuf->texCoord = glm::vec2(uvend.x, uvstart.y);
 			m_vertexbuf->texID = textureSlot;
 			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
 			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x, pos.y+size.y, pos.z, 1.0);
-			m_vertexbuf->texCoord = glm::vec2(0, 1);
+			m_vertexbuf->texCoord = uvstart;
 			m_vertexbuf->texID = textureSlot;
 			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
