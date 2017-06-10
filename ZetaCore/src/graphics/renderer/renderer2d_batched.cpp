@@ -33,14 +33,6 @@ namespace zeta {
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 			glBindVertexArray(0);
 
-			// Initialise ftgl
-
-			/*m_fontAtlas = ftgl::texture_atlas_new(512, 512, 1);
-			m_font = ftgl::texture_font_new_from_file(m_fontAtlas, 15, "../res/fonts/font.ttf");
-
-			for (char a = 32; a < 126; ++a)  // Pre-initialise font data.
-				ftgl::texture_font_get_glyph(m_font, a);*/
-
 			m_font = m_defaultfont = new Font("consola.ttf", 15);
 
 			setColour({1, 1, 1, 1});

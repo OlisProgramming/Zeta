@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\graphics\font\font_manager.cpp" />
     <ClCompile Include="src\sound\sound.cpp" />
     <ClCompile Include="src\sound\sound_manager.cpp" />
     <ClCompile Include="src\graphics\buffer\buffer.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="src\util\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\graphics\font\font_manager.h" />
     <ClInclude Include="src\sound\sound.h" />
     <ClInclude Include="src\sound\sound_manager.h" />
     <ClInclude Include="src\graphics\buffer\buffer.h" />

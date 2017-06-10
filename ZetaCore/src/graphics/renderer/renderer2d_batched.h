@@ -3,6 +3,7 @@
 #include "renderer2d.h"
 #include <freetype-gl.h>
 #include "../font/font.h"
+#include "../font/font_manager.h"
 
 namespace zeta {
 	namespace graphics {
@@ -44,9 +45,6 @@ namespace zeta {
 			std::vector<GLuint> m_textureSlots;
 			RenderableData* m_translucentRenderableList;
 			Font* m_font, *m_defaultfont;
-
-			//ftgl::texture_atlas_t* m_fontAtlas;
-			//ftgl::texture_font_t* m_font;
 			
 		public:
 			Renderer2DBatched(Shader* shader);
@@ -80,6 +78,11 @@ namespace zeta {
 				flush();
 				m_font = font;
 				begin();
+			}
+
+			// If specified font does not exist, the renderer will use the default font (size 15 Consolas).
+			inline void setFont(const std::string& fname, unsigned int size) {
+				setFont(FontManager::inst->get(fname, size));
 			}
 
 		private:

@@ -11,6 +11,7 @@
 #include "src\graphics\renderable\sprite.h"
 #include "src\graphics\renderable\texture.h"
 #include "src\graphics\renderable\label.h"
+#include "src\graphics\font\font_manager.h"
 #include "src\graphics\shader\shader_basic.h"
 #include "src\util\fps_clock.h"
 #include "src\util\mathutil.h"
@@ -51,7 +52,7 @@ int main(int argc, char* argv[]) {
 	fpsgroup.submit(fpscounter);
 
 	Label text("Hello, World!", { 400, 300, 50 });
-	Font fnt("font.ttf", 50);
+	FontManager::inst->add("font.ttf", 50);
 	
 	GLint texIDs[] = {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -62,10 +63,6 @@ int main(int argc, char* argv[]) {
 
 	shader->bind();
 	shader->setUniform1iv(shader->getUniformLocation("textures"), 32, texIDs);
-
-	SoundManager::inst->add("mus.ogg");
-	SoundHandle* handle = SoundManager::inst->get("mus.ogg")->genHandle();
-	handle->play();
 
 	FPSClock clock;
 	Timer timer;
@@ -86,19 +83,12 @@ int main(int argc, char* argv[]) {
 		float g = clamp01(sinf(t + 2*pi/3));
 		float b = clamp01(sinf(t + 4*pi/3));
 		renderer.setColour({ r, g, b, 1 });
-		renderer.setFont(&fnt);
+		renderer.setFont("font.ttf", 50);
 		renderer.submit(&text);
 
 		renderer.flushAll();
 
 		wnd.drawEnd();
-
-		if ((handle != nullptr) && (handle->stopped())) {
-			delete handle;
-			handle = nullptr;
-		}
-
-		printf("0x%x\n", handle);
 
 		clock.tick();
 		std::string fps = std::to_string((int)clock.getFPS());
@@ -107,9 +97,6 @@ int main(int argc, char* argv[]) {
 		}
 		fpscounter->setString(fps + " FPS");
 	}
-
-	delete handle;
-	SoundManager::inst->cleanup();
 
 	return 0;
 }
