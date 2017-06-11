@@ -31,9 +31,7 @@ namespace zeta {
 			}
 		}
 
-		float FontManager::getTextWidth(const std::string& fontFname, unsigned int size, const std::string& text) {
-			Font* fnt = get(fontFname, size);
-			if (!fnt) return 0.0f;
+		float FontManager::getTextWidth(Font* fnt, const std::string& text) {
 
 			float width = 0.f;
 

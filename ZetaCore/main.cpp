@@ -45,9 +45,7 @@ int main(int argc, char* argv[]) {
 
 	Label text("Hello, World!", { 400, 300, 50 }, false);
 	FontManager::inst->add("font.ttf", 50);
-	glm::vec2 a(FontManager::inst->getTextWidth("font.ttf", 50, "Hello, World!") / 2.f, -25);
-	printf("%f, %f\n", a.x, a.y);
-	text.setPivot(a);
+	text.centreHoriz("font.ttf", 50);
 	
 	GLint texIDs[] = {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,

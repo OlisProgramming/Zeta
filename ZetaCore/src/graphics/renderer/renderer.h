@@ -91,6 +91,7 @@ namespace zeta {
 			}
 
 			inline Shader* getShader() { return m_shader; }
+			inline Font* getFont() { return m_font; }
 
 			inline void transformationPush(glm::mat4 mat, bool doOverride = false) { m_transformStack.push(mat, doOverride); }
 			inline void transformationPop() { m_transformStack.pop(); }
