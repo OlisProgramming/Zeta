@@ -1,6 +1,6 @@
 #pragma once
 
-#include "texture.h"
+#include "../texture/texture.h"
 #include "../buffer/buffer.h"
 #include "../buffer/index_buffer.h"
 #include "../buffer/vertex_array.h"

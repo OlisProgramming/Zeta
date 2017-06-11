@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "../input/input_interface.h"
 #include "../sound/sound_manager.h"
+#include "texture\texture_manager.h"
 #include "font\font_manager.h"
 #include "renderer/renderer2d_batched.h"
 #include "renderable/static_sprite.h"
@@ -52,6 +53,7 @@ namespace zeta {
 			input::InputInterface::inst->registerEvents(m_wnd);
 			new sound::SoundManager;
 			new FontManager;
+			new TextureManager;
 
 			printf("Zeta is using OpenGL %s\n", glGetString(GL_VERSION));
 
@@ -72,6 +74,7 @@ namespace zeta {
 			delete sound::SoundManager::inst;
 			FontManager::inst->cleanup();
 			delete FontManager::inst;
+			delete TextureManager::inst;
 
 			glfwDestroyWindow(m_wnd);
 			glfwTerminate();

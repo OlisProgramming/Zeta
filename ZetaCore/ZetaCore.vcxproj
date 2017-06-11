@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\include;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\include;C:\Users\Oliver\Documents\Programming\Libs\FreeType\include;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\RapidXML;C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\include;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\include;C:\Users\Oliver\Documents\Programming\Libs\FreeType\include;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\bin\win32\Release;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\lib;C:\Users\Oliver\Documents\Programming\Libs\FreeType\objs\vc2010\Win32;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\lib\Release\Win32;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\lib-vc2015;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
@@ -78,7 +78,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
-    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\include;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\include;C:\Users\Oliver\Documents\Programming\Libs\FreeType\include;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\RapidXML;C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\include;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\include;C:\Users\Oliver\Documents\Programming\Libs\FreeType\include;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\bin\win32\Release;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\lib;C:\Users\Oliver\Documents\Programming\Libs\FreeType\objs\vc2010\Win32;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\lib\Release\Win32;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
+    <ClCompile Include="src\graphics\texture\texture_manager.cpp" />
     <ClCompile Include="src\sound\sound.cpp" />
     <ClCompile Include="src\sound\sound_manager.cpp" />
     <ClCompile Include="src\graphics\buffer\buffer.cpp" />
@@ -149,7 +150,7 @@
     <ClCompile Include="src\graphics\renderable\renderable2d.cpp" />
     <ClCompile Include="src\graphics\renderable\sprite.cpp" />
     <ClCompile Include="src\graphics\renderable\static_sprite.cpp" />
-    <ClCompile Include="src\graphics\renderable\texture.cpp" />
+    <ClCompile Include="src\graphics\texture\texture.cpp" />
     <ClCompile Include="src\graphics\renderer\renderer2d_basic.cpp" />
     <ClCompile Include="src\graphics\renderer\renderer2d_batched.cpp" />
     <ClCompile Include="src\graphics\renderer\transformation_stack.cpp" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\font\font_manager.h" />
+    <ClInclude Include="src\graphics\texture\texture_manager.h" />
     <ClInclude Include="src\sound\sound.h" />
     <ClInclude Include="src\sound\sound_manager.h" />
     <ClInclude Include="src\graphics\buffer\buffer.h" />
@@ -177,7 +179,7 @@
     <ClInclude Include="src\graphics\renderable\renderable2d.h" />
     <ClInclude Include="src\graphics\renderable\sprite.h" />
     <ClInclude Include="src\graphics\renderable\static_sprite.h" />
-    <ClInclude Include="src\graphics\renderable\texture.h" />
+    <ClInclude Include="src\graphics\texture\texture.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d_basic.h" />
     <ClInclude Include="src\graphics\renderer\renderer2d_batched.h" />

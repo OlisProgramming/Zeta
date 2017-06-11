@@ -9,8 +9,8 @@
 #include "src\graphics\renderer\renderer2d_batched.h"
 #include "src\graphics\renderable\group2d.h"
 #include "src\graphics\renderable\sprite.h"
-#include "src\graphics\renderable\texture.h"
 #include "src\graphics\renderable\label.h"
+#include "src\graphics\texture\texture_manager.h"
 #include "src\graphics\font\font_manager.h"
 #include "src\graphics\shader\shader_basic.h"
 #include "src\util\fps_clock.h"
@@ -26,8 +26,6 @@ int main(int argc, char* argv[]) {
 
 	Window wnd("Zeta Engine", 800, 600);
 
-	Texture tex("../res/textures/texturepagetest.png");
-
 	ShaderBasic* shader = new ShaderBasic;
 	Renderer2DBatched renderer(shader);
 	shader->bind();
@@ -37,16 +35,16 @@ int main(int argc, char* argv[]) {
 	shader->setUniformMat4(shader->getUniformLocation("matView"), view);
 
 	Group2D objects({0, 0, 0});
-	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), &tex, glm::vec2(0, 0.5), glm::vec2(0.5, 1)));
-	objects.submit(new Sprite(glm::vec3(690, 10, 0), glm::vec2(100, 100), &tex, glm::vec2(0.5, 0.5), glm::vec2(1, 1)));
-	objects.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100), &tex, glm::vec2(0.5, 0), glm::vec2(1, 0.5)));
-	objects.submit(new Sprite(glm::vec3(10, 490, 0), glm::vec2(100, 100), &tex, glm::vec2(0, 0), glm::vec2(0.5, 0.5)));
+	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), "testa.png", false));
+	objects.submit(new Sprite(glm::vec3(690, 10, 0), glm::vec2(100, 100), "test.png", false));
+	objects.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100), "testa.png", false));
+	objects.submit(new Sprite(glm::vec3(10, 490, 0), glm::vec2(100, 100), "test.png", false));
 
 	Group2D fpsgroup({ 5, 20, 0 });
 	Label* fpscounter = new Label("100 FPS", { 0, 0, 400000.0f }, true);
 	fpsgroup.submit(fpscounter);
 
-	Label text("Hello, World!", { 400, 300, 50 });
+	Label text("Hello, World!", { 400, 300, 50 }, false);
 	FontManager::inst->add("font.ttf", 50);
 	
 	GLint texIDs[] = {
