@@ -1,9 +1,12 @@
 #pragma once
 
-#include "renderer2d.h"
+#include <glm\glm.hpp>
 #include <freetype-gl.h>
+#include "transformation_stack.h"
+#include "../renderable/renderable.h"
 #include "../font/font.h"
 #include "../font/font_manager.h"
+#include "../shader/shader.h"
 
 namespace zeta {
 	namespace graphics {
@@ -27,13 +30,13 @@ namespace zeta {
 		};
 
 		struct RenderableData {
-			Renderable2D* self;
+			Renderable* self;
 			RenderableData* next;
 			RendererStateData data;
-			RenderableData(Renderable2D* self, RendererStateData data) : self(self), next(nullptr), data(data) {}
+			RenderableData(Renderable* self, RendererStateData data) : self(self), next(nullptr), data(data) {}
 		};
 
-		class Renderer2DBatched : public Renderer2D {
+		class Renderer {
 
 		private:
 			GLuint m_vao;
@@ -45,18 +48,20 @@ namespace zeta {
 			std::vector<GLuint> m_textureSlots;
 			RenderableData* m_translucentRenderableList;
 			Font* m_font, *m_defaultfont;
+			Shader* m_shader;
+			TransformationStack m_transformStack;
 			
 		public:
-			Renderer2DBatched(Shader* shader);
-			~Renderer2DBatched();
+			Renderer(Shader* shader);
+			~Renderer();
 			static void init();
 
-			void begin() override;
-			void submit(Renderable2D* renderable) override;
+			void begin();
+			void submit(Renderable* renderable);
 		private:
-			void submit(Renderable2D* renderable, bool renderTranslucentImmediately);
+			void submit(Renderable* renderable, bool renderTranslucentImmediately);
 		public:
-			void flush() override;
+			void flush();
 			void flushAll();
 
 			inline void setColour(glm::vec4 col) {
@@ -85,8 +90,13 @@ namespace zeta {
 				setFont(FontManager::inst->get(fname, size));
 			}
 
+			inline Shader* getShader() { return m_shader; }
+
+			inline void transformationPush(glm::mat4 mat, bool doOverride = false) { m_transformStack.push(mat, doOverride); }
+			inline void transformationPop() { m_transformStack.pop(); }
+
 		private:
-			void queueTranslucentRenderable(Renderable2D* renderable);
+			void queueTranslucentRenderable(Renderable* renderable);
 		};
 	}
 }

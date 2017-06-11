@@ -5,9 +5,8 @@
 #include <glm\gtc\matrix_transform.hpp>
 
 #include "src\graphics\window.h"
-#include "src\graphics\renderable\static_sprite.h"
-#include "src\graphics\renderer\renderer2d_batched.h"
-#include "src\graphics\renderable\group2d.h"
+#include "src\graphics\renderer\renderer.h"
+#include "src\graphics\renderable\group.h"
 #include "src\graphics\renderable\sprite.h"
 #include "src\graphics\renderable\label.h"
 #include "src\graphics\texture\texture_manager.h"
@@ -27,20 +26,20 @@ int main(int argc, char* argv[]) {
 	Window wnd("Zeta Engine", 800, 600);
 
 	ShaderBasic* shader = new ShaderBasic;
-	Renderer2DBatched renderer(shader);
+	Renderer renderer(shader);
 	shader->bind();
 	glm::mat4 ortho = glm::ortho(0.0, 800.0, 600.0, 0.0, 0.1, 1000000.0);
 	glm::mat4 view = glm::translate(glm::mat4(), glm::vec3(0.f, 0.f, -500000.0f));
 	shader->setUniformMat4(shader->getUniformLocation("matProj"), ortho);
 	shader->setUniformMat4(shader->getUniformLocation("matView"), view);
 
-	Group2D objects({0, 0, 0});
+	Group objects({0, 0, 0});
 	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), "testa.png", false));
 	objects.submit(new Sprite(glm::vec3(690, 10, 0), glm::vec2(100, 100), "test.png", false));
 	objects.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100), "testa.png", false));
 	objects.submit(new Sprite(glm::vec3(10, 490, 0), glm::vec2(100, 100), "test.png", false));
 
-	Group2D fpsgroup({ 5, 20, 0 });
+	Group fpsgroup({ 5, 20, 0 });
 	Label* fpscounter = new Label("100 FPS", { 0, 0, 400000.0f }, true);
 	fpsgroup.submit(fpscounter);
 

@@ -1,14 +1,14 @@
-#include "renderer2d_batched.h"
-#include "../renderable/group2d.h"
+#include "renderer.h"
+#include "../renderable/group.h"
 #include "../renderable/label.h"
 
 namespace zeta {
 	namespace graphics {
 
-		IndexBuffer* Renderer2DBatched::m_ibo;
+		IndexBuffer* Renderer::m_ibo;
 
-		Renderer2DBatched::Renderer2DBatched(Shader* shader) :
-			Renderer2D(shader) {
+		Renderer::Renderer(Shader* shader) :
+			m_shader(shader) {
 			glGenVertexArrays(1, &m_vao);
 			glGenBuffers(1, &m_vbo);
 			
@@ -40,11 +40,12 @@ namespace zeta {
 			m_translucentRenderableList = nullptr;
 		}
 
-		Renderer2DBatched::~Renderer2DBatched() {
+		Renderer::~Renderer() {
 			glDeleteBuffers(1, &m_vbo);
+			delete m_shader;
 		}
 
-		void Renderer2DBatched::init() {
+		void Renderer::init() {
 			// Generate indices
 
 			GLushort indices[RENDERER_INDICES_SIZE];
@@ -61,7 +62,7 @@ namespace zeta {
 			m_ibo = new IndexBuffer(indices, RENDERER_INDICES_SIZE);
 		}
 
-		void Renderer2DBatched::begin() {
+		void Renderer::begin() {
 			glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 			m_vertexbuf = static_cast<VertexData*>(glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY));
 
@@ -69,11 +70,11 @@ namespace zeta {
 			m_textureSlots.push_back(m_font->getTextureAtlas()->id);  // Force font texture to occupy sampler location 0.
 		}
 
-		void Renderer2DBatched::submit(Renderable2D* renderable) {
+		void Renderer::submit(Renderable* renderable) {
 			submit(renderable, false);
 		}
 
-		void Renderer2DBatched::submit(Renderable2D* renderable, bool renderTranslucentImmediately) {
+		void Renderer::submit(Renderable* renderable, bool renderTranslucentImmediately) {
 
 			if (renderable->isTranslucent() && !renderTranslucentImmediately) {
 				queueTranslucentRenderable(renderable);
@@ -81,8 +82,8 @@ namespace zeta {
 			}
 
 			if (renderable->getType() == RenderableType::GROUP) {
-				m_transformStack.push((static_cast<Group2D*>(renderable))->getMatrix(), false);
-				for (Renderable2D* child : (static_cast<Group2D*>(renderable))->getChildren())
+				m_transformStack.push((static_cast<Group*>(renderable))->getMatrix(), false);
+				for (Renderable* child : (static_cast<Group*>(renderable))->getChildren())
 					submit(child);
 				m_transformStack.pop();
 				return;
@@ -229,7 +230,7 @@ namespace zeta {
 			m_indexcount += 6;
 		}
 
-		void Renderer2DBatched::flush() {
+		void Renderer::flush() {
 			// End batch
 			
 			glUnmapBuffer(GL_ARRAY_BUFFER);
@@ -251,7 +252,7 @@ namespace zeta {
 			m_indexcount = 0;
 		}
 
-		void Renderer2DBatched::flushAll() {
+		void Renderer::flushAll() {
 			flush();
 
 			// Draw translucent objects.
@@ -272,7 +273,7 @@ namespace zeta {
 			}
 		}
 
-		void Renderer2DBatched::queueTranslucentRenderable(Renderable2D* renderable) {
+		void Renderer::queueTranslucentRenderable(Renderable* renderable) {
 			RenderableData* rd = m_translucentRenderableList;
 			RenderableData* rdprev = nullptr;
 			RendererStateData data(m_transformStack.getMatrix(), m_currentcol, m_font);

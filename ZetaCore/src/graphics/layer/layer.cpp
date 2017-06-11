@@ -3,7 +3,7 @@
 namespace zeta {
 	namespace graphics {
 
-		Layer::Layer(Renderer2D* renderer, glm::mat4 projMat) :
+		Layer::Layer(Renderer* renderer, glm::mat4 projMat) :
 			m_renderer(renderer), m_projMat(projMat) {
 
 			m_renderer->getShader()->bind();
@@ -13,11 +13,11 @@ namespace zeta {
 
 		Layer::~Layer() {
 			delete m_renderer;
-			for (Renderable2D* renderable : m_renderables)
+			for (Renderable* renderable : m_renderables)
 				delete renderable;
 		}
 
-		void Layer::submit(Renderable2D* renderable) {
+		void Layer::submit(Renderable* renderable) {
 			m_renderables.push_back(renderable);
 		}
 
@@ -25,7 +25,7 @@ namespace zeta {
 			m_renderer->getShader()->bind();
 
 			m_renderer->begin();
-			for (Renderable2D* renderable : m_renderables) {
+			for (Renderable* renderable : m_renderables) {
 				m_renderer->submit(renderable);
 			}
 			m_renderer->flush();

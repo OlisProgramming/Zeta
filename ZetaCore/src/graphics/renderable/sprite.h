@@ -1,12 +1,12 @@
 #pragma once
 
-#include "renderable2d.h"
+#include "renderable.h"
 #include "../texture/texture_manager.h"
 
 namespace zeta {
 	namespace graphics {
 
-		class Sprite : public Renderable2D {
+		class Sprite : public Renderable {
 
 		public:
 			Sprite(glm::vec3 pos, glm::vec2 size, bool isTranslucent);

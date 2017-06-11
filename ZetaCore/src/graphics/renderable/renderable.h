@@ -18,12 +18,11 @@ namespace zeta {
 
 		enum class RenderableType {
 			SPRITE,
-			STATIC_SPRITE,
 			LABEL,
 			GROUP
 		};
 
-		class Renderable2D {
+		class Renderable {
 			
 		protected:
 			glm::vec3 m_pos;
@@ -34,7 +33,7 @@ namespace zeta {
 			bool m_isTranslucent;
 
 		public:
-			Renderable2D(glm::vec3 pos, glm::vec2 size);
+			Renderable(glm::vec3 pos, glm::vec2 size);
 
 			inline const glm::vec3& getPos() const { return m_pos; }
 			inline const glm::vec2& getSize() const { return m_size; }

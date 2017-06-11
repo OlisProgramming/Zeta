@@ -5,8 +5,6 @@ ZETA ENGINE TODO LIST
 - Batch some translucent sprites:
 	* everything on the same layer (z value) can be batched
 	* everything with non-intersecting AABBs can be batched
-- Make StaticSprite and Renderer2DBasic obsolete
-- Refactor Renderer2DBatched to just Renderer etc after doing previous bullet point
 - Add in some useful unit tests! The project can't just sit there for nothing.
 - Add a Level/Entity system
 	* the level should be an overridable class for each level

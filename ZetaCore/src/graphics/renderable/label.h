@@ -1,11 +1,11 @@
 #pragma once
 
-#include "renderable2d.h"
+#include "renderable.h"
 
 namespace zeta {
 	namespace graphics {
 
-		class Label : public Renderable2D {
+		class Label : public Renderable {
 
 		private:
 			std::string m_string;

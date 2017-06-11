@@ -6,8 +6,7 @@
 #include "../sound/sound_manager.h"
 #include "texture\texture_manager.h"
 #include "font\font_manager.h"
-#include "renderer/renderer2d_batched.h"
-#include "renderable/static_sprite.h"
+#include "renderer\renderer.h"
 
 namespace zeta {
 	namespace graphics {
@@ -63,8 +62,7 @@ namespace zeta {
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			
 			// Set up static IBOs
-			StaticSprite::init();
-			Renderer2DBatched::init();
+			Renderer::init();
 		}
 
 		Window::~Window() {
