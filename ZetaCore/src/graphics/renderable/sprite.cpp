@@ -16,12 +16,14 @@ namespace zeta {
 			m_isTranslucent = isTranslucent;
 		}
 
-		Sprite::Sprite(glm::vec3 pos, glm::vec2 size, const std::string& texture, bool isTranslucent) :
-			Renderable(pos, size) {
+		Sprite::Sprite(glm::vec3 pos, const std::string& texture, bool isTranslucent) :
+			Renderable(pos, glm::vec2(1, 1)) {
 			const TextureData& dat = TextureManager::inst->getTextureData(texture);
 			m_tex = TextureManager::inst->getPage(dat.page);
 			m_uvStart = dat.uvStart;
 			m_uvEnd = dat.uvEnd;
+			m_pivot = dat.pivot;
+			m_size = dat.size;
 			m_isTranslucent = isTranslucent;
 		}
 	}

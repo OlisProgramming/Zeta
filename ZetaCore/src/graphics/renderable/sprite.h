@@ -11,7 +11,7 @@ namespace zeta {
 		public:
 			Sprite(glm::vec3 pos, glm::vec2 size, bool isTranslucent);
 			Sprite(glm::vec3 pos, glm::vec2 size, Texture* tex, glm::vec2 uvStart, glm::vec2 uvEnd, bool isTranslucent);
-			Sprite(glm::vec3 pos, glm::vec2 size, const std::string& texture, bool isTranslucent);
+			Sprite(glm::vec3 pos, const std::string& texture, bool isTranslucent);
 			inline RenderableType getType() const override { return RenderableType::SPRITE; }
 		};
 	}

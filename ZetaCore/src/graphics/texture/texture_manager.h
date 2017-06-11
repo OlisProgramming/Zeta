@@ -11,6 +11,8 @@ namespace zeta {
 			unsigned int page;
 			glm::vec2 uvStart;
 			glm::vec2 uvEnd;
+			glm::vec2 size;
+			glm::vec2 pivot;
 		};
 
 		class TextureManager {

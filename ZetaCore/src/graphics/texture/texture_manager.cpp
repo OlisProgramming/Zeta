@@ -51,11 +51,21 @@ namespace zeta {
 				TextureData data;
 				data.page = page;
 
-				double x = (double)atoi(child->first_attribute("x")->value()) / width;
-				double y = (double)atoi(child->first_attribute("y")->value()) / height;
-				double w = (double)atoi(child->first_attribute("w")->value()) / width;
-				double h = (double)atoi(child->first_attribute("h")->value()) / height;
+				double x_normal = (double)atoi(child->first_attribute("x")->value());
+				double x = x_normal / width;
+				double y_normal = (double)atoi(child->first_attribute("y")->value());
+				double y = y_normal / height;
+				double w_normal = (double)atoi(child->first_attribute("w")->value());
+				double w = w_normal / width;
+				double h_normal = (double)atoi(child->first_attribute("h")->value());
+				double h = h_normal / height;
+
+				double px_normal = atof(child->first_attribute("pX")->value());
+				double py_normal = atof(child->first_attribute("pY")->value());
 				
+				data.size = { w_normal, h_normal };
+				data.pivot = { px_normal * w_normal, py_normal * h_normal };
+
 				data.uvStart = glm::vec2(x, 1-(y+h));
 				data.uvEnd = glm::vec2(x+w, 1-y);
 

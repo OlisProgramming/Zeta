@@ -90,6 +90,7 @@ namespace zeta {
 			}
 			else if (renderable->getType() == RenderableType::LABEL) {
 				Label* label = static_cast<Label*>(renderable);
+				glm::mat4& mat = label->getTransformationMatrix();
 				
 				// DRAW STRING
 				float textureSlot = 0.0f;
@@ -111,7 +112,6 @@ namespace zeta {
 					textureSlot = (float)(m_textureSlots.size());
 				}
 
-				glm::vec3 pos = renderable->getPos();
 				glm::vec2 size(512, 512);
 				std::string s = label->getString();
 
@@ -128,8 +128,8 @@ namespace zeta {
 					ftgl::texture_glyph_t* glyph = ftgl::texture_font_get_glyph(m_font->getFTGLFont(), c);
 					if (glyph != NULL) {
 
-						float x0 = pos.x + glyph->offset_x + offset;
-						float y0 = pos.y - glyph->offset_y;
+						float x0 = glyph->offset_x + offset;
+						float y0 = -glyph->offset_y;
 						float x1 = x0 + glyph->width;
 						float y1 = y0 + glyph->height;
 
@@ -140,25 +140,25 @@ namespace zeta {
 
 						offset += glyph->advance_x;
 
-						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x0, y0, pos.z, 1.0f);
+						m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(x0, y0, 0.0f, 1.0f));
 						m_vertexbuf->texCoord = glm::vec2(s0, t0);
 						m_vertexbuf->texID = textureSlot;
 						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
-						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x0, y1, pos.z, 1.0f);
+						m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(x0, y1, 0.0f, 1.0f));
 						m_vertexbuf->texCoord = glm::vec2(s0, t1);
 						m_vertexbuf->texID = textureSlot;
 						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
-						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x1, y1, pos.z, 1.0f);
+						m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(x1, y1, 0.0f, 1.0f));
 						m_vertexbuf->texCoord = glm::vec2(s1, t1);
 						m_vertexbuf->texID = textureSlot;
 						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
-						m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(x1, y0, pos.z, 1.0f);
+						m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(x1, y0, 0.0f, 1.0f));
 						m_vertexbuf->texCoord = glm::vec2(s1, t0);
 						m_vertexbuf->texID = textureSlot;
 						m_vertexbuf->col = m_currentcol;
@@ -176,11 +176,11 @@ namespace zeta {
 				begin();
 			}
 
-			glm::vec3 pos = renderable->getPos();
 			glm::vec2 size = renderable->getSize();
 			glm::vec2 uvstart = renderable->getUVStart();
 			glm::vec2 uvend = renderable->getUVEnd();
 			GLuint texid = renderable->getTexID();
+			glm::mat4 mat = renderable->getTransformationMatrix();
 
 			float textureSlot = 0.0f;
 			if (texid > 0) {
@@ -203,25 +203,25 @@ namespace zeta {
 				}
 			}
 
-			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos, 1.0);
+			m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(0.0, 0.0, 0.0, 1.0));
 			m_vertexbuf->texCoord = glm::vec2(uvstart.x, uvend.y);
 			m_vertexbuf->texID = textureSlot;
 			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
-			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y, pos.z, 1.0);
+			m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(size.x, 0.0, 0.0, 1.0));
 			m_vertexbuf->texCoord = uvend;
 			m_vertexbuf->texID = textureSlot;
 			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
-			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x+size.x, pos.y+size.y, pos.z, 1.0);
+			m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(size.x, size.y, 0.0, 1.0));
 			m_vertexbuf->texCoord = glm::vec2(uvend.x, uvstart.y);
 			m_vertexbuf->texID = textureSlot;
 			m_vertexbuf->col = m_currentcol;
 			++m_vertexbuf;
 			
-			m_vertexbuf->pos = m_transformStack.getMatrix() * glm::vec4(pos.x, pos.y+size.y, pos.z, 1.0);
+			m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(0.0, size.y, 0.0, 1.0));
 			m_vertexbuf->texCoord = uvstart;
 			m_vertexbuf->texID = textureSlot;
 			m_vertexbuf->col = m_currentcol;

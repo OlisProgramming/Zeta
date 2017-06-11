@@ -34,10 +34,10 @@ int main(int argc, char* argv[]) {
 	shader->setUniformMat4(shader->getUniformLocation("matView"), view);
 
 	Group objects({0, 0, 0});
-	objects.submit(new Sprite(glm::vec3(10, 10, 0), glm::vec2(100, 100), "testa.png", false));
-	objects.submit(new Sprite(glm::vec3(690, 10, 0), glm::vec2(100, 100), "test.png", false));
-	objects.submit(new Sprite(glm::vec3(690, 490, 0), glm::vec2(100, 100), "testa.png", false));
-	objects.submit(new Sprite(glm::vec3(10, 490, 0), glm::vec2(100, 100), "test.png", false));
+	objects.submit(new Sprite(glm::vec3(32, 32, 0), "testa.png", false));
+	objects.submit(new Sprite(glm::vec3(800-32, 32, 0), "test.png", false));
+	objects.submit(new Sprite(glm::vec3(800-32, 600-32, 0), "testa.png", false));
+	objects.submit(new Sprite(glm::vec3(32, 600-32, 0), "test.png", false));
 
 	Group fpsgroup({ 5, 20, 0 });
 	Label* fpscounter = new Label("100 FPS", { 0, 0, 400000.0f }, true);
@@ -45,6 +45,9 @@ int main(int argc, char* argv[]) {
 
 	Label text("Hello, World!", { 400, 300, 50 }, false);
 	FontManager::inst->add("font.ttf", 50);
+	glm::vec2 a(FontManager::inst->getTextWidth("font.ttf", 50, "Hello, World!") / 2.f, -25);
+	printf("%f, %f\n", a.x, a.y);
+	text.setPivot(a);
 	
 	GLint texIDs[] = {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -59,6 +62,7 @@ int main(int argc, char* argv[]) {
 	FPSClock clock;
 	Timer timer;
 	while (!wnd.shouldClose()) {
+		float t = timer.elapsed();
 		wnd.drawStart();
 
 		renderer.begin();
@@ -70,12 +74,13 @@ int main(int argc, char* argv[]) {
 		renderer.setColour({ 1, 1, 1, 0.5 });
 		renderer.submit(&fpsgroup);
 
-		float t = timer.elapsed();
 		float r = clamp01(sinf(t));
 		float g = clamp01(sinf(t + 2*pi/3));
 		float b = clamp01(sinf(t + 4*pi/3));
 		renderer.setColour({ r, g, b, 1 });
 		renderer.setFont("font.ttf", 50);
+		text.setScaleX(sinf(t));
+		text.setScaleY(cosf(t));
 		renderer.submit(&text);
 
 		renderer.flushAll();

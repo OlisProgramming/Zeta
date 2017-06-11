@@ -30,5 +30,21 @@ namespace zeta {
 				delete font;
 			}
 		}
+
+		float FontManager::getTextWidth(const std::string& fontFname, unsigned int size, const std::string& text) {
+			Font* fnt = get(fontFname, size);
+			if (!fnt) return 0.0f;
+
+			float width = 0.f;
+
+			for (unsigned int i = 0; i < text.length() - 1; ++i) {
+				ftgl::texture_glyph_t* glyph = ftgl::texture_font_get_glyph(fnt->getFTGLFont(), text[i]);
+				width += glyph->advance_x;
+			}
+			ftgl::texture_glyph_t* glyph = ftgl::texture_font_get_glyph(fnt->getFTGLFont(), text[text.length() - 1]);
+			width += glyph->width;
+
+			return width;
+		}
 	}
 }

@@ -20,6 +20,8 @@ namespace zeta {
 			void add(Font* font);
 			Font* get(const std::string& fname, unsigned int size);
 			void cleanup();
+
+			float getTextWidth(const std::string& fontFname, unsigned int size, const std::string& text);
 		};
 	}
 }
