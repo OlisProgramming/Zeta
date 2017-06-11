@@ -1,0 +1,22 @@
+ZETA ENGINE TODO LIST
+
+- Rotatable and scalable sprites
+- Add a font queue (like the translucent queue) to avoid flushing the renderer every single font change
+- Batch some translucent sprites:
+	* everything on the same layer (z value) can be batched
+	* everything with non-intersecting AABBs can be batched
+- Make StaticSprite and Renderer2DBasic obsolete
+- Refactor Renderer2DBatched to just Renderer etc after doing previous bullet point
+- Add in some useful unit tests! The project can't just sit there for nothing.
+- Add a Level/Entity system
+	* the level should be an overridable class for each level
+	* entities should be event-based
+		- four initialisation funtions (ctor, pre-init, init, post-init)
+		- step function called at 60Hz
+		- render function called as often as possible
+	* a struct containing useful globallly-accessible data to be passed around in all or most of these events
+	* entities create their own renderables
+	* renderer is passed around the events
+- Use Tiled editor (or similar) to create an interface for making levels
+- Particle engine
+- Primitive rendering
