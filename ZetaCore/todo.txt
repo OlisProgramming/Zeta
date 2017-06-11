@@ -1,6 +1,5 @@
 ZETA ENGINE TODO LIST
 
-- Rotatable and scalable sprites
 - Add a font queue (like the translucent queue) to avoid flushing the renderer every single font change
 - Batch some translucent sprites:
 	* everything on the same layer (z value) can be batched
