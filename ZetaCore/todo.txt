@@ -1,8 +1,7 @@
 ZETA ENGINE TODO LIST
 
 - Add a font queue (like the translucent queue) to avoid flushing the renderer every single font change
-- Batch some translucent sprites:
-	* everything on the same layer (z value) can be batched
+- Batch some translucent sprites: (will do if becomes a problem)
 	* everything with non-intersecting AABBs can be batched
 - Add in some useful unit tests! The project can't just sit there for nothing.
 - Add a Level/Entity system

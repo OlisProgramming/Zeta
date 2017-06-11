@@ -257,19 +257,22 @@ namespace zeta {
 
 			// Draw translucent objects.
 			while (m_translucentRenderableList != nullptr) {
+				float z = m_translucentRenderableList->self->getPos().z;
 				m_font = m_translucentRenderableList->data.font;
 				begin();
 
 				m_transformStack.push(m_translucentRenderableList->data.transform, false);
 				m_currentcol = m_translucentRenderableList->data.col;
 
-				submit(m_translucentRenderableList->self, true);
+				do {
+					submit(m_translucentRenderableList->self, true);
+					RenderableData* a = m_translucentRenderableList;
+					m_translucentRenderableList = m_translucentRenderableList->next;
+					delete a;
+				} while (m_translucentRenderableList != nullptr && m_translucentRenderableList->self->getPos().z == z);
 
 				m_transformStack.pop();
 				flush();
-				RenderableData* a = m_translucentRenderableList;
-				m_translucentRenderableList = m_translucentRenderableList->next;
-				delete a;
 			}
 		}
 
