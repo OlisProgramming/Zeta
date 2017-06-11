@@ -11,7 +11,11 @@ namespace zeta {
 		TextureManager::TextureManager() {
 			inst = this;
 			
-			genPage(0);
+			unsigned int page = 0;
+			while (util::fileExists("../res/textures/page" + std::to_string(page) + ".xml")) {
+				genPage(page);
+				++page;
+			}
 		}
 
 		TextureManager::~TextureManager() {

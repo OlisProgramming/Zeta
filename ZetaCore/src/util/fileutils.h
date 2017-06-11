@@ -7,5 +7,7 @@ namespace zeta {
 
 		std::string readFileText(const char* path);
 		// TODO readFileBin?
+
+		bool fileExists(const std::string& path);
 	}
 }

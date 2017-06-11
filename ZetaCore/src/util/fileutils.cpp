@@ -17,5 +17,15 @@ namespace zeta {
 			delete[] data;
 			return output;
 		}
+
+		bool fileExists(const std::string& path) {
+			if (FILE *file = fopen(path.c_str(), "r")) {
+				fclose(file);
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 	}
 }
