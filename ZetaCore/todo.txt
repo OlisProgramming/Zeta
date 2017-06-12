@@ -4,21 +4,26 @@ ZETA ENGINE TODO LIST
 - Batch some translucent sprites: (will do if becomes a problem)
 	* everything with non-intersecting AABBs can be batched
 - Add in some useful unit tests! The project can't just sit there for nothing.
-- Add a Level/Entity system
-	* the level should be an overridable class for each level
-	* entities should be event-based
-		- four initialisation funtions (ctor, pre-init, init, post-init)
-		- step function called at 60Hz
-		- render function called as often as possible
-	* a struct containing useful globallly-accessible data to be passed around in all or most of these events
-	* entities create their own renderables
-	* renderer is passed around the events
-- Use Tiled editor (or similar) to create an interface for making levels
-- Particle engine
+- Use Tiled editor (https://thorbjorn.itch.io/tiled) to create an interface for making levels
+- Particle engine (attractors, deflectors, physics, automatic creation of new particles, automatic deletion of dead particles etc)
 - Primitive rendering
-- Cameras
+- Cameras, fullscreen, fixed aspect ratio with black bars on side
 - Make a forget() method on sounds that sends a pointer to the SoundManager which will automatically
   destroy it when it is done playing so it does not need to be manually managed
 - Put the texture array initialisation code (setting the uniform array { 0, 1, 2 ... }) in the shader itself
 - Add a default Renderer constructor that uses a ShaderBasic
 - Implement level time and level frames in GlobalData / main function
+- Implement useful builtin behaviours e.g. collision
+- Functions in Entity to search for a specific behaviour
+- Functions in Level to:
+	* get all Entities currently stored as a const std::vector<Entity*>&
+	* remove an Entity
+	* test for (AABB?) collisions (possibly separate this into a physics namespace)
+	* switch level
+	* save/load game data
+- Read tile data (as opposed to object data) from Tiled (.TMX) file
+
+POSSIBLE FUTURE ADD-ONS
+
+- A 'path' system by using a Tiled polyline on an object layer, where entities can move along a path
+- Stereo sound
