@@ -19,3 +19,6 @@ ZETA ENGINE TODO LIST
 - Cameras
 - Make a forget() method on sounds that sends a pointer to the SoundManager which will automatically
   destroy it when it is done playing so it does not need to be manually managed
+- Put the texture array initialisation code (setting the uniform array { 0, 1, 2 ... }) in the shader itself
+- Add a default Renderer constructor that uses a ShaderBasic
+- Implement level time and level frames in GlobalData / main function

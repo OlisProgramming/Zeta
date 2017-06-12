@@ -135,6 +135,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\entity\entity.cpp" />
+    <ClCompile Include="src\entity\sprite_render_behaviour.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
     <ClCompile Include="src\graphics\texture\texture_manager.cpp" />
     <ClCompile Include="src\level\global_data.cpp" />
@@ -165,7 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\entity\behaviour.h" />
+    <ClInclude Include="src\entity\behaviours_builtin.h" />
     <ClInclude Include="src\entity\entity.h" />
+    <ClInclude Include="src\entity\sprite_render_behaviour.h" />
     <ClInclude Include="src\level\global_data.h" />
     <ClInclude Include="src\graphics\font\font_manager.h" />
     <ClInclude Include="src\graphics\texture\texture_manager.h" />

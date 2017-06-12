@@ -9,11 +9,18 @@
 namespace zeta {
 	namespace entity {
 
+		class Entity;
+		
+		using namespace graphics;
+
 		class Behaviour {
+
+		protected:
+			Entity* m_parent;
 
 		public:
 			// Do minimal work in constructor, as it is not certain all level objects are there.
-			Behaviour() {}
+			Behaviour(Entity* parent) : m_parent(parent) {}
 
 			// All initial level objects are defined to exist during these events.
 			// Extra 'supplement' objects should be created during preInit,
@@ -34,9 +41,9 @@ namespace zeta {
 			// every frame should be done here (the rest can go in tick())
 			// The renderer is passed to these functions and is not stored globally
 			// because otherwise init and tick could actually render things.
-			virtual void  preRender(graphics::Renderer& renderer) {}
-			virtual void     Render(graphics::Renderer& renderer) {}
-			virtual void postRender(graphics::Renderer& renderer) {}
+			virtual void  preRender(Renderer& renderer) {}
+			virtual void     render(Renderer& renderer) {}
+			virtual void postRender(Renderer& renderer) {}
 		};
 	}
 }

@@ -12,6 +12,9 @@
 #include "src\graphics\texture\texture_manager.h"
 #include "src\graphics\font\font_manager.h"
 #include "src\graphics\shader\shader_basic.h"
+#include "src\level\level.h"
+#include "src\level\global_data.h"
+#include "src\entity\behaviours_builtin.h"
 #include "src\util\fps_clock.h"
 #include "src\util\mathutil.h"
 #include "src\sound\sound_manager.h"
@@ -22,6 +25,8 @@ int main(int argc, char* argv[]) {
 	using namespace graphics;
 	using namespace sound;
 	using namespace util;
+	using namespace entity;
+	using namespace level;
 
 	Window wnd("Zeta Engine", 800, 600);
 
@@ -33,19 +38,7 @@ int main(int argc, char* argv[]) {
 	shader->setUniformMat4(shader->getUniformLocation("matProj"), ortho);
 	shader->setUniformMat4(shader->getUniformLocation("matView"), view);
 
-	Group objects({0, 0, 0});
-	objects.submit(new Sprite(glm::vec3(32, 32, 0), "testa.png", false));
-	objects.submit(new Sprite(glm::vec3(800-32, 32, 0), "test.png", false));
-	objects.submit(new Sprite(glm::vec3(800-32, 600-32, 0), "testa.png", false));
-	objects.submit(new Sprite(glm::vec3(32, 600-32, 0), "test.png", false));
-
-	Group fpsgroup({ 5, 20, 0 });
-	Label* fpscounter = new Label("100 FPS", { 0, 0, 400000.0f }, true);
-	fpsgroup.submit(fpscounter);
-
-	Label text("Hello, World!", { 400, 300, 50 }, false);
-	FontManager::inst->add("font.ttf", 50);
-	text.centreHoriz("font.ttf", 50);
+	Label fpscounter("100 FPS", { 5, 20, 400000.0f }, true);
 	
 	GLint texIDs[] = {
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -57,32 +50,47 @@ int main(int argc, char* argv[]) {
 	shader->bind();
 	shader->setUniform1iv(shader->getUniformLocation("textures"), 32, texIDs);
 
+
+	///////
+
+	Level* level = new Level;
+
+	Entity* ent = new Entity({ 0, 0, 0 });
+	ent->addBehaviour(new SpriteRenderBehaviour(ent, "test.png"));
+
+	level->addEntity(ent);
+
+	///////
+
+
 	FPSClock clock;
 	Timer timer;
+	unsigned long ticks = 0L;
+	float elapsedTime = 0.f;
+	float lastElapsedTime = 0.f;
 	while (!wnd.shouldClose()) {
-		float t = timer.elapsed();
+		
+		elapsedTime = timer.elapsed();
+
+		GlobalData::inst->level = level;
+		GlobalData::inst->totalTime = elapsedTime;
+		GlobalData::inst->deltaTime = elapsedTime - lastElapsedTime;
+
+		// Level tick
+		float ticksShouldHaveDone = elapsedTime * 60.f;
+		while (ticks < ticksShouldHaveDone) {
+			GlobalData::inst->totalTicks = ++ticks;
+			level->tick();
+		}
+
+
 		wnd.drawStart();
-
 		renderer.begin();
-
 		renderer.setColour({ 1, 1, 1, 1 });
-		renderer.submit(&objects);
-
-		renderer.setFont(nullptr);
+		level->render(renderer);
 		renderer.setColour({ 1, 1, 1, 0.5 });
-		renderer.submit(&fpsgroup);
-
-		float r = clamp01(sinf(t));
-		float g = clamp01(sinf(t + 2*pi/3));
-		float b = clamp01(sinf(t + 4*pi/3));
-		renderer.setColour({ r, g, b, 1 });
-		renderer.setFont("font.ttf", 50);
-		text.setScaleX(sinf(t));
-		text.setScaleY(cosf(t));
-		renderer.submit(&text);
-
+		renderer.submit(&fpscounter);
 		renderer.flushAll();
-
 		wnd.drawEnd();
 
 		clock.tick();
@@ -90,8 +98,12 @@ int main(int argc, char* argv[]) {
 		while (fps.length() < 5) {
 			fps = " " + fps;
 		}
-		fpscounter->setString(fps + " FPS");
+		fpscounter.setString(fps + " FPS");
+
+		lastElapsedTime = elapsedTime;
 	}
+
+	delete level;
 
 	return 0;
 }

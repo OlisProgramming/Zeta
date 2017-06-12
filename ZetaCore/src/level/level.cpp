@@ -1,7 +1,15 @@
 #include "level.h"
 
 namespace zeta {
-	namespace entity {
+	namespace level {
 
+		Level::Level() {
+		}
+
+		Level::~Level() {
+			for (Entity* ent : m_entities) {
+				delete ent;
+			}
+		}
 	}
 }

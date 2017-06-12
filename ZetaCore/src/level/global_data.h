@@ -1,9 +1,15 @@
 #pragma once
 
+#include "level.h"
+
 namespace zeta {
 	namespace level {
 
 		struct GlobalData {
+
+			GlobalData() {
+				inst = this;
+			}
 
 			static GlobalData* inst;
 
@@ -23,6 +29,9 @@ namespace zeta {
 			// The total number of seconds between this frame and the last.
 			// Use in render events, not tick events.
 			float deltaTime;
+
+			// A pointer to the current level. Used for entity creation etc.
+			Level* level;
 		};
 	}
 }
