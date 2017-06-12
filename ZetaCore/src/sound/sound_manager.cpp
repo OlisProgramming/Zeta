@@ -31,6 +31,19 @@ namespace zeta {
 
 		void SoundManager::update() {
 			gau_manager_update(m_gorillaManager);
+			std::vector<SoundHandle*> toDelete;
+			for (SoundHandle* handle : m_automaticallyDeletedHandles) {
+				if (handle->stopped()) {
+					toDelete.push_back(handle);
+				}
+			}
+			while (toDelete.size() > 0) {
+				SoundHandle* handle = toDelete[toDelete.size() - 1];
+				m_automaticallyDeletedHandles.erase(handle);
+				delete handle;
+				puts("Deleted sound handle!");
+				toDelete.pop_back();
+			}
 		}
 
 		void SoundManager::cleanup() {

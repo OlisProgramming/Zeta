@@ -60,6 +60,9 @@ int main(int argc, char* argv[]) {
 
 	level->addEntity(ent);
 
+	SoundManager::inst->add("mus.ogg");
+	SoundManager::inst->get("mus.ogg")->genHandle()->playAndForget();
+
 	///////
 
 

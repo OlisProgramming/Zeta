@@ -52,6 +52,15 @@ namespace zeta {
 				if (m_gorillaHandle != nullptr)
 					ga_handle_destroy(m_gorillaHandle);
 			}
+
+			// Handle now automatically destroys itself on sound finish.
+			// Do not destroy this handle manually after calling forget()!
+			void forget();
+
+			inline void playAndForget() {
+				play();
+				forget();
+			}
 		};
 	}
 }

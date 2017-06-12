@@ -41,5 +41,9 @@ namespace zeta {
 			m_loop = false;
 			m_loopsrc = 0;
 		}
+
+		void SoundHandle::forget() {
+			SoundManager::inst->autoDelete(this);
+		}
 	}
 }
