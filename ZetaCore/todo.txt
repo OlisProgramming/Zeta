@@ -16,3 +16,6 @@ ZETA ENGINE TODO LIST
 - Use Tiled editor (or similar) to create an interface for making levels
 - Particle engine
 - Primitive rendering
+- Cameras
+- Make a forget() method on sounds that sends a pointer to the SoundManager which will automatically
+  destroy it when it is done playing so it does not need to be manually managed

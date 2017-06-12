@@ -137,6 +137,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
     <ClCompile Include="src\graphics\texture\texture_manager.cpp" />
+    <ClCompile Include="src\level\global_data.cpp" />
+    <ClCompile Include="src\level\level.cpp" />
     <ClCompile Include="src\sound\sound.cpp" />
     <ClCompile Include="src\sound\sound_manager.cpp" />
     <ClCompile Include="src\graphics\buffer\buffer.cpp" />
@@ -162,8 +164,12 @@
     <ClCompile Include="src\util\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\entity\behaviour.h" />
+    <ClInclude Include="src\entity\entity.h" />
+    <ClInclude Include="src\level\global_data.h" />
     <ClInclude Include="src\graphics\font\font_manager.h" />
     <ClInclude Include="src\graphics\texture\texture_manager.h" />
+    <ClInclude Include="src\level\level.h" />
     <ClInclude Include="src\sound\sound.h" />
     <ClInclude Include="src\sound\sound_manager.h" />
     <ClInclude Include="src\graphics\buffer\buffer.h" />
