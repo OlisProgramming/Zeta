@@ -11,7 +11,6 @@ ZETA ENGINE TODO LIST
 - Add a default Renderer constructor that uses a ShaderBasic
 - Implement level time and level frames in GlobalData / main function
 - Implement useful builtin behaviours e.g. collision
-- Functions in Entity to search for a specific behaviour
 - Functions in Level to:
 	* test for (AABB?) collisions (possibly separate this into a physics namespace)
 - Create a Game class to:

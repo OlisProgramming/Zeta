@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
 	shader->bind();
 	shader->setUniform1iv(shader->getUniformLocation("textures"), 32, texIDs);
 
-	BEHAVIOUR_REGISTER(SpriteRenderBehaviour);
+	ZETA_BEHAVIOUR_REGISTER(SpriteRenderBehaviour);
 
 	///////
 

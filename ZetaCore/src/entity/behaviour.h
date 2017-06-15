@@ -15,7 +15,7 @@ namespace zeta {
 		
 		using namespace graphics;
 
-		// All behaviours must create a static void method called generate with the signature (Entity* parent, const std::vector<std::string>& params),
+		// All behaviours must create a static method called generate with the signature (Entity* parent, const std::vector<std::string>& params),
 		// otherwise the BehaviourFactory will not recognise it.
 		class Behaviour {
 
@@ -25,6 +25,9 @@ namespace zeta {
 		public:
 			// Do minimal work in constructor, as it is not certain all level objects are there.
 			Behaviour(Entity* parent) : m_parent(parent) {}
+
+			// Automatically overriden by ZETA_BEHAVIOUR_CLASS_BODY.
+			virtual std::string getClassName() = 0;
 
 			// All initial level objects are defined to exist during these events.
 			// Extra 'supplement' objects should be created during preInit,
@@ -49,5 +52,11 @@ namespace zeta {
 			virtual void     render(Renderer& renderer) {}
 			virtual void postRender(Renderer& renderer) {}
 		};
+
+#define ZETA_BEHAVIOUR_CLASS_BODY(className) \
+public: \
+	static className* generate(Entity* parent, const std::vector<std::string>& params); \
+	inline std::string getClassName() override { return #className; }
+
 	}
 }

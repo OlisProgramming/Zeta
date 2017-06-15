@@ -5,6 +5,15 @@
 namespace zeta {
 	namespace entity {
 
+		Behaviour* Entity::getBehaviour(const std::string& behaviourClassName) {
+			for (Behaviour* behaviour : m_behaviours) {
+				if (behaviour->getClassName() == behaviourClassName) {
+					return behaviour;
+				}
+			}
+			return nullptr;
+		}
+
 		void Entity:: preInit() { for (Behaviour* behaviour : m_behaviours) behaviour->preInit(); }
 		void Entity::    init() { for (Behaviour* behaviour : m_behaviours) behaviour->init(); }
 		void Entity::postInit() { for (Behaviour* behaviour : m_behaviours) behaviour->postInit(); }
