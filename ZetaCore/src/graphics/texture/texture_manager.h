@@ -31,7 +31,15 @@ namespace zeta {
 		public:
 			TextureManager();
 			~TextureManager();
-			inline const TextureData& getTextureData(const std::string& name) { return m_textures.at(name); }
+			inline const TextureData& getTextureData(const std::string& name) {
+				auto it = m_textures.find(name);
+				if (it == m_textures.end()) {
+					throw std::runtime_error("Texture file " + name + " does not exist!");
+				}
+				else {
+					return it->second;
+				}
+			}
 			inline Texture* getPage(unsigned int page) const { return m_pages[page]; }
 		private:
 			void genPage(unsigned int page);

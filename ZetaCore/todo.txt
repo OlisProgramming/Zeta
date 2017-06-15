@@ -16,7 +16,6 @@ ZETA ENGINE TODO LIST
 - Create a Game class to:
 	* switch level
 	* save/load game data
-- Make Texture throw an error when texture file does not exist
 
 POSSIBLE FUTURE ADD-ONS
 

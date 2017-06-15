@@ -1,12 +1,18 @@
 #include "texture.h"
 
 #include "../../util/image_load.h"
+#include "../../util/fileutils.h"
 
 namespace zeta {
 	namespace graphics {
 
 		Texture::Texture(std::string path) :
 			m_fname(path) {
+
+			if (!util::fileExists(path)) {
+				throw std::runtime_error("Texture file " + path + " does not exist!");
+			}
+
 			FIBITMAP* dib;
 			util::IMAGE_DATA pixels = util::loadImage(path.c_str(), m_width, m_height, &dib);
 			//printf("Texture dimensions: %dx%d\n", m_width, m_height);
