@@ -33,14 +33,20 @@ namespace zeta {
 			for (unsigned int i = 0; i < BUTTONS_MAX; ++i) {
 				m_buttons[i].lastframe = m_buttons[i].thisframe;
 			}
+			for (unsigned int i = 0; i < KEYS_MAX; ++i) {
+				m_keys[i].thisframe = m_keys[i].tempframe;
+			}
+			for (unsigned int i = 0; i < BUTTONS_MAX; ++i) {
+				m_buttons[i].thisframe = m_buttons[i].tempframe;
+			}
 		}
 
 		void windowKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-			InputInterface::inst->m_keys[key].thisframe = static_cast<bool>(action != GLFW_RELEASE);
+			InputInterface::inst->m_keys[key].tempframe = static_cast<bool>(action != GLFW_RELEASE);
 		}
 
 		void windowBtnCallback(GLFWwindow* window, int button, int action, int mods) {
-			InputInterface::inst->m_buttons[button].thisframe = static_cast<bool>(action != GLFW_RELEASE);
+			InputInterface::inst->m_buttons[button].tempframe = static_cast<bool>(action != GLFW_RELEASE);
 		}
 
 		void windowCursorPosCallback(GLFWwindow* window, double xpos, double ypos) {

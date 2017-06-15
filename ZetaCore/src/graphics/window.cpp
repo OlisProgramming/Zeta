@@ -86,7 +86,6 @@ namespace zeta {
 		}
 
 		void Window::drawStart() {
-			input::InputInterface::inst->update();
 			sound::SoundManager::inst->update();
 			glfwPollEvents();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -74,10 +74,10 @@ int main(int argc, char* argv[]) {
 		// Level tick
 		float ticksShouldHaveDone = elapsedTime * 60.f;
 		while (ticks < ticksShouldHaveDone) {
+			input::InputInterface::inst->update();
 			GlobalData::inst->totalTicks = ++ticks;
 			level->tick();
 		}
-
 
 		wnd.drawStart();
 		renderer.begin();

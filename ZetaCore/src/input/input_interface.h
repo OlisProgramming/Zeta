@@ -11,6 +11,7 @@ namespace zeta {
 		struct KeyData {
 			bool thisframe : 1;  // Using bitfields to save space
 			bool lastframe : 1;
+			bool tempframe : 1;
 		};
 
 		class InputInterface {
