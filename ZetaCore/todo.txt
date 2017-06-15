@@ -18,6 +18,7 @@ ZETA ENGINE TODO LIST
 	* test for (AABB?) collisions (possibly separate this into a physics namespace)
 	* switch level
 	* save/load game data
+- Make Texture throw an error when texture file does not exist
 
 POSSIBLE FUTURE ADD-ONS
 

@@ -15,6 +15,7 @@
 #include "src\level\level.h"
 #include "src\level\global_data.h"
 #include "src\entity\behaviours_builtin.h"
+#include "src\entity\behaviour_factory.h"
 #include "src\util\fps_clock.h"
 #include "src\util\mathutil.h"
 #include "src\sound\sound_manager.h"
@@ -50,10 +51,13 @@ int main(int argc, char* argv[]) {
 	shader->bind();
 	shader->setUniform1iv(shader->getUniformLocation("textures"), 32, texIDs);
 
+	BEHAVIOUR_REGISTER(SpriteRenderBehaviour);
 
 	///////
 
 	Level* level = new Level("test.tmx");
+	Entity* ent = new Entity({ 0, 0, 0 });
+	ent->addBehaviour(BehaviourFactory::inst->generate("SpriteRenderBehaviour", ent, "test.png false"));
 
 	///////
 
@@ -82,6 +86,7 @@ int main(int argc, char* argv[]) {
 		wnd.drawStart();
 		renderer.begin();
 		renderer.setColour({ 1, 1, 1, 1 });
+		ent->render(renderer);
 		level->render(renderer);
 		renderer.setColour({ 1, 1, 1, 0.5 });
 		renderer.submit(&fpscounter);

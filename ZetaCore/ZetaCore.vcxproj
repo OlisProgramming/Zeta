@@ -135,6 +135,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\entity\behaviour_factory.cpp" />
     <ClCompile Include="src\entity\entity.cpp" />
     <ClCompile Include="src\entity\sprite_render_behaviour.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="src\entity\behaviour.h" />
     <ClInclude Include="src\entity\behaviours_builtin.h" />
+    <ClInclude Include="src\entity\behaviour_factory.h" />
     <ClInclude Include="src\entity\entity.h" />
     <ClInclude Include="src\entity\sprite_render_behaviour.h" />
     <ClInclude Include="src\level\global_data.h" />
@@ -197,6 +199,7 @@
     <ClInclude Include="src\util\fps_clock.h" />
     <ClInclude Include="src\util\image_load.h" />
     <ClInclude Include="src\util\mathutil.h" />
+    <ClInclude Include="src\util\strutils.h" />
     <ClInclude Include="src\util\timer.h" />
   </ItemGroup>
   <ItemGroup>

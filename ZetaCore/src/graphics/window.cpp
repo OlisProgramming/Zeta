@@ -5,6 +5,7 @@
 #include "../input/input_interface.h"
 #include "../sound/sound_manager.h"
 #include "../level/global_data.h"
+#include "../entity/behaviour_factory.h"
 #include "texture\texture_manager.h"
 #include "font\font_manager.h"
 #include "renderer\renderer.h"
@@ -55,6 +56,7 @@ namespace zeta {
 			new FontManager;
 			new TextureManager;
 			new level::GlobalData;
+			new entity::BehaviourFactory;
 
 			printf("Zeta is using OpenGL %s\n", glGetString(GL_VERSION));
 

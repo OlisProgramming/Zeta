@@ -3,8 +3,10 @@
 #include "../graphics/renderer/renderer.h"
 
 // Convenience imports that custom behaviours will need (to save re-importing)
+#include <vector>
 #include "../input/input_interface.h"
 #include "../sound/sound_manager.h"
+#include "../util/strutils.h"
 
 namespace zeta {
 	namespace entity {
@@ -13,6 +15,8 @@ namespace zeta {
 		
 		using namespace graphics;
 
+		// All behaviours must create a static void method called generate with the signature (Entity* parent, const std::vector<std::string>& params),
+		// otherwise the BehaviourFactory will not recognise it.
 		class Behaviour {
 
 		protected:
