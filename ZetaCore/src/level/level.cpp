@@ -115,7 +115,7 @@ namespace zeta {
 							std::string propParams = propertyNode->first_attribute("value")->value();
 							ent->addBehaviour(BehaviourFactory::inst->generate(propClassName, ent, propParams));
 						}
-						m_entities.push_back(ent);
+						addEntity(ent);
 					}
 				}
 			}
@@ -124,6 +124,12 @@ namespace zeta {
 		Level::~Level() {
 			for (Entity* ent : m_entities) {
 				delete ent;
+			}
+			for (Sprite* tile : m_tiles) {
+				delete tile;
+			}
+			for (TilesetData& tileset : m_tilesets) {
+				delete tileset.tex;
 			}
 		}
 	}

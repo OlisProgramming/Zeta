@@ -1,5 +1,6 @@
 #pragma once
 
+#include <unordered_set>
 #include "../entity/entity.h"
 #include "../graphics/renderable/sprite.h"
 
@@ -21,7 +22,7 @@ namespace zeta {
 		class Level {
 
 		private:
-			std::vector<Entity*> m_entities;
+			std::unordered_set<Entity*> m_entities;
 			std::vector<Sprite*> m_tiles;
 			std::vector<TilesetData> m_tilesets;
 
@@ -29,7 +30,9 @@ namespace zeta {
 			Level(const std::string& tmxFileName);
 			~Level();
 
-			inline void addEntity(Entity* ent) { m_entities.push_back(ent); }
+			inline const std::unordered_set<Entity*>& getAllEntities() { return m_entities; }
+			inline void addEntity(Entity* ent) { m_entities.emplace(ent); }
+			inline void deleteEntity(Entity* ent) { m_entities.erase(ent); }
 
 			inline void init() {
 				for (Entity* ent : m_entities) ent->preInit();

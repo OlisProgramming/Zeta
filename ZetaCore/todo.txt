@@ -13,9 +13,8 @@ ZETA ENGINE TODO LIST
 - Implement useful builtin behaviours e.g. collision
 - Functions in Entity to search for a specific behaviour
 - Functions in Level to:
-	* get all Entities currently stored as a const std::vector<Entity*>&
-	* remove an Entity
 	* test for (AABB?) collisions (possibly separate this into a physics namespace)
+- Create a Game class to:
 	* switch level
 	* save/load game data
 - Make Texture throw an error when texture file does not exist
