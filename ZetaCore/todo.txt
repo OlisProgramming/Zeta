@@ -4,7 +4,6 @@ ZETA ENGINE TODO LIST
 - Batch some translucent sprites: (will do if becomes a problem)
 	* everything with non-intersecting AABBs can be batched
 - Add in some useful unit tests! The project can't just sit there for nothing.
-- Use Tiled editor (https://thorbjorn.itch.io/tiled) to create an interface for making levels
 - Particle engine (attractors, deflectors, physics, automatic creation of new particles, automatic deletion of dead particles etc)
 - Primitive rendering
 - Cameras, fullscreen, fixed aspect ratio with black bars on side
@@ -19,7 +18,6 @@ ZETA ENGINE TODO LIST
 	* test for (AABB?) collisions (possibly separate this into a physics namespace)
 	* switch level
 	* save/load game data
-- Read tile data (as opposed to object data) from Tiled (.TMX) file
 
 POSSIBLE FUTURE ADD-ONS
 

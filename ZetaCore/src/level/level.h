@@ -1,20 +1,32 @@
 #pragma once
 
 #include "../entity/entity.h"
+#include "../graphics/renderable/sprite.h"
 
 namespace zeta {
 	namespace level {
 
+		using namespace graphics;
 		using namespace entity;
+		
+		struct TilesetData {
+			Texture* tex;
+			unsigned int tileWidth;
+			unsigned int tileHeight;
+			unsigned int rows;
+			unsigned int columns;
+			unsigned int firstgid;
+		};
 
 		class Level {
 
 		private:
 			std::vector<Entity*> m_entities;
+			std::vector<Sprite*> m_tiles;
+			std::vector<TilesetData> m_tilesets;
 
 		public:
-			// TODO add constructor that takes a const std::string& pointing to a (.TMX) Tiled map file.
-			Level();
+			Level(const std::string& tmxFileName);
 			~Level();
 
 			inline void addEntity(Entity* ent) { m_entities.push_back(ent); }
@@ -32,6 +44,10 @@ namespace zeta {
 			}
 			
 			inline void render(graphics::Renderer& renderer) {
+				
+				for (Sprite* spr : m_tiles) renderer.submit(spr);
+				//printf("%d tiles\n", m_tiles.size());
+
 				for (Entity* ent : m_entities) ent->preRender(renderer);
 				for (Entity* ent : m_entities) ent->render(renderer);
 				for (Entity* ent : m_entities) ent->postRender(renderer);

@@ -1,10 +1,20 @@
 #include "fileutils.h"
 
+#include <fstream>
+
 namespace zeta {
 	namespace util {
 		
 		std::string readFileText(const char* path) {
+			std::ifstream in(path, std::ios::in);
+			if (in)
+			{
+				return(std::string((std::istreambuf_iterator<char>(in)), std::istreambuf_iterator<char>()));
+			}
+			throw(errno);
+
 			FILE* file = fopen(path, "rt");  // faster than fstream
+			if (!file) return "FILE NOT FOUND";
 			fseek(file, 0, SEEK_END);
 			long size = ftell(file);
 			char* data = new char[size + 1];

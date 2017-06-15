@@ -53,15 +53,7 @@ int main(int argc, char* argv[]) {
 
 	///////
 
-	Level* level = new Level;
-
-	Entity* ent = new Entity({ 0, 0, 0 });
-	ent->addBehaviour(new SpriteRenderBehaviour(ent, "test.png"));
-
-	level->addEntity(ent);
-
-	SoundManager::inst->add("mus.ogg");
-	SoundManager::inst->get("mus.ogg")->genHandle()->playAndForget();
+	Level* level = new Level("test.tmx");
 
 	///////
 
