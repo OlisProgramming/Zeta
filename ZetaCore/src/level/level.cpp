@@ -3,6 +3,7 @@
 #include <rapidxml.hpp>
 #include <rapidxml_print.hpp>
 #include "../util/fileutils.h"
+#include "../entity/behaviour_factory.h"
 
 namespace zeta {
 	namespace level {
@@ -85,7 +86,7 @@ namespace zeta {
 										
 										//printf("%d,%d to %d,%d\n", x, y, x + tilesetData.tileWidth, y + tilesetData.tileHeight);
 
-										m_tiles.push_back(new Sprite({ x, y, 0 }, { tilesetData.tileWidth, tilesetData.tileHeight }, m_tilesets[tilesetIndex].tex, uvstart, uvend, false));
+										m_tiles.push_back(new Sprite({ x, y, -100000 }, { tilesetData.tileWidth, tilesetData.tileHeight }, m_tilesets[tilesetIndex].tex, uvstart, uvend, false));
 									}
 									x += 32;
 								}
@@ -100,6 +101,21 @@ namespace zeta {
 
 							// By this point, the full CSV has been read.
 						}
+					}
+				}
+
+				else if (std::string(child->name()) == "objectgroup") {
+					for (xml_node<>* objectNode = child->first_node(); objectNode; objectNode = objectNode->next_sibling()) {
+						int x = atoi(objectNode->first_attribute("x")->value());
+						int y = atoi(objectNode->first_attribute("y")->value());
+						Entity* ent = new Entity({ x, y, 0 });
+						xml_node<>* propertiesNode = objectNode->first_node("properties");
+						for (xml_node<>* propertyNode = propertiesNode->first_node(); propertyNode; propertyNode = propertyNode->next_sibling()) {
+							std::string propClassName = propertyNode->first_attribute("name")->value();
+							std::string propParams = propertyNode->first_attribute("value")->value();
+							ent->addBehaviour(BehaviourFactory::inst->generate(propClassName, ent, propParams));
+						}
+						m_entities.push_back(ent);
 					}
 				}
 			}

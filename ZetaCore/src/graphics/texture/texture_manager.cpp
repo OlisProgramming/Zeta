@@ -64,7 +64,11 @@ namespace zeta {
 				double py_normal = atof(child->first_attribute("pY")->value());
 				
 				data.size = { w_normal, h_normal };
+#if ZETA_TEXTURE_MANAGER_SET_PIVOT_TO_ORIGIN
+				data.pivot = { 0, 0 };
+#else
 				data.pivot = { px_normal * w_normal, py_normal * h_normal };
+#endif
 
 				data.uvStart = glm::vec2(x, 1-(y+h));
 				data.uvEnd = glm::vec2(x+w, 1-y);

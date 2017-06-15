@@ -56,8 +56,6 @@ int main(int argc, char* argv[]) {
 	///////
 
 	Level* level = new Level("test.tmx");
-	Entity* ent = new Entity({ 0, 0, 0 });
-	ent->addBehaviour(BehaviourFactory::inst->generate("SpriteRenderBehaviour", ent, "test.png false"));
 
 	///////
 
@@ -86,7 +84,6 @@ int main(int argc, char* argv[]) {
 		wnd.drawStart();
 		renderer.begin();
 		renderer.setColour({ 1, 1, 1, 1 });
-		ent->render(renderer);
 		level->render(renderer);
 		renderer.setColour({ 1, 1, 1, 0.5 });
 		renderer.submit(&fpscounter);

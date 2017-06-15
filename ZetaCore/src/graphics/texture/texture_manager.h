@@ -7,6 +7,10 @@
 namespace zeta {
 	namespace graphics {
 
+#ifndef ZETA_TEXTURE_MANAGER_SET_PIVOT_TO_ORIGIN
+#define ZETA_TEXTURE_MANAGER_SET_PIVOT_TO_ORIGIN 1
+#endif
+
 		struct TextureData {
 			unsigned int page;
 			glm::vec2 uvStart;
