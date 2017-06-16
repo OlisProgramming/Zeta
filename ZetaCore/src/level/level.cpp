@@ -108,7 +108,9 @@ namespace zeta {
 					for (xml_node<>* objectNode = child->first_node(); objectNode; objectNode = objectNode->next_sibling()) {
 						int x = atoi(objectNode->first_attribute("x")->value());
 						int y = atoi(objectNode->first_attribute("y")->value());
-						Entity* ent = new Entity({ x, y, 0 });
+						int w = atoi(objectNode->first_attribute("width")->value());
+						int h = atoi(objectNode->first_attribute("height")->value());
+						Entity* ent = new Entity({ x, y, 0 }, { w, h });
 						xml_node<>* propertiesNode = objectNode->first_node("properties");
 						for (xml_node<>* propertyNode = propertiesNode->first_node(); propertyNode; propertyNode = propertyNode->next_sibling()) {
 							std::string propClassName = propertyNode->first_attribute("name")->value();
