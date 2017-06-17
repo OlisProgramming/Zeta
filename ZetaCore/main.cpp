@@ -22,6 +22,12 @@
 
 int main(int argc, char* argv[]) {
 
+#ifdef ZETA_CONFIG_RELEASE
+# ifdef _WIN32
+	FreeConsole();
+# endif
+#endif
+
 	using namespace zeta;
 	using namespace graphics;
 	using namespace sound;

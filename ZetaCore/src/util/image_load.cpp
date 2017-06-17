@@ -40,5 +40,45 @@ namespace zeta {
 			*dib_ref = dib;
 			return bits;
 		}
+
+		void flipBlueRed(IMAGE_DATA data, unsigned int width, unsigned int height) {
+
+			for (unsigned int i = 0; i < width * height * 4; i += 4) {
+				BYTE r = data[i + 0];
+				BYTE g = data[i + 1];
+				BYTE b = data[i + 2];
+				BYTE a = data[i + 3];
+
+				data[i + 0] = b;
+				data[i + 1] = g;
+				data[i + 2] = r;
+				data[i + 3] = a;
+			}
+		}
+
+		void flipY(IMAGE_DATA data, unsigned int width, unsigned int height) {
+
+			IMAGE_DATA newData = new BYTE[width * height * 4];
+			memcpy(newData, data, width * height * 4);
+
+			for (unsigned int x = 0; x < width; ++x) {
+				for (unsigned int y = 0; y < height; ++y) {
+					
+					unsigned int y_ = height - y - 1;
+					unsigned int initial = (y*width + x) * 4;
+					unsigned int changed = (y_*width + x) * 4;
+					
+					BYTE r = newData[initial + 0];
+					BYTE g = newData[initial + 1];
+					BYTE b = newData[initial + 2];
+					BYTE a = newData[initial + 3];
+
+					data[changed + 0] = r;
+					data[changed + 1] = g;
+					data[changed + 2] = b;
+					data[changed + 3] = a;
+				}
+			}
+		}
 	}
 }

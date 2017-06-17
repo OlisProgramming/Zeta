@@ -6,6 +6,7 @@
 #include "../sound/sound_manager.h"
 #include "../level/global_data.h"
 #include "../entity/behaviour_factory.h"
+#include "../util/image_load.h"
 #include "texture\texture_manager.h"
 #include "font\font_manager.h"
 #include "renderer\renderer.h"
@@ -20,6 +21,32 @@ namespace zeta {
 			m_title(title), m_width(width), m_height(height), m_wnd(NULL) {
 			inst = this;
 			init();
+		}
+
+		void Window::setWindowIcons(std::vector<std::string> names) {
+
+			std::vector<GLFWimage> logos;
+			std::vector<FIBITMAP*> dibs;
+			for (const std::string& name : names) {
+				
+				FIBITMAP* dib;
+				unsigned int w, h;
+				util::IMAGE_DATA logo = util::loadImage(name.c_str(), w, h, &dib);
+				util::flipBlueRed(logo, w, h);
+				util::flipY(logo, w, h);
+				GLFWimage glfwLogo;
+				glfwLogo.pixels = logo;
+				glfwLogo.width = w;
+				glfwLogo.height = h;
+				logos.push_back(glfwLogo);
+				dibs.push_back(dib);
+			}
+
+			glfwSetWindowIcon(m_wnd, logos.size(), &logos[0]);
+			
+			for (FIBITMAP* dib : dibs) {
+				FreeImage_Unload(dib);
+			}
 		}
 
 		void Window::init() {
@@ -48,6 +75,12 @@ namespace zeta {
 				exit(-1);
 				return;
 			}
+
+			setWindowIcons({
+				"../res/internal/logo16.png",
+				"../res/internal/logo32.png",
+				"../res/internal/logo64.png"
+			});
 
 			// Register static managers and interfaces
 			new input::InputInterface;

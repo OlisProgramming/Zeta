@@ -129,7 +129,7 @@ namespace zeta {
 					if (glyph != NULL) {
 
 						float x0 = glyph->offset_x + offset;
-						float y0 = -glyph->offset_y;
+						float y0 = (float)-glyph->offset_y;
 						float x1 = x0 + glyph->width;
 						float y1 = y0 + glyph->height;
 
