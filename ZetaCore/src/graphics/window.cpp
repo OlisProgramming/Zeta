@@ -20,6 +20,7 @@ namespace zeta {
 		Window::Window(const char* title, int width, int height) :
 			m_title(title), m_width(width), m_height(height), m_wnd(NULL) {
 			inst = this;
+			m_screenRatio = (float)width / (float)height;
 			init();
 		}
 
@@ -136,7 +137,22 @@ namespace zeta {
 
 		void windowResizeCallback(GLFWwindow* window, int width, int height) {
 			Window* wnd = static_cast<Window*>(glfwGetWindowUserPointer(window));
-			glViewport(0, 0, width, height);
+			float thisScreenRatio = (float)width / (float)height;
+			int newX, newY;
+			int newW, newH;
+			if (thisScreenRatio > wnd->m_screenRatio) {  // Black bars on left and right
+				newW = (int)((float)height * wnd->m_screenRatio);
+				newH = height;
+				newX = (width - newW) / 2;
+				newY = 0;
+			}
+			else {  // Black bars on top and bottom
+				newW = width;
+				newH = (int)((float)width / wnd->m_screenRatio);
+				newX = 0;
+				newY = (height - newH) / 2;
+			}
+			glViewport(newX, newY, newW, newH);
 			glfwGetFramebufferSize(wnd->m_wnd, &(wnd->m_width), &(wnd->m_height));
 		}
 	}

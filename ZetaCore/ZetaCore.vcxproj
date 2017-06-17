@@ -142,6 +142,7 @@
     <ClCompile Include="src\entity\entity.cpp" />
     <ClCompile Include="src\entity\sprite_render_behaviour.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
+    <ClCompile Include="src\graphics\renderer\camera.cpp" />
     <ClCompile Include="src\graphics\texture\texture_manager.cpp" />
     <ClCompile Include="src\level\global_data.cpp" />
     <ClCompile Include="src\level\level.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="src\entity\behaviour_factory.h" />
     <ClInclude Include="src\entity\entity.h" />
     <ClInclude Include="src\entity\sprite_render_behaviour.h" />
+    <ClInclude Include="src\graphics\renderer\camera.h" />
     <ClInclude Include="src\level\global_data.h" />
     <ClInclude Include="src\graphics\font\font_manager.h" />
     <ClInclude Include="src\graphics\texture\texture_manager.h" />

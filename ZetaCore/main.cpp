@@ -12,6 +12,7 @@
 #include "src\graphics\texture\texture_manager.h"
 #include "src\graphics\font\font_manager.h"
 #include "src\graphics\shader\shader_basic.h"
+#include "src\graphics\renderer\camera.h"
 #include "src\level\level.h"
 #include "src\level\global_data.h"
 #include "src\entity\behaviours_builtin.h"
@@ -39,23 +40,9 @@ int main(int argc, char* argv[]) {
 
 	ShaderBasic* shader = new ShaderBasic;
 	Renderer renderer(shader);
-	shader->bind();
-	glm::mat4 ortho = glm::ortho(0.0, 800.0, 600.0, 0.0, 0.1, 1000000.0);
-	glm::mat4 view = glm::translate(glm::mat4(), glm::vec3(0.f, 0.f, -500000.0f));
-	shader->setUniformMat4(shader->getUniformLocation("matProj"), ortho);
-	shader->setUniformMat4(shader->getUniformLocation("matView"), view);
+	Camera camera(shader, { 800, 600 });
 
 	Label fpscounter("100 FPS", { 5, 20, 400000.0f }, true);
-	
-	GLint texIDs[] = {
-		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-		10,11,12,13,14,15,16,17,18,19,
-		20,21,22,23,24,25,26,27,28,29,
-		30,31
-	};
-
-	shader->bind();
-	shader->setUniform1iv(shader->getUniformLocation("textures"), 32, texIDs);
 
 	ZETA_BEHAVIOUR_REGISTER(SpriteRenderBehaviour);
 
@@ -72,7 +59,7 @@ int main(int argc, char* argv[]) {
 	float elapsedTime = 0.f;
 	float lastElapsedTime = 0.f;
 	while (!wnd.shouldClose()) {
-		
+
 		elapsedTime = timer.elapsed();
 
 		GlobalData::inst->level = level;
@@ -86,6 +73,9 @@ int main(int argc, char* argv[]) {
 			GlobalData::inst->totalTicks = ++ticks;
 			level->tick();
 		}
+
+		camera.setX(elapsedTime * 30);
+		camera.recomputeMatrices();
 
 		wnd.drawStart();
 		renderer.begin();

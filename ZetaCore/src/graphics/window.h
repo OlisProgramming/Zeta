@@ -14,6 +14,7 @@ namespace zeta {
 		private:
 			const char* m_title;
 			int m_width, m_height;
+			float m_screenRatio;
 			GLFWwindow* m_wnd;
 		
 		public:
