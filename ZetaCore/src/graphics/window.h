@@ -27,6 +27,7 @@ namespace zeta {
 			// Sets window icons from PNG or other image files.
 			// For instance, files logo16.png, logo32.png and logo64.png.
 			void setWindowIcons(std::vector<std::string> names);
+			void setWindowTitle(const std::string& title);
 		private:
 			void init();
 			friend void windowResizeCallback(GLFWwindow* window, int width, int height);

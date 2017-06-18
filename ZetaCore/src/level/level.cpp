@@ -12,7 +12,7 @@ namespace zeta {
 
 			using namespace rapidxml;
 
-			std::string fname = "../res/maps/" + tmxFileName;
+			std::string fname = "../res/maps/" + tmxFileName + ".tmx";
 			std::string text = util::readFileText(fname.c_str());
 			xml_document<> doc;
 			doc.parse<0>(&text[0]);

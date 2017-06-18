@@ -14,6 +14,7 @@ ZETA ENGINE TODO LIST
 	* switch level
 	* save/load game data
 - Export Zeta as a .lib file (for Windows) so people can link it normally rather than having to compile source etc
+- Frustum culling
 
 POSSIBLE FUTURE ADD-ONS
 

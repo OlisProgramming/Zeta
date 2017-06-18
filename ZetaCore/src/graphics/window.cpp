@@ -50,6 +50,10 @@ namespace zeta {
 			}
 		}
 
+		void Window::setWindowTitle(const std::string& title) {
+			glfwSetWindowTitle(m_wnd, title.c_str());
+		}
+
 		void Window::init() {
 			if (!glfwInit()) {
 				fprintf(stderr, "GLFW could not initialise!\n");

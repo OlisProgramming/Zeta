@@ -21,6 +21,6 @@ namespace zeta {
 			Behaviour* generate(const std::string& behaviourName, Entity* parent, const std::string& params);
 		};
 
-#define ZETA_BEHAVIOUR_REGISTER(className)	BehaviourFactory::inst->add(#className, className::generate);
+#define ZETA_BEHAVIOUR_REGISTER(className)	zeta::entity::BehaviourFactory::inst->add(#className, className::generate);
 	}
 }
