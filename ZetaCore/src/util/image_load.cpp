@@ -79,6 +79,8 @@ namespace zeta {
 					data[changed + 3] = a;
 				}
 			}
+
+			delete newData;
 		}
 	}
 }

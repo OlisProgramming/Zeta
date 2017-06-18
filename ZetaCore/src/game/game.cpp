@@ -16,6 +16,8 @@ namespace zeta {
 		Game::Game(const std::string& name, int width, int height) {
 			inst = this;
 
+			m_levelShouldChange = false;
+
 #ifdef ZETA_CONFIG_RELEASE
 # ifdef _WIN32
 			FreeConsole();
@@ -65,6 +67,16 @@ namespace zeta {
 				// Level tick
 				float ticksShouldHaveDone = elapsedTime * 60.f;
 				while (ticks < ticksShouldHaveDone) {
+
+					if (m_levelShouldChange) {
+						// Notify all entities of level change?
+						// Probably by an event
+						delete m_level;
+
+						m_level = new level::Level(m_nextLevelName);
+						m_levelShouldChange = false;
+					}
+
 					input::InputInterface::inst->update();
 					level::GlobalData::inst->totalTicks = ++ticks;
 					m_level->tick();
@@ -95,10 +107,9 @@ namespace zeta {
 		}
 		
 		void Game::changeLevel(const std::string& level) {
-			// Notify all entities of level change?
-			// Probably by an event
-			delete m_level;
-			m_level = new level::Level(level);
+			
+			m_levelShouldChange = true;
+			m_nextLevelName = level;
 		}
 
 		void Game::registerBehaviours() {

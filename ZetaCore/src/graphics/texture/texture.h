@@ -9,7 +9,7 @@ namespace zeta {
 		class Texture {
 
 		private:
-			std::string m_fname;
+			//std::string m_fname;
 			GLuint m_id;
 			unsigned int m_width, m_height;
 

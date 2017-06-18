@@ -8,6 +8,7 @@
 #include "../entity/behaviour_factory.h"
 #include "../util/image_load.h"
 #include "texture\texture_manager.h"
+#include "texture\tileset_manager.h"
 #include "font\font_manager.h"
 #include "renderer\renderer.h"
 
@@ -93,6 +94,7 @@ namespace zeta {
 			new sound::SoundManager;
 			new FontManager;
 			new TextureManager;
+			new TilesetManager;
 			new level::GlobalData;
 			new entity::BehaviourFactory;
 
@@ -115,6 +117,7 @@ namespace zeta {
 			FontManager::inst->cleanup();
 			delete FontManager::inst;
 			delete TextureManager::inst;
+			delete TilesetManager::inst;
 			delete level::GlobalData::inst;
 
 			glfwDestroyWindow(m_wnd);

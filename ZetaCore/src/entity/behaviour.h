@@ -55,7 +55,7 @@ namespace zeta {
 
 #define ZETA_BEHAVIOUR_CLASS_BODY(className) \
 public: \
-	static className* generate(Entity* parent, const std::vector<std::string>& params); \
+	static className* generate(zeta::entity::Entity* parent, const std::vector<std::string>& params); \
 	inline std::string getClassName() override { return #className; }
 
 	}

@@ -13,7 +13,7 @@ namespace zeta {
 			}
 			throw(errno);
 
-			FILE* file = fopen(path, "rt");  // faster than fstream
+			/*FILE* file = fopen(path, "rt");  // faster than fstream
 			if (!file) return "FILE NOT FOUND";
 			fseek(file, 0, SEEK_END);
 			long size = ftell(file);
@@ -25,7 +25,7 @@ namespace zeta {
 
 			std::string output(data);
 			delete[] data;
-			return output;
+			return output;*/
 		}
 
 		bool fileExists(const std::string& path) {

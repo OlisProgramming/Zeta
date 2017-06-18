@@ -15,6 +15,7 @@ namespace zeta {
 			ZETA_BEHAVIOUR_CLASS_BODY(SpriteRenderBehaviour)
 
 			SpriteRenderBehaviour(Entity* parent, const std::string& spriteFname, bool isTranslucent = false);
+			~SpriteRenderBehaviour();
 			void render(Renderer& renderer) override;
 		};
 	}

@@ -5,6 +5,11 @@
 namespace zeta {
 	namespace entity {
 
+		Entity::~Entity() {
+			for (Behaviour* behaviour : m_behaviours)
+				delete behaviour;
+		}
+
 		Behaviour* Entity::getBehaviour(const std::string& behaviourClassName) {
 			for (Behaviour* behaviour : m_behaviours) {
 				if (behaviour->getClassName() == behaviourClassName) {

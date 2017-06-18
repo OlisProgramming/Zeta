@@ -23,7 +23,7 @@ namespace zeta {
 
 		private:
 			std::unordered_set<Entity*> m_entities;
-			std::vector<Sprite*> m_tiles;
+			std::vector<Sprite> m_tiles;
 			std::vector<TilesetData> m_tilesets;
 
 		public:
@@ -48,7 +48,7 @@ namespace zeta {
 			
 			inline void render(graphics::Renderer& renderer) {
 				
-				for (Sprite* spr : m_tiles) renderer.submit(spr);
+				for (Sprite spr : m_tiles) renderer.submit(&spr);
 				//printf("%d tiles\n", m_tiles.size());
 
 				for (Entity* ent : m_entities) ent->preRender(renderer);

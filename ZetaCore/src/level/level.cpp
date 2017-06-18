@@ -4,6 +4,7 @@
 #include <rapidxml_print.hpp>
 #include "../util/fileutils.h"
 #include "../entity/behaviour_factory.h"
+#include "../graphics/texture/tileset_manager.h"
 
 namespace zeta {
 	namespace level {
@@ -28,7 +29,7 @@ namespace zeta {
 				if (std::string(child->name()) == "tileset") {
 					std::string firstgid = child->first_attribute("firstgid")->value();
 					std::string source = "../res/maps/" + std::string(child->first_attribute("source")->value());
-
+					
 					std::string tilesetText = util::readFileText(source.c_str());
 					xml_document<> tilesetDoc;
 					tilesetDoc.parse<0>(&tilesetText[0]);
@@ -42,14 +43,16 @@ namespace zeta {
 					std::string textureSource = "../res/tilesets/" + std::string(imageNode->first_attribute("source")->value());
 
 					TilesetData tilesetData;
-					tilesetData.tex = new Texture(textureSource);
+					tilesetData.tex = TilesetManager::inst->get(textureSource);
 					tilesetData.tileWidth = atoi(tilesetNode->first_attribute("tilewidth")->value());
 					tilesetData.tileHeight = atoi(tilesetNode->first_attribute("tileheight")->value());
 					tilesetData.columns = atoi(tilesetNode->first_attribute("columns")->value());
 					tilesetData.rows = atoi(tilesetNode->first_attribute("tilecount")->value()) / tilesetData.columns;
 					tilesetData.firstgid = atoi(firstgid.c_str());
-
+					
 					m_tilesets.push_back(tilesetData);
+
+					tilesetDoc.clear();
 				}
 
 				else if (std::string(child->name()) == "layer") {
@@ -75,7 +78,7 @@ namespace zeta {
 											}
 										}
 
-										TilesetData& tilesetData = m_tilesets[tilesetIndex];
+										/*TilesetData& tilesetData = m_tilesets[tilesetIndex];
 										float individualTileUvWidth = 1.f / (float)tilesetData.columns;
 										float individualTileUvHeight = 1.f / (float)tilesetData.rows;
 										unsigned int gid = id - tilesetData.firstgid;
@@ -86,7 +89,8 @@ namespace zeta {
 										
 										//printf("%d,%d to %d,%d\n", x, y, x + tilesetData.tileWidth, y + tilesetData.tileHeight);
 
-										m_tiles.push_back(new Sprite({ x, y, -100000 }, { tilesetData.tileWidth, tilesetData.tileHeight }, m_tilesets[tilesetIndex].tex, uvstart, uvend, false));
+										m_tiles.push_back(Sprite({ x, y, -100000 }, { tilesetData.tileWidth, tilesetData.tileHeight }, m_tilesets[tilesetIndex].tex, uvstart, uvend, false));
+										*/
 									}
 									x += 32;
 								}
@@ -121,17 +125,13 @@ namespace zeta {
 					}
 				}
 			}
+
+			doc.clear();
 		}
 
 		Level::~Level() {
 			for (Entity* ent : m_entities) {
 				delete ent;
-			}
-			for (Sprite* tile : m_tiles) {
-				delete tile;
-			}
-			for (TilesetData& tileset : m_tilesets) {
-				delete tileset.tex;
 			}
 		}
 	}

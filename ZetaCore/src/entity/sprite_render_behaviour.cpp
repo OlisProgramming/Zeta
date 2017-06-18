@@ -17,6 +17,10 @@ namespace zeta {
 			m_sprite = new Sprite(m_parent->getPos(), spriteFname, isTranslucent);
 		}
 
+		SpriteRenderBehaviour::~SpriteRenderBehaviour() {
+			delete m_sprite;
+		}
+
 		void SpriteRenderBehaviour::render(Renderer& renderer) {
 			renderer.submit(m_sprite);
 		}

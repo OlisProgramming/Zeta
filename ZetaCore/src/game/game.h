@@ -21,6 +21,8 @@ namespace zeta {
 #ifdef ZETA_CONFIG_DEBUG
 			graphics::Label* m_fpsCounter;
 #endif
+			bool m_levelShouldChange;
+			std::string m_nextLevelName;
 
 		public:
 			Game(const std::string& name, int width, int height);
