@@ -16,8 +16,6 @@ namespace zeta {
 			util::IMAGE_DATA pixels = util::loadImage(path.c_str(), m_width, m_height, &dib);
 			//printf("Texture dimensions: %dx%d\n", m_width, m_height);
 
-			puts("create tex");
-
 			glGenTextures(1, &m_id);
 			glBindTexture(GL_TEXTURE_2D, m_id);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

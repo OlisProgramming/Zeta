@@ -78,7 +78,7 @@ namespace zeta {
 											}
 										}
 
-										/*TilesetData& tilesetData = m_tilesets[tilesetIndex];
+										TilesetData& tilesetData = m_tilesets[tilesetIndex];
 										float individualTileUvWidth = 1.f / (float)tilesetData.columns;
 										float individualTileUvHeight = 1.f / (float)tilesetData.rows;
 										unsigned int gid = id - tilesetData.firstgid;
@@ -90,7 +90,6 @@ namespace zeta {
 										//printf("%d,%d to %d,%d\n", x, y, x + tilesetData.tileWidth, y + tilesetData.tileHeight);
 
 										m_tiles.push_back(Sprite({ x, y, -100000 }, { tilesetData.tileWidth, tilesetData.tileHeight }, m_tilesets[tilesetIndex].tex, uvstart, uvend, false));
-										*/
 									}
 									x += 32;
 								}
