@@ -6,13 +6,10 @@ ZETA ENGINE TODO LIST
 - Add in some useful unit tests! The project can't just sit there for nothing.
 - Particle engine (attractors, deflectors, physics, automatic creation of new particles, automatic deletion of dead particles etc)
 - Primitive rendering
-- Implement level time and level frames in GlobalData / main function
-- Implement useful builtin behaviours e.g. collision
 - Create a class to save/load game data
 - Export Zeta as a .lib file (for Windows) so people can link it normally rather than having to compile source etc
 - Frustum culling
 - glCullFace
-- Update Level's collideAll method
 
 POSSIBLE FUTURE ADD-ONS
 

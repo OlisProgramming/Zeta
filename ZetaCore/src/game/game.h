@@ -18,6 +18,7 @@ namespace zeta {
 			graphics::Renderer* m_renderer;
 			graphics::Camera* m_camera;
 			level::Level* m_level;
+			std::string m_levelName;
 #ifdef ZETA_CONFIG_DEBUG
 			graphics::Label* m_fpsCounter;
 #endif
@@ -30,6 +31,7 @@ namespace zeta {
 			void run(const std::string& initialLevel);
 			void changeLevel(const std::string& level);
 			inline level::Level* getLevel() { return m_level; }
+			inline const std::string& getLevelName() { return m_levelName; }
 		private:
 			void registerBehaviours();
 		};

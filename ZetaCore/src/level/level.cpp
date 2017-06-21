@@ -9,6 +9,9 @@
 namespace zeta {
 	namespace level {
 
+		using namespace graphics;
+		using namespace entity;
+
 		Level::Level(const std::string& tmxFileName) {
 
 			using namespace rapidxml;

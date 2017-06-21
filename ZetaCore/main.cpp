@@ -2,6 +2,7 @@
 #include "src\entity\behaviour.h"
 #include "src\entity\behaviours_builtin.h"
 #include "src\entity\behaviour_factory.h"
+#include "src\level\global_data.h"
 #include "src\util\image_load.h"
 
 using namespace zeta;
@@ -38,6 +39,14 @@ public:
 		m_parent->setPos(potentialMove);
 		if (game::Game::inst->getLevel()->collideAll(m_parent)) {
 			m_parent->setPos(oldMove);
+		}
+
+		//printf("%d %d\n", level::GlobalData::inst->levelTicks, level::GlobalData::inst->totalTicks);
+		if (level::GlobalData::inst->levelTicks == 60) {
+			if (game::Game::inst->getLevelName() == "test")
+				game::Game::inst->changeLevel("test2");
+			else
+				game::Game::inst->changeLevel("test");
 		}
 	}
 };

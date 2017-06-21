@@ -8,12 +8,9 @@
 
 namespace zeta {
 	namespace level {
-
-		using namespace graphics;
-		using namespace entity;
 		
 		struct TilesetData {
-			Texture* tex;
+			graphics::Texture* tex;
 			unsigned int tileWidth;
 			unsigned int tileHeight;
 			unsigned int rows;
@@ -24,20 +21,20 @@ namespace zeta {
 		class Level {
 
 		private:
-			std::unordered_set<Entity*> m_entities;
-			std::vector<Sprite> m_tiles;
+			std::unordered_set<entity::Entity*> m_entities;
+			std::vector<graphics::Sprite> m_tiles;
 			std::vector<TilesetData> m_tilesets;
 
 		public:
 			Level(const std::string& tmxFileName);
 			~Level();
 
-			inline const std::unordered_set<Entity*>& getAllEntities() { return m_entities; }
-			inline void addEntity(Entity* ent) { m_entities.emplace(ent); }
-			inline void deleteEntity(Entity* ent) { m_entities.erase(ent); }
+			inline const std::unordered_set<entity::Entity*>& getAllEntities() { return m_entities; }
+			inline void addEntity(entity::Entity* ent) { m_entities.emplace(ent); }
+			inline void deleteEntity(entity::Entity* ent) { m_entities.erase(ent); }
 			inline bool collideAll(const physics::PhysObject* obj) {
 				using namespace physics;
-				for (Entity* other : m_entities) {
+				for (entity::Entity* other : m_entities) {
 					if (other->getPhysObj() == nullptr) continue;
 					if (other->getPhysObj() == obj) continue;
 					if (other->getPhysObj()->collide(*obj))
@@ -45,28 +42,28 @@ namespace zeta {
 				}
 				return false;
 			}
-			inline bool collideAll(Entity* ent) { return collideAll(ent->getPhysObj()); }
+			inline bool collideAll(entity::Entity* ent) { return collideAll(ent->getPhysObj()); }
 
 			inline void init() {
-				for (Entity* ent : m_entities) ent->preInit();
-				for (Entity* ent : m_entities) ent->init();
-				for (Entity* ent : m_entities) ent->postInit();
+				for (entity::Entity* ent : m_entities) ent->preInit();
+				for (entity::Entity* ent : m_entities) ent->init();
+				for (entity::Entity* ent : m_entities) ent->postInit();
 			}
 
 			inline void tick() {
-				for (Entity* ent : m_entities) ent->preTick();
-				for (Entity* ent : m_entities) ent->tick();
-				for (Entity* ent : m_entities) ent->postTick();
+				for (entity::Entity* ent : m_entities) ent->preTick();
+				for (entity::Entity* ent : m_entities) ent->tick();
+				for (entity::Entity* ent : m_entities) ent->postTick();
 			}
 			
 			inline void render(graphics::Renderer& renderer) {
 				
-				for (Sprite spr : m_tiles) renderer.submit(&spr);
+				for (graphics::Sprite spr : m_tiles) renderer.submit(&spr);
 				//printf("%d tiles\n", m_tiles.size());
 
-				for (Entity* ent : m_entities) ent->preRender(renderer);
-				for (Entity* ent : m_entities) ent->render(renderer);
-				for (Entity* ent : m_entities) ent->postRender(renderer);
+				for (entity::Entity* ent : m_entities) ent->preRender(renderer);
+				for (entity::Entity* ent : m_entities) ent->render(renderer);
+				for (entity::Entity* ent : m_entities) ent->postRender(renderer);
 			}
 		};
 	}

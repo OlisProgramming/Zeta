@@ -47,6 +47,7 @@ namespace zeta {
 		}
 
 		void Game::run(const std::string& initialLevel) {
+			m_nextLevelName = initialLevel;
 			m_level = new level::Level(initialLevel);
 
 #ifdef ZETA_CONFIG_DEBUG
@@ -56,6 +57,8 @@ namespace zeta {
 			unsigned long ticks = 0L;
 			float elapsedTime = 0.f;
 			float lastElapsedTime = 0.f;
+			float levelStartTime = 0.f;
+			level::GlobalData::inst->levelTicks = 0L;
 			while (!graphics::Window::inst->shouldClose()) {
 
 				elapsedTime = timer.elapsed();
@@ -63,6 +66,7 @@ namespace zeta {
 				level::GlobalData::inst->level = m_level;
 				level::GlobalData::inst->totalTime = elapsedTime;
 				level::GlobalData::inst->deltaTime = elapsedTime - lastElapsedTime;
+				level::GlobalData::inst->levelTime = elapsedTime - levelStartTime;
 
 				// Level tick
 				float ticksShouldHaveDone = elapsedTime * 60.f;
@@ -73,12 +77,17 @@ namespace zeta {
 						// Probably by an event
 						delete m_level;
 
+						levelStartTime = 0.f;
+						level::GlobalData::inst->levelTicks = 0L;
+						m_levelName = m_nextLevelName;
+
 						m_level = new level::Level(m_nextLevelName);
 						m_levelShouldChange = false;
 					}
 
 					input::InputInterface::inst->update();
 					level::GlobalData::inst->totalTicks = ++ticks;
+					++level::GlobalData::inst->levelTicks;
 					m_level->tick();
 				}
 
