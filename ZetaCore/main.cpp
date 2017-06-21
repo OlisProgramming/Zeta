@@ -9,16 +9,11 @@ using namespace entity;
 
 class PlayerBehaviour : public Behaviour {
 
-private:
-	PhysicsAABBBehaviour* m_aabb;
-
 public:
 	ZETA_BEHAVIOUR_CLASS_BODY(PlayerBehaviour)
 
 	PlayerBehaviour(Entity* parent) : Behaviour(parent) {
 		parent->addBehaviour(new SpriteRenderBehaviour(parent, "test.png"));
-		m_aabb = new PhysicsAABBBehaviour(parent);
-		parent->addBehaviour(m_aabb);
 	}
 
 	void tick() override {
@@ -41,7 +36,6 @@ public:
 		}
 
 		m_parent->setPos(potentialMove);
-		m_aabb->tick();  // to force AABB update
 		if (game::Game::inst->getLevel()->collideAll(m_parent)) {
 			m_parent->setPos(oldMove);
 		}

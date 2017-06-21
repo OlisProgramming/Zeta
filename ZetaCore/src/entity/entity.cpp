@@ -1,9 +1,12 @@
 #include "entity.h"
 
 #include "behaviour.h"
+#include "../physics/aabb.h"
 
 namespace zeta {
 	namespace entity {
+
+		using namespace physics;
 
 		Entity::~Entity() {
 			for (Behaviour* behaviour : m_behaviours)
@@ -17,6 +20,15 @@ namespace zeta {
 				}
 			}
 			return nullptr;
+		}
+
+		void Entity::updatePhysObj() {
+			switch (m_physObj->getType()) {
+
+			case PhysObjectType::AABB:
+				static_cast<AABB*>(m_physObj)->set(getPos2(), getPos2() + getSize());
+				break;
+			}
 		}
 
 		void Entity:: preInit() { for (Behaviour* behaviour : m_behaviours) behaviour->preInit(); }

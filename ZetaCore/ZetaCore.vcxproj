@@ -140,7 +140,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\entity\behaviour_factory.cpp" />
     <ClCompile Include="src\entity\entity.cpp" />
-    <ClCompile Include="src\entity\physics_aabb_behaviour.cpp" />
     <ClCompile Include="src\entity\sprite_render_behaviour.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
@@ -180,7 +179,6 @@
     <ClInclude Include="src\entity\behaviours_builtin.h" />
     <ClInclude Include="src\entity\behaviour_factory.h" />
     <ClInclude Include="src\entity\entity.h" />
-    <ClInclude Include="src\entity\physics_aabb_behaviour.h" />
     <ClInclude Include="src\entity\sprite_render_behaviour.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\graphics\renderer\camera.h" />

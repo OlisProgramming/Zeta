@@ -35,16 +35,17 @@ namespace zeta {
 			inline const std::unordered_set<Entity*>& getAllEntities() { return m_entities; }
 			inline void addEntity(Entity* ent) { m_entities.emplace(ent); }
 			inline void deleteEntity(Entity* ent) { m_entities.erase(ent); }
-			inline bool collideAll(Entity* ent) {  // TODO PLEASE CHANGE THIS - THIS IS TERRIBLE PLACEHOLDER CODE
+			inline bool collideAll(const physics::PhysObject* obj) {
 				using namespace physics;
-				PhysObject& po = ZETA_ENTITY_GET_BEHAVIOUR(ent, PhysicsAABBBehaviour)->getAABB();
 				for (Entity* other : m_entities) {
-					if (ent == other) continue;
-					if (ZETA_ENTITY_GET_BEHAVIOUR(other, PhysicsAABBBehaviour)->getAABB().collide(po))
+					if (other->getPhysObj() == nullptr) continue;
+					if (other->getPhysObj() == obj) continue;
+					if (other->getPhysObj()->collide(*obj))
 						return true;
 				}
 				return false;
 			}
+			inline bool collideAll(Entity* ent) { return collideAll(ent->getPhysObj()); }
 
 			inline void init() {
 				for (Entity* ent : m_entities) ent->preInit();

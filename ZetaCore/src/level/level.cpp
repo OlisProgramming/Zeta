@@ -113,12 +113,23 @@ namespace zeta {
 						int y = atoi(objectNode->first_attribute("y")->value());
 						int w = atoi(objectNode->first_attribute("width")->value());
 						int h = atoi(objectNode->first_attribute("height")->value());
-						Entity* ent = new Entity({ x, y, 0 }, { w, h });
 						xml_node<>* propertiesNode = objectNode->first_node("properties");
+						if (!propertiesNode) continue;  // abort creation of entity
+						Entity* ent = new Entity({ x, y, 0 }, { w, h });
 						for (xml_node<>* propertyNode = propertiesNode->first_node(); propertyNode; propertyNode = propertyNode->next_sibling()) {
 							std::string propClassName = propertyNode->first_attribute("name")->value();
 							std::string propParams = propertyNode->first_attribute("value")->value();
-							ent->addBehaviour(BehaviourFactory::inst->generate(propClassName, ent, propParams));
+							if (propClassName == "Collision") {
+								if (propParams == "aabb") {
+									ent->setPhysObj(new physics::AABB(glm::vec2(ent->getPos()), glm::vec2(ent->getPos()) + ent->getSize()));
+								}
+								else {
+									printf("Invalid collision type on level generation! Got %s, expected 'aabb'.\n", propParams.c_str());
+								}
+							}
+							else {
+								ent->addBehaviour(BehaviourFactory::inst->generate(propClassName, ent, propParams));
+							}
 						}
 						addEntity(ent);
 					}

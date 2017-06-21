@@ -116,7 +116,6 @@ namespace zeta {
 			using namespace zeta;
 			using namespace entity;
 			ZETA_BEHAVIOUR_REGISTER(SpriteRenderBehaviour);
-			ZETA_BEHAVIOUR_REGISTER(PhysicsAABBBehaviour);
 		}
 	}
 }

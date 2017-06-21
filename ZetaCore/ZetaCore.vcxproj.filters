@@ -123,9 +123,6 @@
     <ClCompile Include="src\physics\aabb.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\entity\physics_aabb_behaviour.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\graphics\window.h">
@@ -243,9 +240,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\physics\aabb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\entity\physics_aabb_behaviour.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
