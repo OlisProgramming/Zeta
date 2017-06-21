@@ -25,6 +25,7 @@ namespace zeta {
 			Behaviour* getBehaviour(const std::string& behaviourClassName);
 			inline const glm::vec3& getPos() const { return m_pos; }
 			inline void setPos(glm::vec3& pos) { m_pos = pos; }
+			inline void setPos(glm::vec2& pos) { m_pos.x = pos.x; m_pos.y = pos.y; }
 			inline const glm::vec2& getSize() const { return m_size; }
 			inline void setSize(glm::vec2& size) { m_size = size; }
 

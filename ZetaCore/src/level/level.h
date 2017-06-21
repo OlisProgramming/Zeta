@@ -2,7 +2,9 @@
 
 #include <unordered_set>
 #include "../entity/entity.h"
+#include "../entity/behaviours_builtin.h"
 #include "../graphics/renderable/sprite.h"
+#include "../physics/aabb.h"
 
 namespace zeta {
 	namespace level {
@@ -33,6 +35,16 @@ namespace zeta {
 			inline const std::unordered_set<Entity*>& getAllEntities() { return m_entities; }
 			inline void addEntity(Entity* ent) { m_entities.emplace(ent); }
 			inline void deleteEntity(Entity* ent) { m_entities.erase(ent); }
+			inline bool collideAll(Entity* ent) {  // TODO PLEASE CHANGE THIS - THIS IS TERRIBLE PLACEHOLDER CODE
+				using namespace physics;
+				PhysObject& po = ZETA_ENTITY_GET_BEHAVIOUR(ent, PhysicsAABBBehaviour)->getAABB();
+				for (Entity* other : m_entities) {
+					if (ent == other) continue;
+					if (ZETA_ENTITY_GET_BEHAVIOUR(other, PhysicsAABBBehaviour)->getAABB().collide(po))
+						return true;
+				}
+				return false;
+			}
 
 			inline void init() {
 				for (Entity* ent : m_entities) ent->preInit();

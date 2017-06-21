@@ -140,6 +140,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\entity\behaviour_factory.cpp" />
     <ClCompile Include="src\entity\entity.cpp" />
+    <ClCompile Include="src\entity\physics_aabb_behaviour.cpp" />
     <ClCompile Include="src\entity\sprite_render_behaviour.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
@@ -148,6 +149,8 @@
     <ClCompile Include="src\graphics\texture\tileset_manager.cpp" />
     <ClCompile Include="src\level\global_data.cpp" />
     <ClCompile Include="src\level\level.cpp" />
+    <ClCompile Include="src\physics\aabb.cpp" />
+    <ClCompile Include="src\physics\phys_object.cpp" />
     <ClCompile Include="src\sound\sound.cpp" />
     <ClCompile Include="src\sound\sound_manager.cpp" />
     <ClCompile Include="src\graphics\buffer\buffer.cpp" />
@@ -177,6 +180,7 @@
     <ClInclude Include="src\entity\behaviours_builtin.h" />
     <ClInclude Include="src\entity\behaviour_factory.h" />
     <ClInclude Include="src\entity\entity.h" />
+    <ClInclude Include="src\entity\physics_aabb_behaviour.h" />
     <ClInclude Include="src\entity\sprite_render_behaviour.h" />
     <ClInclude Include="src\game\game.h" />
     <ClInclude Include="src\graphics\renderer\camera.h" />
@@ -185,6 +189,8 @@
     <ClInclude Include="src\graphics\font\font_manager.h" />
     <ClInclude Include="src\graphics\texture\texture_manager.h" />
     <ClInclude Include="src\level\level.h" />
+    <ClInclude Include="src\physics\aabb.h" />
+    <ClInclude Include="src\physics\phys_object.h" />
     <ClInclude Include="src\sound\sound.h" />
     <ClInclude Include="src\sound\sound_manager.h" />
     <ClInclude Include="src\graphics\buffer\buffer.h" />

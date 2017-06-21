@@ -1,29 +1,55 @@
 #include "src\game\game.h"
 #include "src\entity\behaviour.h"
+#include "src\entity\behaviours_builtin.h"
 #include "src\entity\behaviour_factory.h"
 #include "src\util\image_load.h"
 
 using namespace zeta;
 using namespace entity;
 
-class ImmediateWarpBehaviour : public Behaviour {
+class PlayerBehaviour : public Behaviour {
 
 private:
-	std::string m_levelName;
+	PhysicsAABBBehaviour* m_aabb;
 
 public:
-	ZETA_BEHAVIOUR_CLASS_BODY(ImmediateWarpBehaviour)
+	ZETA_BEHAVIOUR_CLASS_BODY(PlayerBehaviour)
 
-	ImmediateWarpBehaviour(Entity* parent, const std::string& levelName) : m_levelName(levelName), Behaviour(parent) {
+	PlayerBehaviour(Entity* parent) : Behaviour(parent) {
+		parent->addBehaviour(new SpriteRenderBehaviour(parent, "test.png"));
+		m_aabb = new PhysicsAABBBehaviour(parent);
+		parent->addBehaviour(m_aabb);
 	}
 
 	void tick() override {
-		game::Game::inst->changeLevel(m_levelName);
+		glm::vec2 potentialMove = m_parent->getPos();
+		glm::vec2 oldMove = m_parent->getPos();
+
+		using namespace input;
+
+		if (InputInterface::inst->keyDown(GLFW_KEY_LEFT)) {
+			potentialMove.x -= 2;
+		}
+		if (InputInterface::inst->keyDown(GLFW_KEY_RIGHT)) {
+			potentialMove.x += 2;
+		}
+		if (InputInterface::inst->keyDown(GLFW_KEY_UP)) {
+			potentialMove.y -= 2;
+		}
+		if (InputInterface::inst->keyDown(GLFW_KEY_DOWN)) {
+			potentialMove.y += 2;
+		}
+
+		m_parent->setPos(potentialMove);
+		m_aabb->tick();  // to force AABB update
+		if (game::Game::inst->getLevel()->collideAll(m_parent)) {
+			m_parent->setPos(oldMove);
+		}
 	}
 };
 
-ImmediateWarpBehaviour* ImmediateWarpBehaviour::generate(Entity* parent, const std::vector<std::string>& params) {
-	return new ImmediateWarpBehaviour(parent, params[0]);
+PlayerBehaviour* PlayerBehaviour::generate(Entity* parent, const std::vector<std::string>& params) {
+	return new PlayerBehaviour(parent);
 }
 
 int main(int argc, char* argv[]) {
@@ -31,7 +57,7 @@ int main(int argc, char* argv[]) {
 	zeta::game::Game game("Zeta Engine", 800, 600);
 	
 	// Register all custom behaviours
-	ZETA_BEHAVIOUR_REGISTER(ImmediateWarpBehaviour);
+	ZETA_BEHAVIOUR_REGISTER(PlayerBehaviour);
 
 	game.run("test");
 	return 0;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2017.06.13" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="9">
+<map version="1.0" tiledversion="2017.06.13" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="11">
  <tileset firstgid="1" source="../tilesets/test.tsx"/>
  <layer name="Tile Layer 1" width="100" height="100">
   <data encoding="csv">
@@ -106,10 +106,14 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="1" x="6" y="6" width="61" height="55">
+  <object id="9" x="96" y="96" width="32" height="32">
    <properties>
-    <property name="ImmediateWarpBehaviour" value="test2"/>
-    <property name="SpriteRenderBehaviour" value="testa.png"/>
+    <property name="PhysicsAABBBehaviour" value=""/>
+   </properties>
+  </object>
+  <object id="10" x="0" y="0" width="64" height="64">
+   <properties>
+    <property name="PlayerBehaviour" value=""/>
    </properties>
   </object>
  </objectgroup>

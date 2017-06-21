@@ -8,11 +8,11 @@ ZETA ENGINE TODO LIST
 - Primitive rendering
 - Implement level time and level frames in GlobalData / main function
 - Implement useful builtin behaviours e.g. collision
-- Functions in Level to:
-	* test for (AABB?) collisions (possibly separate this into a physics namespace)
 - Create a class to save/load game data
 - Export Zeta as a .lib file (for Windows) so people can link it normally rather than having to compile source etc
 - Frustum culling
+- glCullFace
+- Update Level's collideAll method
 
 POSSIBLE FUTURE ADD-ONS
 

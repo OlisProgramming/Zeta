@@ -22,6 +22,7 @@ namespace zeta {
 		}
 
 		void SpriteRenderBehaviour::render(Renderer& renderer) {
+			m_sprite->setPos(m_parent->getPos());
 			renderer.submit(m_sprite);
 		}
 	}

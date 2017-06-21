@@ -13,10 +13,12 @@ namespace zeta {
 			for (unsigned int i = 0; i < KEYS_MAX; ++i) {
 				m_keys[i].thisframe = false;
 				m_keys[i].lastframe = false;
+				m_keys[i].tempframe = false;
 			}
 			for (unsigned int i = 0; i < BUTTONS_MAX; ++i) {
 				m_buttons[i].thisframe = false;
 				m_buttons[i].lastframe = false;
+				m_buttons[i].tempframe = false;
 			}
 		}
 

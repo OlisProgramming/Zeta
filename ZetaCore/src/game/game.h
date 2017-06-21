@@ -29,6 +29,7 @@ namespace zeta {
 			~Game();
 			void run(const std::string& initialLevel);
 			void changeLevel(const std::string& level);
+			inline level::Level* getLevel() { return m_level; }
 		private:
 			void registerBehaviours();
 		};
