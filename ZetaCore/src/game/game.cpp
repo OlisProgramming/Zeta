@@ -30,7 +30,7 @@ namespace zeta {
 			m_camera = new graphics::Camera(m_shader, { width, height });
 
 #ifdef ZETA_CONFIG_DEBUG
-			m_fpsCounter = new graphics::Label("100 FPS", { 5, 20, 400000.0f }, true);
+			m_fpsCounter = new graphics::Label("100 FPS", { 5, 20, 400000.0f }, "consola.ttf", 15, true);
 #endif
 
 			registerBehaviours();

@@ -12,9 +12,11 @@ namespace zeta {
 
 		private:
 			std::string m_string;
+			std::string m_font;
+			unsigned int m_fontSize;
 
 		public:
-			Label(std::string string, glm::vec3 pos, bool isTranslucent);
+			Label(std::string string, glm::vec3 pos, const std::string& font, unsigned int fontSize, bool isTranslucent);
 			inline virtual RenderableType getType() const { return RenderableType::LABEL; }
 			inline const std::string& getString() const { return m_string; }
 			inline void setString(const std::string& str) { m_string = str; }

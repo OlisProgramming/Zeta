@@ -15,6 +15,7 @@ public:
 
 	PlayerBehaviour(Entity* parent) : Behaviour(parent) {
 		parent->addBehaviour(new SpriteRenderBehaviour(parent, "test.png"));
+		parent->addBehaviour(new TextRenderBehaviour(parent, "Hello, World!", "consola.ttf", 15));
 	}
 
 	void tick() override {
@@ -39,14 +40,6 @@ public:
 		m_parent->setPos(potentialMove);
 		if (game::Game::inst->getLevel()->collideAll(m_parent)) {
 			m_parent->setPos(oldMove);
-		}
-
-		//printf("%d %d\n", level::GlobalData::inst->levelTicks, level::GlobalData::inst->totalTicks);
-		if (level::GlobalData::inst->levelTicks == 60) {
-			if (game::Game::inst->getLevelName() == "test")
-				game::Game::inst->changeLevel("test2");
-			else
-				game::Game::inst->changeLevel("test");
 		}
 	}
 };
