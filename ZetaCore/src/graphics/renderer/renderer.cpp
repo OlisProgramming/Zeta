@@ -80,6 +80,12 @@ namespace zeta {
 				queueTranslucentRenderable(renderable);
 				return;
 			}
+			if (renderable->getType() == RenderableType::LABEL && !renderTranslucentImmediately) {
+				Label* label = static_cast<Label*>(renderable);
+				RendererStateData data(m_transformStack.getMatrix(), m_currentcol);
+				m_labelList.emplace(label->getFont(), std::make_pair(data, label));
+				return;
+			}
 
 			if (renderable->getType() == RenderableType::GROUP) {
 				m_transformStack.push((static_cast<Group*>(renderable))->getMatrix(), false);
@@ -91,7 +97,7 @@ namespace zeta {
 			else if (renderable->getType() == RenderableType::LABEL) {
 				Label* label = static_cast<Label*>(renderable);
 				glm::mat4& mat = label->getTransformationMatrix();
-				
+
 				// DRAW STRING
 				float textureSlot = 0.0f;
 				bool found = false;
@@ -255,13 +261,24 @@ namespace zeta {
 		void Renderer::flushAll() {
 			flush();
 
-			// Draw translucent objects.
+			// Draw text (labels).
+			begin();
+			for (auto it = m_labelList.begin(), end = m_labelList.end(); it != end; it = m_labelList.upper_bound(it->first)) {
+				setFont(it->first);
+				m_currentcol = it->second.first.col;
+				m_transformStack.push(it->second.first.transform, true);
+				submit(it->second.second, true);
+				m_transformStack.pop();
+			}
+			flush();
+
+			// Draw translucent objects (includes translucent labels).
 			while (m_translucentRenderableList != nullptr) {
 				float z = m_translucentRenderableList->self->getPos().z;
-				m_font = m_translucentRenderableList->data.font;
+				//m_font = m_translucentRenderableList->data.font;
 				begin();
 
-				m_transformStack.push(m_translucentRenderableList->data.transform, false);
+				m_transformStack.push(m_translucentRenderableList->data.transform, true);
 				m_currentcol = m_translucentRenderableList->data.col;
 
 				do {
@@ -279,7 +296,7 @@ namespace zeta {
 		void Renderer::queueTranslucentRenderable(Renderable* renderable) {
 			RenderableData* rd = m_translucentRenderableList;
 			RenderableData* rdprev = nullptr;
-			RendererStateData data(m_transformStack.getMatrix(), m_currentcol, m_font);
+			RendererStateData data(m_transformStack.getMatrix(), m_currentcol);
 			
 			// This function manipulates the linked list implicitly defined by a chain of RenderableData objects.
 

@@ -6,7 +6,8 @@ namespace zeta {
 	namespace graphics {
 
 		Label::Label(std::string string, glm::vec3 pos, const std::string& font, unsigned int fontSize, bool isTranslucent) :
-			Renderable(pos, glm::vec2()), m_string(string), m_font(font), m_fontSize(fontSize) {
+			Renderable(pos, glm::vec2()), m_string(string) {
+			m_font = FontManager::inst->get(font, fontSize);
 			m_isTranslucent = isTranslucent;
 		}
 

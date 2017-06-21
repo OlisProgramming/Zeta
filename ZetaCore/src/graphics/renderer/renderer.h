@@ -1,9 +1,11 @@
 #pragma once
 
+#include <unordered_map>
 #include <glm\glm.hpp>
 #include <freetype-gl.h>
 #include "transformation_stack.h"
 #include "../renderable/renderable.h"
+#include "../renderable/label.h"
 #include "../font/font.h"
 #include "../font/font_manager.h"
 #include "../shader/shader.h"
@@ -25,8 +27,7 @@ namespace zeta {
 		struct RendererStateData {
 			glm::mat4 transform;
 			unsigned int col;
-			Font* font;
-			RendererStateData(glm::mat4& transform, unsigned int col, Font* font) : transform(transform), col(col), font(font) {}
+			RendererStateData(glm::mat4& transform, unsigned int col) : transform(transform), col(col) {}
 		};
 
 		struct RenderableData {
@@ -47,6 +48,7 @@ namespace zeta {
 			unsigned int m_currentcol;  // The current colour of the renderer. This 'dyes' the renderables this colour (white is normal colour)
 			std::vector<GLuint> m_textureSlots;
 			RenderableData* m_translucentRenderableList;
+			std::unordered_multimap<Font*, std::pair<RendererStateData, Label*>> m_labelList;
 			Font* m_font, *m_defaultfont;
 			Shader* m_shader;
 			TransformationStack m_transformStack;
@@ -72,6 +74,7 @@ namespace zeta {
 				m_currentcol = a << 24 | b << 16 | g << 8 | r;
 			}
 
+		private:
 			// Pass nullptr to set to default font.
 			inline void setFont(Font* font) {
 				if (m_font == font) {
@@ -89,6 +92,7 @@ namespace zeta {
 			inline void setFont(const std::string& fname, unsigned int size) {
 				setFont(FontManager::inst->get(fname, size));
 			}
+		public:
 
 			inline Shader* getShader() { return m_shader; }
 			inline Font* getFont() { return m_font; }
