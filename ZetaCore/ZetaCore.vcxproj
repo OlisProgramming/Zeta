@@ -144,6 +144,7 @@
     <ClCompile Include="src\entity\text_render_behaviour.cpp" />
     <ClCompile Include="src\game\game.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
+    <ClCompile Include="src\graphics\renderable\line.cpp" />
     <ClCompile Include="src\graphics\renderer\camera.cpp" />
     <ClCompile Include="src\graphics\texture\texture_manager.cpp" />
     <ClCompile Include="src\graphics\texture\tileset_manager.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="src\entity\sprite_render_behaviour.h" />
     <ClInclude Include="src\entity\text_render_behaviour.h" />
     <ClInclude Include="src\game\game.h" />
+    <ClInclude Include="src\graphics\renderable\line.h" />
     <ClInclude Include="src\graphics\renderer\camera.h" />
     <ClInclude Include="src\graphics\texture\tileset_manager.h" />
     <ClInclude Include="src\level\global_data.h" />

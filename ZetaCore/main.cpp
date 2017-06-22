@@ -4,11 +4,15 @@
 #include "src\entity\behaviour_factory.h"
 #include "src\level\global_data.h"
 #include "src\util\image_load.h"
+#include "src\graphics\renderable\line.h"
 
 using namespace zeta;
 using namespace entity;
 
 class PlayerBehaviour : public Behaviour {
+
+private:
+	Line* m_line;
 
 public:
 	ZETA_BEHAVIOUR_CLASS_BODY(PlayerBehaviour)
@@ -16,6 +20,11 @@ public:
 	PlayerBehaviour(Entity* parent) : Behaviour(parent) {
 		parent->addBehaviour(new SpriteRenderBehaviour(parent, "test.png"));
 		parent->addBehaviour(new TextRenderBehaviour(parent, "Hello, World!", "consola.ttf", 15));
+		m_line = new Line(glm::vec2(5, 5), glm::vec2(795, 595), -50, 5);
+	}
+
+	PlayerBehaviour::~PlayerBehaviour() {
+		delete m_line;
 	}
 
 	void tick() override {
@@ -41,6 +50,14 @@ public:
 		if (game::Game::inst->getLevel()->collideAll(m_parent)) {
 			m_parent->setPos(oldMove);
 		}
+
+		m_line->update(m_parent->getPos2(), glm::vec2(795, 595), -50, 5);
+	}
+
+	void render(Renderer& renderer) override {
+
+		renderer.setColour({ 1, 1, 1, 1 });
+		renderer.submit(m_line);
 	}
 };
 

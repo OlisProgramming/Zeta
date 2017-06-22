@@ -61,6 +61,9 @@ namespace zeta {
 			inline void setPivot(glm::vec2 pivot) { m_pivot = pivot; }
 			inline void setPivotX(float x) { m_pivot.x = x; }
 			inline void setPivotY(float y) { m_pivot.y = y; }
+			inline void centrePivot() {
+				setPivot(getSize() * 0.5f);
+			}
 
 			inline glm::mat4 getTransformationMatrix() {
 
