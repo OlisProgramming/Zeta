@@ -1,7 +1,5 @@
 ZETA ENGINE TODO LIST
 
-- Batch some translucent sprites:
-	* everything with non-intersecting AABBs can be batched
 - Particle engine (attractors, deflectors, physics, automatic creation of new particles, automatic deletion of dead particles etc)
 - Create a class to save/load game data
 - Export Zeta as a .lib file (for Windows) so people can link it normally rather than having to compile source etc

@@ -1,6 +1,7 @@
 #include "renderer.h"
 #include "../renderable/group.h"
 #include "../renderable/label.h"
+#include "../../physics/aabb.h"
 
 namespace zeta {
 	namespace graphics {
@@ -272,11 +273,33 @@ namespace zeta {
 			}
 			flush();
 
+			using namespace physics;
+			std::vector<AABB> aabbs;
+
+			begin();
 			// Draw translucent objects (includes translucent labels).
 			while (m_translucentRenderableList != nullptr) {
 				float z = m_translucentRenderableList->self->getPos().z;
 				//m_font = m_translucentRenderableList->data.font;
-				begin();
+
+				// Now we determine whether or not to re-flush.
+				// We flush if and only if this renderable intersects with
+				// at least one other in the aabb vector above.
+				// TR for translucent renderable.
+				auto tr = m_translucentRenderableList->self;
+				AABB tr_aabb(tr->getPos(), glm::vec2(tr->getPos()) + tr->getSize());
+				bool flag = false;
+				for (AABB& aabb : aabbs) {
+					if (tr_aabb.collide(aabb)) {
+						flush();
+						begin();
+						flag = true;
+						break;
+					}
+				}
+				if (!flag) {
+					aabbs.push_back(tr_aabb);
+				}
 
 				m_transformStack.push(m_translucentRenderableList->data.transform, true);
 				m_currentcol = m_translucentRenderableList->data.col;
@@ -289,8 +312,8 @@ namespace zeta {
 				} while (m_translucentRenderableList != nullptr && m_translucentRenderableList->self->getPos().z == z);
 
 				m_transformStack.pop();
-				flush();
 			}
+			flush();
 		}
 
 		void Renderer::queueTranslucentRenderable(Renderable* renderable) {
