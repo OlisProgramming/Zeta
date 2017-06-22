@@ -1,15 +1,12 @@
 ZETA ENGINE TODO LIST
 
-- Add a font queue (like the translucent queue) to avoid flushing the renderer every single font change
-- Batch some translucent sprites: (will do if becomes a problem)
+- Batch some translucent sprites:
 	* everything with non-intersecting AABBs can be batched
-- Add in some useful unit tests! The project can't just sit there for nothing.
 - Particle engine (attractors, deflectors, physics, automatic creation of new particles, automatic deletion of dead particles etc)
 - Primitive rendering
 - Create a class to save/load game data
 - Export Zeta as a .lib file (for Windows) so people can link it normally rather than having to compile source etc
 - Frustum culling
-- glCullFace
 
 POSSIBLE FUTURE ADD-ONS
 

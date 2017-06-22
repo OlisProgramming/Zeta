@@ -152,8 +152,8 @@ namespace zeta {
 						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
-						m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(x0, y1, 0.0f, 1.0f));
-						m_vertexbuf->texCoord = glm::vec2(s0, t1);
+						m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(x1, y0, 0.0f, 1.0f));
+						m_vertexbuf->texCoord = glm::vec2(s1, t0);
 						m_vertexbuf->texID = textureSlot;
 						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
@@ -164,8 +164,8 @@ namespace zeta {
 						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
 
-						m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(x1, y0, 0.0f, 1.0f));
-						m_vertexbuf->texCoord = glm::vec2(s1, t0);
+						m_vertexbuf->pos = m_transformStack.getMatrix() * (mat * glm::vec4(x0, y1, 0.0f, 1.0f));
+						m_vertexbuf->texCoord = glm::vec2(s0, t1);
 						m_vertexbuf->texID = textureSlot;
 						m_vertexbuf->col = m_currentcol;
 						++m_vertexbuf;
