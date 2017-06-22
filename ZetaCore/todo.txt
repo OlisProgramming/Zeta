@@ -1,12 +1,11 @@
 ZETA ENGINE TODO LIST
 
-- Particle engine (attractors, deflectors, physics, automatic creation of new particles, automatic deletion of dead particles etc)
 - Create a class to save/load game data
 - Export Zeta as a .lib file (for Windows) so people can link it normally rather than having to compile source etc
-- Frustum culling
 
 POSSIBLE FUTURE ADD-ONS
 
+- Particle engine (attractors, deflectors, physics, automatic creation of new particles, automatic deletion of dead particles etc)
 - A 'path' system by using a Tiled polyline on an object layer, where entities can move along a path
 - Stereo sound
 - Lighting

@@ -2,6 +2,7 @@
 #include "../renderable/group.h"
 #include "../renderable/label.h"
 #include "../../physics/aabb.h"
+#include "../../game/game.h"
 
 namespace zeta {
 	namespace graphics {
@@ -76,6 +77,12 @@ namespace zeta {
 		}
 
 		void Renderer::submit(Renderable* renderable, bool renderTranslucentImmediately) {
+
+			using namespace physics;
+			AABB aabb(renderable->getPos(), glm::vec2(renderable->getPos()) + renderable->getSize());
+			AABB cam_aabb(game::Game::inst->getCamera().getPos(), game::Game::inst->getCamera().getPos() + game::Game::inst->getCamera().getSize());
+			// Apply frustum culling to non-rotated sprites because rotated sprites' aabbs are messed up
+			if ((renderable->getRot() == 0) && (!aabb.collide(cam_aabb))) return;
 
 			if (renderable->isTranslucent() && !renderTranslucentImmediately) {
 				queueTranslucentRenderable(renderable);

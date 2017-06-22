@@ -22,6 +22,7 @@ namespace zeta {
 			inline const glm::vec2& getPos() const { return m_pos; }
 			inline const float getX() const { return m_pos.x; }
 			inline const float getY() const { return m_pos.y; }
+			inline const glm::vec2& getSize() { return m_windowDimensions; }
 			inline void setPos(glm::vec2& pos) { m_pos = pos; }
 			inline void setX(float x) { m_pos.x = x; }
 			inline void setY(float y) { m_pos.y = y; }
