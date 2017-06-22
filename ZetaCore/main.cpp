@@ -5,6 +5,7 @@
 #include "src\level\global_data.h"
 #include "src\util\image_load.h"
 #include "src\graphics\renderable\line.h"
+#include "src\game\save.h"
 
 using namespace zeta;
 using namespace entity;
@@ -21,6 +22,8 @@ public:
 		parent->addBehaviour(new SpriteRenderBehaviour(parent, "test.png"));
 		parent->addBehaviour(new TextRenderBehaviour(parent, "Hello, World!", "consola.ttf", 15));
 		m_line = new Line(glm::vec2(5, 5), glm::vec2(795, 595), -50, 5);
+
+		game::SaveFile::inst->set("engineDetails", "name", "Zeta");
 	}
 
 	PlayerBehaviour::~PlayerBehaviour() {
@@ -73,5 +76,6 @@ int main(int argc, char* argv[]) {
 	ZETA_BEHAVIOUR_REGISTER(PlayerBehaviour);
 
 	game.run("test");
+
 	return 0;
 }

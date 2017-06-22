@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\RapidXML;C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\include;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\include;C:\Users\Oliver\Documents\Programming\Libs\FreeType\include;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\Feather-ini-parser;C:\Users\Oliver\Documents\Programming\Libs\RapidXML;C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\include;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\include;C:\Users\Oliver\Documents\Programming\Libs\FreeType\include;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\bin\win32\Release;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\lib;C:\Users\Oliver\Documents\Programming\Libs\FreeType\objs\vc2010\Win32;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\lib\Release\Win32;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\lib-vc2015;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
@@ -78,7 +78,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Configuration)\Intermediate\</IntDir>
-    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\RapidXML;C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\include;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\include;C:\Users\Oliver\Documents\Programming\Libs\FreeType\include;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Oliver\Documents\Programming\Libs\Feather-ini-parser;C:\Users\Oliver\Documents\Programming\Libs\RapidXML;C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\include;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\include;C:\Users\Oliver\Documents\Programming\Libs\FreeType\include;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\include;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\include;C:\Users\Oliver\Documents\Programming\Libs\GLM;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Oliver\Documents\Programming\Libs\GorillaAudio\bin\win32\Release;C:\Users\Oliver\Documents\Programming\Libs\FreeTypeGL\lib;C:\Users\Oliver\Documents\Programming\Libs\FreeType\objs\vc2010\Win32;C:\Users\Oliver\Documents\Programming\Libs\FreeImage\Dist\x32;C:\Users\Oliver\Documents\Programming\Libs\GLEW\lib\Release\Win32;C:\Users\Oliver\Documents\Programming\Libs\GLFW-Win32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -143,6 +143,7 @@
     <ClCompile Include="src\entity\sprite_render_behaviour.cpp" />
     <ClCompile Include="src\entity\text_render_behaviour.cpp" />
     <ClCompile Include="src\game\game.cpp" />
+    <ClCompile Include="src\game\save.cpp" />
     <ClCompile Include="src\graphics\font\font_manager.cpp" />
     <ClCompile Include="src\graphics\renderable\line.cpp" />
     <ClCompile Include="src\graphics\renderer\camera.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="src\entity\sprite_render_behaviour.h" />
     <ClInclude Include="src\entity\text_render_behaviour.h" />
     <ClInclude Include="src\game\game.h" />
+    <ClInclude Include="src\game\save.h" />
     <ClInclude Include="src\graphics\renderable\line.h" />
     <ClInclude Include="src\graphics\renderer\camera.h" />
     <ClInclude Include="src\graphics\texture\tileset_manager.h" />
