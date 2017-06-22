@@ -24,6 +24,10 @@ public:
 		m_line = new Line(glm::vec2(5, 5), glm::vec2(795, 595), -50, 5);
 
 		game::SaveFile::inst->set("engineDetails", "name", "Zeta");
+		game::SaveFile::inst->set("engineDetails", "versionMajor", 1);
+		game::SaveFile::inst->set("engineDetails", "versionMinor", 0);
+
+		printf("Zeta version %d.%d!\n", game::SaveFile::inst->getInt("engineDetails", "versionMajor", 0), game::SaveFile::inst->getInt("engineDetails", "versionMinor", 0));
 	}
 
 	PlayerBehaviour::~PlayerBehaviour() {
