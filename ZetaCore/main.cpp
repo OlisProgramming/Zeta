@@ -1,3 +1,4 @@
+#if 0
 #include "src\game\game.h"
 #include "src\entity\behaviour.h"
 #include "src\entity\behaviours_builtin.h"
@@ -83,3 +84,4 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 }
+#endif
