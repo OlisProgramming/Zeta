@@ -98,7 +98,6 @@ namespace zeta {
 			new TilesetManager;
 			new level::GlobalData;
 			new entity::BehaviourFactory;
-			new game::SaveFile("../res/save.ini");
 
 			printf("Zeta is using OpenGL %s\n", glGetString(GL_VERSION));
 
@@ -123,8 +122,6 @@ namespace zeta {
 			delete TextureManager::inst;
 			delete TilesetManager::inst;
 			delete level::GlobalData::inst;
-			game::SaveFile::inst->save();
-			delete game::SaveFile::inst;
 
 			glfwDestroyWindow(m_wnd);
 			glfwTerminate();

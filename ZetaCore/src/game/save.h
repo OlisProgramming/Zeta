@@ -9,8 +9,6 @@ namespace zeta {
 
 		class SaveFile {
 
-		public:
-			static SaveFile* inst;
 		private:
 			INI<> m_ini;
 
