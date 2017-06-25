@@ -33,6 +33,7 @@ namespace zeta {
 			inline void addEntity(entity::Entity* ent) { m_entities.emplace(ent); }
 			inline void deleteEntity(entity::Entity* ent) { m_entities.erase(ent); }
 			inline bool collideAll(const physics::PhysObject* obj) {
+				if (obj == nullptr) return false;
 				using namespace physics;
 				for (entity::Entity* other : m_entities) {
 					if (other->getPhysObj() == nullptr) continue;

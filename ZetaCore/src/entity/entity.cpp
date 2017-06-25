@@ -23,6 +23,7 @@ namespace zeta {
 		}
 
 		void Entity::updatePhysObj() {
+			if (!m_physObj) return;
 			switch (m_physObj->getType()) {
 
 			case PhysObjectType::AABB:

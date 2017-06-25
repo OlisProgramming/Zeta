@@ -36,7 +36,7 @@ namespace zeta {
 				if (m_physObj == nullptr) delete m_physObj;
 				m_physObj = obj;
 			}
-			void updatePhysObj();
+			virtual void updatePhysObj();
 
 #define ZETA_ENTITY_GET_BEHAVIOUR(ent, behaviourClassName) (static_cast<behaviourClassName*>(ent->getBehaviour(#behaviourClassName)))
 

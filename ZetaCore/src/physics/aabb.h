@@ -10,6 +10,7 @@ namespace zeta {
 
 		public:
 			glm::vec2 m_low, m_high;
+			AABB() {}
 			AABB(const glm::vec2& a, const glm::vec2& b);
 			inline const PhysObjectType getType() const override { return PhysObjectType::AABB; }
 
