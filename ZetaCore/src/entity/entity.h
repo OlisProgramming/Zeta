@@ -32,12 +32,14 @@ namespace zeta {
 			inline void setPos(glm::vec2& pos) { m_pos.x = pos.x; m_pos.y = pos.y; updatePhysObj(); }
 			inline const glm::vec2& getSize() const { return m_size; }
 			inline void setSize(glm::vec2& size) { m_size = size; }
-			inline const physics::PhysObject* getPhysObj() { return m_physObj; }
+			inline physics::PhysObject* getPhysObj() { return m_physObj; }
 			inline void setPhysObj(physics::PhysObject* obj) {
 				if (m_physObj == nullptr) delete m_physObj;
 				m_physObj = obj;
 			}
 			void updatePhysObj();
+			inline void autoUpdatePhysicsObject(bool doAutoUpdate) { m_physAutoUpdate = doAutoUpdate; }
+			inline bool autoUpdatePhysicsObject() { return m_physAutoUpdate; }
 
 #define ZETA_ENTITY_GET_BEHAVIOUR(ent, behaviourClassName) (static_cast<behaviourClassName*>(ent->getBehaviour(#behaviourClassName)))
 
