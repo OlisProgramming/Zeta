@@ -45,6 +45,20 @@ namespace zeta {
 			}
 			inline bool collideAll(entity::Entity* ent) { return collideAll(ent->getPhysObj()); }
 
+			inline bool collideAllSolid(const physics::PhysObject* obj) {
+				if (obj == nullptr) return false;
+				using namespace physics;
+				for (entity::Entity* other : m_entities) {
+					if (other->getPhysObj() == nullptr) continue;
+					if (other->getPhysObj() == obj) continue;
+					if (!other->isSolid()) continue;
+					if (other->getPhysObj()->collide(*obj))
+						return true;
+				}
+				return false;
+			}
+			inline bool collideAllSolid(entity::Entity* ent) { return collideAllSolid(ent->getPhysObj()); }
+
 			inline void init() {
 				for (entity::Entity* ent : m_entities) ent->preInit();
 				for (entity::Entity* ent : m_entities) ent->init();

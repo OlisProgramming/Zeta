@@ -16,11 +16,12 @@ namespace zeta {
 			glm::vec3 m_pos;
 			glm::vec2 m_size;
 			physics::PhysObject* m_physObj;
+			bool m_solid;
 			bool m_physAutoUpdate;
 			std::vector<Behaviour*> m_behaviours;
 
 		public:
-			Entity(glm::vec3 pos, glm::vec2 size) : m_pos(pos), m_size(size), m_physObj(nullptr), m_physAutoUpdate(true) {}
+			Entity(glm::vec3 pos, glm::vec2 size) : m_pos(pos), m_size(size), m_physObj(nullptr), m_physAutoUpdate(true), m_solid(false) {}
 			~Entity();
 			inline const std::vector<Behaviour*>& getAllBehaviours() { return m_behaviours; }
 			inline void addBehaviour(Behaviour* behaviour) { m_behaviours.push_back(behaviour); }
@@ -40,6 +41,8 @@ namespace zeta {
 			void updatePhysObj();
 			inline void autoUpdatePhysicsObject(bool doAutoUpdate) { m_physAutoUpdate = doAutoUpdate; }
 			inline bool autoUpdatePhysicsObject() { return m_physAutoUpdate; }
+			inline void setSolid(bool solid) { m_solid = solid; }
+			inline bool isSolid() { return m_solid; }
 
 #define ZETA_ENTITY_GET_BEHAVIOUR(ent, behaviourClassName) (static_cast<behaviourClassName*>(ent->getBehaviour(#behaviourClassName)))
 

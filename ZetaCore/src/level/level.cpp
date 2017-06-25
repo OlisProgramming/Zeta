@@ -130,6 +130,14 @@ namespace zeta {
 									printf("Invalid collision type on level generation! Got %s, expected 'aabb'.\n", propParams.c_str());
 								}
 							}
+							else if (propClassName == "Solid") {
+								if (util::isTruthy(propParams)) {
+									ent->setSolid(true);
+								}
+								else {
+									ent->setSolid(false);
+								}
+							}
 							else {
 								ent->addBehaviour(BehaviourFactory::inst->generate(propClassName, ent, propParams));
 							}
