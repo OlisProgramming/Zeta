@@ -126,8 +126,6 @@ namespace zeta {
 				glfwSetWindowSize(m_wnd, m_defaultWidth, m_defaultHeight);
 				glfwSetWindowPos(m_wnd, 32, 32);
 			}
-
-			printf("%d, %d\n", m_width, m_height);
 		}
 
 		Window::~Window() {

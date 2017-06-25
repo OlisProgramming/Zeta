@@ -1,6 +1,6 @@
 ZETA ENGINE TODO LIST
 
-- Export Zeta as a .lib file (for Windows) so people can link it normally rather than having to compile source etc
+- Fix translucent fonts
 
 POSSIBLE FUTURE ADD-ONS
 

@@ -88,12 +88,12 @@ namespace zeta {
 				queueTranslucentRenderable(renderable);
 				return;
 			}
-			if (renderable->getType() == RenderableType::LABEL && !renderTranslucentImmediately) {
+			/*if (renderable->getType() == RenderableType::LABEL && !renderTranslucentImmediately) {
 				Label* label = static_cast<Label*>(renderable);
 				RendererStateData data(m_transformStack.getMatrix(), m_currentcol);
 				m_labelList.emplace(label->getFont(), std::make_pair(data, label));
 				return;
-			}
+			}*/
 
 			if (renderable->getType() == RenderableType::GROUP) {
 				m_transformStack.push((static_cast<Group*>(renderable))->getMatrix(), false);
@@ -104,6 +104,7 @@ namespace zeta {
 			}
 			else if (renderable->getType() == RenderableType::LABEL) {
 				Label* label = static_cast<Label*>(renderable);
+				setFont(label->getFont());
 				glm::mat4& mat = label->getTransformationMatrix();
 
 				// DRAW STRING
@@ -269,8 +270,9 @@ namespace zeta {
 		void Renderer::flushAll() {
 			flush();
 
-			// Draw text (labels).
+			/*// Draw text (labels).
 			begin();
+
 			for (auto it = m_labelList.begin(), end = m_labelList.end(); it != end; it = m_labelList.upper_bound(it->first)) {
 				setFont(it->first);
 				m_currentcol = it->second.first.col;
@@ -278,7 +280,7 @@ namespace zeta {
 				submit(it->second.second, true);
 				m_transformStack.pop();
 			}
-			flush();
+			flush();*/
 
 			using namespace physics;
 			std::vector<AABB> aabbs;

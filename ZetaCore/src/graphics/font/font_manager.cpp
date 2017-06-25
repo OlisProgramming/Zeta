@@ -22,6 +22,10 @@ namespace zeta {
 				}
 			}
 
+			if (!fnt) {
+				fnt = new Font(fname, size);
+			}
+
 			return fnt;
 		}
 
