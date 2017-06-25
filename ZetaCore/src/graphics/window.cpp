@@ -20,7 +20,7 @@ namespace zeta {
 		void windowResizeCallback(GLFWwindow* window, int width, int height);
 
 		Window::Window(const char* title, int width, int height) :
-			m_title(title), m_width(width), m_height(height), m_wnd(NULL) {
+			m_title(title), m_width(width), m_height(height), m_defaultWidth(width), m_defaultHeight(height), m_wnd(NULL) {
 			inst = this;
 			m_screenRatio = (float)width / (float)height;
 			init();
@@ -110,6 +110,24 @@ namespace zeta {
 			
 			// Set up static IBOs
 			Renderer::init();
+		}
+
+		void Window::updateFullscreen() {
+			const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+
+			if (m_fullscreen) {
+				// Set window size for "fullscreen windowed" mode to the desktop resolution.
+				glfwSetWindowSize(m_wnd, mode->width, mode->height);
+				// Move window to the upper left corner.
+				glfwSetWindowPos(m_wnd, 0, 0);
+			}
+			else {
+				// Use start-up values for "windowed" mode.
+				glfwSetWindowSize(m_wnd, m_defaultWidth, m_defaultHeight);
+				glfwSetWindowPos(m_wnd, 32, 32);
+			}
+
+			printf("%d, %d\n", m_width, m_height);
 		}
 
 		Window::~Window() {

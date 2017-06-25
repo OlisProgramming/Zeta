@@ -14,8 +14,10 @@ namespace zeta {
 		private:
 			const char* m_title;
 			int m_width, m_height;
+			int m_defaultWidth, m_defaultHeight;
 			float m_screenRatio;
 			GLFWwindow* m_wnd;
+			bool m_fullscreen;
 		
 		public:
 			Window(const char* name, int width, int height);
@@ -28,8 +30,12 @@ namespace zeta {
 			// For instance, files logo16.png, logo32.png and logo64.png.
 			void setWindowIcons(std::vector<std::string> names);
 			void setWindowTitle(const std::string& title);
+
+			inline void setFullscreen(bool fullscreen) { m_fullscreen = fullscreen; updateFullscreen(); }
+			inline void toggleFullscreen() { m_fullscreen = !m_fullscreen; updateFullscreen(); }
 		private:
 			void init();
+			void updateFullscreen();
 			friend void windowResizeCallback(GLFWwindow* window, int width, int height);
 		};
 	}
