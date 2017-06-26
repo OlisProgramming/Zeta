@@ -15,7 +15,7 @@ namespace zeta {
 			ZETA_BEHAVIOUR_CLASS_BODY(TextRenderBehaviour)
 
 			TextRenderBehaviour(Entity* parent, const std::string& text, const std::string& font, unsigned int fontSize, bool isTranslucent = false);
-			~TextRenderBehaviour();
+			virtual ~TextRenderBehaviour();
 			void render(Renderer& renderer) override;
 		};
 	}

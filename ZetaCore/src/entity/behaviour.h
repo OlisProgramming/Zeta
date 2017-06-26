@@ -26,6 +26,8 @@ namespace zeta {
 			// Do minimal work in constructor, as it is not certain all level objects are there.
 			Behaviour(Entity* parent) : m_parent(parent) {}
 
+			virtual ~Behaviour() {}
+
 			// Automatically overriden by ZETA_BEHAVIOUR_CLASS_BODY.
 			virtual std::string getClassName() = 0;
 
@@ -51,6 +53,12 @@ namespace zeta {
 			virtual void  preRender(Renderer& renderer) {}
 			virtual void     render(Renderer& renderer) {}
 			virtual void postRender(Renderer& renderer) {}
+
+			// Try to do as much game-editing work as possible here and not in destructor.
+			// Put memory deallocation code in destructor.
+			virtual void  preDestroy() {}
+			virtual void     destroy() {}
+			virtual void postDestroy() {}
 		};
 
 #define ZETA_BEHAVIOUR_CLASS_BODY(className) \

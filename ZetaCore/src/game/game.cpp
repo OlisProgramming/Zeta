@@ -37,7 +37,6 @@ namespace zeta {
 		}
 
 		Game::~Game() {
-			delete m_level;
 			delete m_camera;
 			delete m_renderer;
 #ifdef ZETA_CONFIG_DEBUG
@@ -113,6 +112,8 @@ namespace zeta {
 
 				lastElapsedTime = elapsedTime;
 			}
+
+			delete m_level;
 		}
 		
 		void Game::changeLevel(const std::string& level) {

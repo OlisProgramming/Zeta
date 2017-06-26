@@ -21,11 +21,12 @@ namespace zeta {
 			Font* get(const std::string& fname, unsigned int size);
 			void cleanup();
 
-			float getTextWidth(Font* fnt, const std::string& text);
-			inline float getTextWidth(const std::string& fontFname, unsigned int size, const std::string& text) {
+			float getTextWidth(Font* fnt, std::string text, bool includeEndSpace = false);
+			inline float getTextWidth(const std::string& fontFname, unsigned int size, std::string text, bool includeEndSpace = false) {
 				Font* fnt = get(fontFname, size);
 				if (!fnt) return 0.0f;
-				return getTextWidth(fnt, text);
+				//printf("%d\n", (int)includeEndSpace);
+				return getTextWidth(fnt, text, includeEndSpace);
 			}
 		};
 	}

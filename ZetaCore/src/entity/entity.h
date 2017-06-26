@@ -57,6 +57,10 @@ namespace zeta {
 			void  preRender(graphics::Renderer& renderer);
 			void     render(graphics::Renderer& renderer);
 			void postRender(graphics::Renderer& renderer);
+
+			void  preDestroy();
+			void     destroy();
+			void postDestroy();
 		};
 	}
 }

@@ -152,6 +152,15 @@ namespace zeta {
 
 		Level::~Level() {
 			for (Entity* ent : m_entities) {
+				ent->preDestroy();
+			}
+			for (Entity* ent : m_entities) {
+				ent->destroy();
+			}
+			for (Entity* ent : m_entities) {
+				ent->postDestroy();
+			}
+			for (Entity* ent : m_entities) {
 				delete ent;
 			}
 		}

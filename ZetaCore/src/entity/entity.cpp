@@ -44,5 +44,9 @@ namespace zeta {
 		void Entity:: preRender(graphics::Renderer& renderer) { for (Behaviour* behaviour : m_behaviours) behaviour->preRender(renderer); }
 		void Entity::    render(graphics::Renderer& renderer) { for (Behaviour* behaviour : m_behaviours) behaviour->render(renderer); }
 		void Entity::postRender(graphics::Renderer& renderer) { for (Behaviour* behaviour : m_behaviours) behaviour->postRender(renderer); }
+
+		void Entity:: preDestroy() { for (Behaviour* behaviour : m_behaviours) behaviour->preDestroy(); }
+		void Entity::    destroy() { for (Behaviour* behaviour : m_behaviours) behaviour->destroy(); }
+		void Entity::postDestroy() { for (Behaviour* behaviour : m_behaviours) behaviour->postDestroy(); }
 	}
 }

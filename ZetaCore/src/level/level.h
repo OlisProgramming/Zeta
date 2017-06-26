@@ -24,6 +24,7 @@ namespace zeta {
 			std::unordered_set<entity::Entity*> m_entities;
 			std::vector<graphics::Sprite> m_tiles;
 			std::vector<TilesetData> m_tilesets;
+			std::vector<entity::Entity*> m_toDelete;
 
 		public:
 			Level(const std::string& tmxFileName);
@@ -31,7 +32,7 @@ namespace zeta {
 
 			inline const std::unordered_set<entity::Entity*>& getAllEntities() { return m_entities; }
 			inline void addEntity(entity::Entity* ent) { m_entities.emplace(ent); }
-			inline void deleteEntity(entity::Entity* ent) { m_entities.erase(ent); }
+			inline void deleteEntity(entity::Entity* ent) { m_toDelete.push_back(ent); }
 			inline bool collideAll(const physics::PhysObject* obj) {
 				if (obj == nullptr) return false;
 				using namespace physics;
@@ -69,6 +70,12 @@ namespace zeta {
 				for (entity::Entity* ent : m_entities) ent->preTick();
 				for (entity::Entity* ent : m_entities) ent->tick();
 				for (entity::Entity* ent : m_entities) ent->postTick();
+
+				for (entity::Entity* ent : m_toDelete) {
+					m_entities.erase(ent);
+					delete ent;
+				}
+				m_toDelete.clear();
 			}
 			
 			inline void render(graphics::Renderer& renderer) {
