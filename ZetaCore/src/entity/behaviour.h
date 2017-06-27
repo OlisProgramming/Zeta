@@ -59,6 +59,8 @@ namespace zeta {
 			virtual void  preDestroy() {}
 			virtual void     destroy() {}
 			virtual void postDestroy() {}
+
+			inline Entity* getParent() { return m_parent; }
 		};
 
 #define ZETA_BEHAVIOUR_CLASS_BODY(className) \
