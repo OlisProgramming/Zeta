@@ -267,7 +267,7 @@ namespace zeta {
 			m_indexcount = 0;
 			
 
-			++m_numFlushes;
+			//++m_numFlushes;
 		}
 
 		void Renderer::flushAll() {
@@ -330,8 +330,8 @@ namespace zeta {
 			}
 			flush();
 
-			printf("%d total draw calls\n", m_numFlushes);
-			m_numFlushes = 0;
+			//printf("%d total draw calls\n", m_numFlushes);
+			//m_numFlushes = 0;
 		}
 
 		void Renderer::queueTranslucentRenderable(Renderable* renderable) {

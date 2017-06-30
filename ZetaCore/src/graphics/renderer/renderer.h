@@ -52,7 +52,7 @@ namespace zeta {
 			Font* m_font, *m_defaultfont;
 			Shader* m_shader;
 			TransformationStack m_transformStack;
-			unsigned int m_numFlushes;
+			//unsigned int m_numFlushes;
 			
 		public:
 			Renderer(Shader* shader);
