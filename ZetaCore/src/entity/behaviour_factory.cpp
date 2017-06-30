@@ -16,7 +16,7 @@ namespace zeta {
 		}
 
 		Behaviour* BehaviourFactory::generate(const std::string& behaviourName, Entity* parent, const std::string& params) {
-			return m_generators[behaviourName](parent, util::split(params));
+			return m_generators.at(behaviourName)(parent, util::split(params));
 		}
 	}
 }
