@@ -88,12 +88,12 @@ namespace zeta {
 				queueTranslucentRenderable(renderable);
 				return;
 			}
-			/*if (renderable->getType() == RenderableType::LABEL && !renderTranslucentImmediately) {
+			if (renderable->getType() == RenderableType::LABEL && !renderTranslucentImmediately) {
 				Label* label = static_cast<Label*>(renderable);
 				RendererStateData data(m_transformStack.getMatrix(), m_currentcol);
-				m_labelList.emplace(label->getFont(), std::make_pair(data, label));
+				m_labelList.insert(std::make_pair(label->getFont(), std::make_pair(data, label)));
 				return;
-			}*/
+			}
 
 			if (renderable->getType() == RenderableType::GROUP) {
 				m_transformStack.push((static_cast<Group*>(renderable))->getMatrix(), false);
@@ -265,22 +265,28 @@ namespace zeta {
 			glBindVertexArray(0);
 
 			m_indexcount = 0;
+			
+
+			++m_numFlushes;
 		}
 
 		void Renderer::flushAll() {
 			flush();
 
-			/*// Draw text (labels).
+			// Draw text (labels).
 			begin();
 
-			for (auto it = m_labelList.begin(), end = m_labelList.end(); it != end; it = m_labelList.upper_bound(it->first)) {
-				setFont(it->first);
-				m_currentcol = it->second.first.col;
-				m_transformStack.push(it->second.first.transform, true);
-				submit(it->second.second, true);
+			//for (auto it = m_labelList.begin(), end = m_labelList.end(); it != end; it = m_labelList.upper_bound(it->first)) {
+			for (auto it : m_labelList) {
+				setFont(it.first);
+				m_currentcol = it.second.first.col;
+				m_transformStack.push(it.second.first.transform, true);
+				submit(it.second.second, true);
 				m_transformStack.pop();
+				//puts("fontRender");
 			}
-			flush();*/
+			m_labelList.clear();
+			flush();
 
 			using namespace physics;
 			std::vector<AABB> aabbs;
@@ -323,6 +329,9 @@ namespace zeta {
 				m_transformStack.pop();
 			}
 			flush();
+
+			printf("%d total draw calls\n", m_numFlushes);
+			m_numFlushes = 0;
 		}
 
 		void Renderer::queueTranslucentRenderable(Renderable* renderable) {

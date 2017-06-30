@@ -1,7 +1,6 @@
 ZETA ENGINE TODO LIST
 
 - Fix translucent fonts
-- Add a text/label queue in renderer! Hoping for a massive performance boost
 
 POSSIBLE FUTURE ADD-ONS
 

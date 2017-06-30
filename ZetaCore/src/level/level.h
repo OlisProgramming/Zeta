@@ -73,6 +73,9 @@ namespace zeta {
 
 				for (entity::Entity* ent : m_toDelete) {
 					m_entities.erase(ent);
+					ent->preDestroy();
+					ent->destroy();
+					ent->postDestroy();
 					delete ent;
 				}
 				m_toDelete.clear();
