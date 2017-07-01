@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GLFW\glfw3.h>
+#include <glm\glm.hpp>
 
 namespace zeta {
 	namespace input {
@@ -33,6 +34,7 @@ namespace zeta {
 			inline bool btnReleased(int btncode) const { return m_buttons[btncode].lastframe && !m_buttons[btncode].thisframe; }
 			inline int mouseX() const { return (int)m_mouseX; }
 			inline int mouseY() const { return (int)m_mouseY; }
+			inline glm::vec2 mousePos() const { return glm::vec2(m_mouseX, m_mouseY); }
 			void registerEvents(GLFWwindow* wnd) const;
 			void update();
 		private:

@@ -2,11 +2,14 @@
 
 #include "../../util/image_load.h"
 #include "../../util/fileutils.h"
+#include "../../util/logging.h"
 
 namespace zeta {
 	namespace graphics {
 
 		Texture::Texture(std::string path) {
+
+			ZLog("Loading texture file from " + path);
 
 			if (!util::fileExists(path)) {
 				throw std::runtime_error("Texture file " + path + " does not exist!");

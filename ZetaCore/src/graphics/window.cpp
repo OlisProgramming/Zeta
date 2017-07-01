@@ -12,6 +12,7 @@
 #include "texture\tileset_manager.h"
 #include "font\font_manager.h"
 #include "renderer\renderer.h"
+#include "../util/logging.h"
 
 namespace zeta {
 	namespace graphics {
@@ -99,7 +100,7 @@ namespace zeta {
 			new level::GlobalData;
 			new entity::BehaviourFactory;
 
-			printf("Zeta is using OpenGL %s\n", glGetString(GL_VERSION));
+			ZLog("Zeta is using OpenGL " + std::string((char*)glGetString(GL_VERSION)) + ".");
 
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 			glEnable(GL_DEPTH_TEST);

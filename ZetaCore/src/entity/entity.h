@@ -33,6 +33,7 @@ namespace zeta {
 			inline void setPos(glm::vec2& pos) { m_pos.x = pos.x; m_pos.y = pos.y; updatePhysObj(); }
 			inline const glm::vec2& getSize() const { return m_size; }
 			inline void setSize(glm::vec2& size) { m_size = size; }
+			inline glm::vec2 getCentre() const { return getPos2() + m_size*0.5f; }
 			inline physics::PhysObject* getPhysObj() { return m_physObj; }
 			inline void setPhysObj(physics::PhysObject* obj) {
 				if (m_physObj == nullptr) delete m_physObj;

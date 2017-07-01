@@ -129,6 +129,7 @@
     <ClCompile Include="src\util\fileutils.cpp" />
     <ClCompile Include="src\util\fps_clock.cpp" />
     <ClCompile Include="src\util\image_load.cpp" />
+    <ClCompile Include="src\util\logging.cpp" />
     <ClCompile Include="src\util\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +172,7 @@
     <ClInclude Include="src\util\fileutils.h" />
     <ClInclude Include="src\util\fps_clock.h" />
     <ClInclude Include="src\util\image_load.h" />
+    <ClInclude Include="src\util\logging.h" />
     <ClInclude Include="src\util\mathutil.h" />
     <ClInclude Include="src\util\strutils.h" />
     <ClInclude Include="src\util\timer.h" />

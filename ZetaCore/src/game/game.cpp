@@ -5,6 +5,7 @@
 #include "../entity/behaviours_builtin.h"
 #include "../level/global_data.h"
 #include "../util/fps_clock.h"
+#include "../util/logging.h"
 
 namespace zeta {
 	namespace game {
@@ -17,6 +18,8 @@ namespace zeta {
 			inst = this;
 
 			m_levelShouldChange = false;
+			new Logger;
+			ZLog("Zeta engine initialising");
 
 #ifdef ZETA_CONFIG_RELEASE
 # ifdef _WIN32
@@ -24,7 +27,9 @@ namespace zeta {
 # endif
 #endif
 
+			ZLog("Creating Window");
 			new graphics::Window(name.c_str(), width, height);
+			ZLog("Creating shaders and rendering utilities");
 			m_shader = new graphics::ShaderBasic;
 			m_renderer = new graphics::Renderer(m_shader);
 			m_camera = new graphics::Camera(m_shader, { width, height });
@@ -32,7 +37,7 @@ namespace zeta {
 #ifdef ZETA_CONFIG_DEBUG
 			m_fpsCounter = new graphics::Label("100 FPS", { 5, 20, 400000.0f }, "consola.ttf", 15, true);
 #endif
-
+			ZLog("Registering builtin behaviours");
 			registerBehaviours();
 		}
 
@@ -43,9 +48,12 @@ namespace zeta {
 			delete m_fpsCounter;
 #endif
 			delete graphics::Window::inst;
+			ZLog("Exited");
+			delete Logger::inst;
 		}
 
 		void Game::run(const std::string& initialLevel) {
+			ZLog("Running game");
 			m_nextLevelName = initialLevel;
 			m_level = new level::Level(initialLevel);
 
@@ -58,6 +66,7 @@ namespace zeta {
 			float lastElapsedTime = 0.f;
 			float levelStartTime = 0.f;
 			level::GlobalData::inst->levelTicks = 0L;
+			bool levelInitialised = false;
 			while (!graphics::Window::inst->shouldClose()) {
 
 				elapsedTime = timer.elapsed();
@@ -66,6 +75,11 @@ namespace zeta {
 				level::GlobalData::inst->totalTime = elapsedTime;
 				level::GlobalData::inst->deltaTime = elapsedTime - lastElapsedTime;
 				level::GlobalData::inst->levelTime = elapsedTime - levelStartTime;
+
+				if (!levelInitialised) {
+					m_level->init();
+					levelInitialised = true;
+				}
 
 				// Level tick
 				float ticksShouldHaveDone = elapsedTime * 60.f;
@@ -80,8 +94,12 @@ namespace zeta {
 						level::GlobalData::inst->levelTicks = 0L;
 						m_levelName = m_nextLevelName;
 
+						ZLog("Switching level to " + m_levelName);
+
 						m_level = new level::Level(m_nextLevelName);
 						m_levelShouldChange = false;
+
+						m_level->init();
 					}
 
 					input::InputInterface::inst->update();
