@@ -56,6 +56,7 @@ namespace zeta {
 			inline void setPosZ(float z) { m_pos.z = z; }
 			inline void setRot(float rot) { m_rot = rot; }
 			inline void setScale(glm::vec2 scale) { m_scale = scale; }
+			inline void setScale(float scale) { m_scale = glm::vec2(scale, scale); }
 			inline void setScaleX(float x) { m_scale.x = x; }
 			inline void setScaleY(float y) { m_scale.y = y; }
 			inline void setPivot(glm::vec2 pivot) { m_pivot = pivot; }
