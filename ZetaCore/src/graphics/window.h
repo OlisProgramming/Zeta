@@ -14,6 +14,7 @@ namespace zeta {
 		private:
 			const char* m_title;
 			int m_width, m_height;
+			int m_xoff, m_yoff;
 			int m_defaultWidth, m_defaultHeight;
 			float m_screenRatio;
 			GLFWwindow* m_wnd;
@@ -33,6 +34,13 @@ namespace zeta {
 
 			inline void setFullscreen(bool fullscreen) { m_fullscreen = fullscreen; updateFullscreen(); }
 			inline void toggleFullscreen() { m_fullscreen = !m_fullscreen; updateFullscreen(); }
+
+			inline int getW() { return m_width; }
+			inline int getH() { return m_height; }
+			inline int getDefaultW() { return m_defaultWidth; }
+			inline int getDefaultH() { return m_defaultHeight; }
+			inline int getXoff() { return m_xoff; }
+			inline int getYoff() { return m_yoff; }
 		private:
 			void init();
 			void updateFullscreen();

@@ -1,5 +1,7 @@
 #include "input_interface.h"
 
+#include "../graphics/window.h"
+
 namespace zeta {
 	namespace input {
 
@@ -20,6 +22,18 @@ namespace zeta {
 				m_buttons[i].lastframe = false;
 				m_buttons[i].tempframe = false;
 			}
+		}
+
+		int InputInterface::mouseX() const {
+			double adjusted = m_mouseX - graphics::Window::inst->getXoff();
+			float ratio = (float)(graphics::Window::inst->getDefaultW()) / (float)(graphics::Window::inst->getW());
+			return adjusted * ratio;
+		}
+
+		int InputInterface::mouseY() const {
+			double adjusted = m_mouseY - graphics::Window::inst->getYoff();
+			float ratio = (float)(graphics::Window::inst->getDefaultH()) / (float)(graphics::Window::inst->getH());
+			return adjusted * ratio;
 		}
 
 		void InputInterface::registerEvents(GLFWwindow* wnd) const {

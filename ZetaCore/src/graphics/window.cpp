@@ -24,6 +24,7 @@ namespace zeta {
 			m_title(title), m_width(width), m_height(height), m_defaultWidth(width), m_defaultHeight(height), m_wnd(NULL) {
 			inst = this;
 			m_screenRatio = (float)width / (float)height;
+			m_xoff = m_yoff = 0;
 			init();
 		}
 
@@ -186,8 +187,12 @@ namespace zeta {
 				newX = 0;
 				newY = (height - newH) / 2;
 			}
+			wnd->m_xoff = newX;
+			wnd->m_yoff = newY;
+			wnd->m_height = newH;
+			wnd->m_width = newW;
 			glViewport(newX, newY, newW, newH);
-			glfwGetFramebufferSize(wnd->m_wnd, &(wnd->m_width), &(wnd->m_height));
+			//glfwGetFramebufferSize(wnd->m_wnd, &(wnd->m_width), &(wnd->m_height));
 		}
 	}
 }
