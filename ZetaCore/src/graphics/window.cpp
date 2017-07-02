@@ -65,6 +65,12 @@ namespace zeta {
 				return;
 			}
 
+			//glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // We want OpenGL 3.3
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
+
 			m_wnd = glfwCreateWindow(m_width, m_height, m_title, NULL, NULL);
 			if (!m_wnd) {
 				fprintf(stderr, "GLFW window could not initialise!\n");
@@ -145,7 +151,8 @@ namespace zeta {
 		}
 
 		bool Window::shouldClose() const {
-			return glfwWindowShouldClose(m_wnd);
+			bool a = glfwWindowShouldClose(m_wnd);
+			return a;
 		}
 
 		void Window::drawStart() {

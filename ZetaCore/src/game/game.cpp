@@ -60,24 +60,30 @@ namespace zeta {
 #ifdef ZETA_CONFIG_DEBUG
 			FPSClock clock;
 #endif
+			ZLog("Generating timer");
 			Timer timer;
 			unsigned long ticks = 0L;
 			float elapsedTime = 0.f;
 			float lastElapsedTime = 0.f;
 			float levelStartTime = 0.f;
+			ZLog("Initialising global data");
 			level::GlobalData::inst->levelTicks = 0L;
 			bool levelInitialised = false;
+			ZLog("Entering main loop");
 			while (!graphics::Window::inst->shouldClose()) {
 
 				elapsedTime = timer.elapsed();
 
+				//ZLog("Updating global data");
 				level::GlobalData::inst->level = m_level;
 				level::GlobalData::inst->totalTime = elapsedTime;
 				level::GlobalData::inst->deltaTime = elapsedTime - lastElapsedTime;
 				level::GlobalData::inst->levelTime = elapsedTime - levelStartTime;
 
 				if (!levelInitialised) {
+					//ZLog("Level init");
 					m_level->init();
+					//ZLog("Level init finished");
 					levelInitialised = true;
 				}
 
@@ -102,13 +108,18 @@ namespace zeta {
 						m_level->init();
 					}
 
+					//ZLog("Tick");
 					input::InputInterface::inst->update();
 					level::GlobalData::inst->totalTicks = ++ticks;
 					++level::GlobalData::inst->levelTicks;
+					//ZLog("Level tick");
 					m_level->tick();
+					//ZLog("End tick");
 				}
 
+				//ZLog("Render");
 				graphics::Window::inst->drawStart();
+				//ZLog("Draw started");
 				m_renderer->begin();
 				m_renderer->setColour({ 1, 1, 1, 1 });
 				m_level->render(*m_renderer);
@@ -117,7 +128,9 @@ namespace zeta {
 				m_renderer->submit(m_fpsCounter);
 #endif
 				m_renderer->flushAll();
+				//ZLog("Renderer flushed");
 				graphics::Window::inst->drawEnd();
+				//ZLog("End Render");
 
 #ifdef ZETA_CONFIG_DEBUG
 				clock.tick();
@@ -130,6 +143,8 @@ namespace zeta {
 
 				lastElapsedTime = elapsedTime;
 			}
+
+			ZLog("Exited main loop");
 
 			delete m_level;
 		}

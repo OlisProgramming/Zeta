@@ -28,6 +28,8 @@ namespace zeta {
 			// Just gives weird values (and OpenGL Error 1281) when file does not exist - it doesn't crash
 
 			FreeImage_Unload(dib);
+
+			ZLog("Finished loading texture file");
 		}	
 
 		Texture::~Texture() {

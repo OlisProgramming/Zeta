@@ -3,6 +3,7 @@
 #include <rapidxml.hpp>
 #include <rapidxml_print.hpp>
 #include "../util/fileutils.h"
+#include "../util/logging.h"
 #include "../entity/behaviour_factory.h"
 #include "../graphics/texture/tileset_manager.h"
 
@@ -15,6 +16,8 @@ namespace zeta {
 		Level::Level(const std::string& tmxFileName) {
 
 			using namespace rapidxml;
+
+			ZLog("Loading level " + tmxFileName + " into memory");
 
 			std::string fname = "../res/maps/" + tmxFileName + ".tmx";
 			std::string text = util::readFileText(fname.c_str());
@@ -32,6 +35,7 @@ namespace zeta {
 				if (std::string(child->name()) == "tileset") {
 					std::string firstgid = child->first_attribute("firstgid")->value();
 					std::string source = "../res/maps/" + std::string(child->first_attribute("source")->value());
+					ZLog("Loading level's tileset data (" + source + ")");
 					
 					std::string tilesetText = util::readFileText(source.c_str());
 					xml_document<> tilesetDoc;
@@ -59,6 +63,7 @@ namespace zeta {
 				}
 
 				else if (std::string(child->name()) == "layer") {
+					ZLog("Loading level's tile data");
 					for (xml_node<>* layerChild = child->first_node(); layerChild; layerChild = layerChild->next_sibling()) {
 
 						if (std::string(layerChild->name()) == "data") {
@@ -111,6 +116,7 @@ namespace zeta {
 				}
 
 				else if (std::string(child->name()) == "objectgroup") {
+					ZLog("Loading level's object data");
 					for (xml_node<>* objectNode = child->first_node(); objectNode; objectNode = objectNode->next_sibling()) {
 						int x = atoi(objectNode->first_attribute("x")->value());
 						int y = atoi(objectNode->first_attribute("y")->value());
@@ -148,6 +154,8 @@ namespace zeta {
 			}
 
 			doc.clear();
+
+			ZLog("Finished loading level");
 		}
 
 		Level::~Level() {
